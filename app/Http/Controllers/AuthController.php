@@ -7,7 +7,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-   public function index()
+     public function index()
     {
         if(\Auth::id()){
           return redirect('/company/index');

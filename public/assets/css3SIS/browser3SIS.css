@@ -73,6 +73,11 @@
     white-space: nowrap;
     border-collapse: collapse !important;
   }
+
+  .purple_Browser2D_3SIS td > a {
+    color: #000 !important;
+
+  }
 /* Table Detail Hover Color */
 .purple_Browser2D_3SIS tr:hover {
     background-color: #CD6EE0 !important;
@@ -200,6 +205,9 @@
     border-collapse: collapse !important;
   }
 
+.redBrowserOnDark3SIS td > a {
+    color: #f00 !important;
+}
 /* Table Detail Hover Color */
 .redBrowserOnDark3SIS tr:hover {
     background-color: #f6a6c1 !important;

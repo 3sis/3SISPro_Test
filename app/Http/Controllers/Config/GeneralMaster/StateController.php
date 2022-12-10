@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Log;
 use App\Models\t92;
 use App\Models\State;
 use App\Models\Country;
+// use App\Models\Technical_Error;
 use App\Traits\CommonMasters\GeneralMaster\CommonDataTables;
+use App\Traits\Error;
 use DataTables;
 
 class StateController extends Controller
 {
-    use CommonDataTables;
+    use CommonDataTables,Error;
     public function menu()
     {
         return $menu = t92::tree();
@@ -25,15 +27,16 @@ class StateController extends Controller
     {
        // $data = $this->dataTableXLSchemaTrait();
        $menu = $this->menu();
-       $theme_Browser1_3SIS = config('app.theme_Browser1_3SIS');
-       $theme_Browser2_3SIS = config('app.theme_Browser2_3SIS');
-       $theme_ContentModal1D_3SIS = config('app.theme_ContentModal1D_3SIS');
-       $theme_ContentModal2D_3SIS = config('app.theme_ContentModal2D_3SIS');
-       $theme_Card1D_3SIS = config('app.theme_Card1D_3SIS');
+       $theme_Browser1_3SIS = 'purple_Browser1D_3SIS';
+       $theme_Browser2_3SIS = 'purple_Browser2D_3SIS';
+       $theme_ContentModal1D_3SIS = 'purple_ContentModal1D_3SIS';
+       $theme_ContentModal2D_3SIS = 'purple_ContentModal2D_3SIS';
+       $theme_Card1D_3SIS = 'purple_Card1D_3SIS';
 
-       $UserId = Auth::user()->name;
+       // $UserId = Auth::user()->name;
+       $UserId = 'Admin_Root';
        $countries = Country::all();
-       return view('Config.GeneralMaster.state',
+       return view('config.GeneralMaster.state',
             compact('menu','UserId', 'theme_Browser1_3SIS', 'theme_Browser2_3SIS', 'theme_ContentModal1D_3SIS',
                 'theme_ContentModal2D_3SIS', 'theme_Card1D_3SIS','countries'));
     }
@@ -41,11 +44,13 @@ class StateController extends Controller
      public function save(Request $request)
     {
         try {
+
             $validator = Validator::make($request->all(), [
               'GMSMHStateId' => 'required|unique:t05901l04,GMSMHStateId,'.$request->id,
               'GMSMHCountryId' => 'required'
             ]);
  
+            // dd($validator->errors());
             if ($validator->fails()) {
                 return response()->json(['errors'=>$validator->errors()]);
             }
@@ -59,7 +64,8 @@ class StateController extends Controller
                 $state_data->GMSMHCountryId=$request->GMSMHCountryId;
                 $state_data->GMSMHDesc1=$request->GMSMHDesc1;
                 $state_data->GMSMHDesc2=$request->GMSMHDesc2;
-                $state_data->GMSMHUser=Auth::user()->name;
+                $state_data->GMSMHUser='Krishna';
+                // $state_data->GMSMHUser=Auth::user()->name;
                 // GMSMHUser=Auth::user()->id;
                 $state_data->GMSMHLastCreated =now();
                 $state_data->GMSMHLastUpdated =now();
@@ -74,10 +80,11 @@ class StateController extends Controller
 
          } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
+            return response()->json(['status' => 'technical_error']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
         }
     }
 
@@ -105,25 +112,19 @@ class StateController extends Controller
             }
          } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
+            return response()->json(['status' => 'technical_error']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
         }
     }
     public function Restore_Delete_Data(Request $request)
     {
     try {
          $state = State::find($request->id);
+         //Delete  - Restore
          $request->action == 'delete' ? $state->GMSMHMarkForDeletion = 1 :$state->GMSMHMarkForDeletion = 0;
-
-            // if($request->action == 'delete'){
-            //    $state->GMSMHMarkForDeletion = 1;
-            // } 
-            // if($request->action == 'undelete'){
-            //    $state->GMSMHMarkForDeletion = 0;
-            // } 
-
             $state->save();
             if($state){
                    return response()->json(['status' => 'success','data' =>$state]);
@@ -132,26 +133,32 @@ class StateController extends Controller
             }
          } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
+           return response()->json(['status' => 'technical_error']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
         }
         
     }
 
     public function test()
     {
-        $state_list = State::with('fnCountry')->get()->toArray();
-        $UniqueId = $request->input('id');
-        $Company = Company::find($UniqueId);
-        //Eloquent Way
-        $Company->GMCOHMarkForDeletion   =   1;
-        $Company->GMCOHUser              =   Auth::user()->name;
-        $Company->GMCOHDeletedAt         =  Carbon::now();
-        $Company->save();
-        return $Company->GMCOHCompanyId;
-       dd($state_list);    
+        try {
+            $fetchData = State::whereaaa('id',$request->id)->first();
+            if($fetchData){
+                   return response()->json(['status' => 'success','data' =>$fetchData]);
+            }else{
+                   return response()->json(['status' => 'error' ]);
+            }
+         } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
+        } catch (\Exception $e) {
+            Log::error($e->getmessage());
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
+        } 
     }
 
 }

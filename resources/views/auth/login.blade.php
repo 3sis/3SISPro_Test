@@ -1,99 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Page</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon.ico')}}"/>
+    <link href="{{asset('assets/layouts/vertical-dark-menu/css/light/loader.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/layouts/vertical-dark-menu/css/dark/loader.css')}}" rel="stylesheet" type="text/css" />
+    <script src="{{asset('assets/layouts/vertical-dark-menu/loader.js')}}"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/css/main.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/css/authentication/form-2.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/forms/theme-checkbox-radio.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/forms/switches.css')}}">
-    <style>
-        .form-form .form-form-wrap form .field-wrapper svg.feather-eye {
-            top: 46px;
-        }
-    </style>
+    <link href="{{asset('assets/css/bootstrap/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    
+    <link href="{{asset('assets/layouts/vertical-dark-menu/css/light/plugins.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/light/authentication/auth-boxed.css')}}" rel="stylesheet" type="text/css" />
+    
+    <link href="{{asset('assets/layouts/vertical-dark-menu/css/dark/plugins.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/dark/authentication/auth-boxed.css')}}" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    
 </head>
-<body>
+<body class="form">
 
-    <div class="form-container outer">
-        <div class="form-form">
-            <div class="form-form-wrap">
-                <div class="form-container">
-                    <div class="form-content">
+    <!-- BEGIN LOADER -->
+    <div id="load_screen"> <div class="loader"> <div class="loader-content">
+        <div class="spinner-grow align-self-center"></div>
+    </div></div></div>
+    <!--  END LOADER -->
 
-                        <h1 class="">Payroll</h1>
-                        <p class="">Log in to your account to continue.</p>
+    <div class="auth-container d-flex">
 
-                         @if (Session::has('error'))
-                            <p class="text-danger">{{ Session::get('error') }}</p>
-                        @endif
-                        @if (Session::has('success'))
-                            <p class="text-success">{{ Session::get('success') }}</p>
-                        @endif
-                        
-                        <form method="POST" action="{{ route('login_save') }}" class="text-left">
-                           @csrf
-                            <div class="form">
-
-                                <div id="username-field" class="field-wrapper input">
-                                    <label for="username">Email</label>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    <input id="email" type="email" placeholder="Email" class="form-control " name="email" value="admin@cork.com" required autocomplete="email" autofocus>
-                                @if ($errors->has('email'))
-                                    <p class="text-danger">{{ $errors->first('email') }}</p>
-                                @endif
-                                                                        
+        <div class="container mx-auto align-self-center">
+    
+            <div class="row">
+    
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
+                    <div class="card mt-3 mb-3">
+                        <div class="card-body">
+    
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    
+                                    <h2>Sign In</h2>
+                                    <p>Enter your email and password to login</p>
+                                    
                                 </div>
-
-                                <div id="password-field" class="field-wrapper input mb-2">
-                                    <div class="d-flex justify-content-between">
-                                        <label for="password">PASSWORD</label>
-                                    </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                    <input id="password" name="password" type="password" placeholder="Password" value="1234" class="form-control " name="password" required autocomplete="current-password">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="toggle-password" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                    @if ($errors->has('password'))
-                                    <p class="text-danger">{{ $errors->first('password') }}</p>
-                                    @endif
-
-                                </div>
-                                <div class="d-sm-flex justify-content-between">
-                                    <div class="field-wrapper">
-                                        <button type="submit" class="btn btn-primary" value="">Login</button>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control">
                                     </div>
                                 </div>
-
-                                <div class="division">
-                                      <span>OR</span>
+                                <div class="col-12">
+                                    <div class="mb-4">
+                                        <label class="form-label">Password</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <div class="form-check form-check-primary form-check-inline">
+                                            <input class="form-check-input me-3" type="checkbox" id="form-check-default">
+                                            <label class="form-check-label" for="form-check-default">
+                                                Remember me
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="mb-4">
+                                        <button class="btn btn-secondary w-100">SIGN IN</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 mb-4">
+                                    <div class="">
+                                        <div class="seperator">
+                                            <hr>
+                                            <div class="seperator-text"> <span>Or continue with</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-4 col-12">
+                                    <div class="mb-4">
+                                        <button class="btn  btn-social-login w-100 ">
+                                            <img src="{{asset('assets/img/google-gmail.svg')}}" alt="" class="img-fluid">
+                                            <span class="btn-text-inner">Google</span>
+                                        </button>
+                                    </div>
+                                </div>
+    
+                                <div class="col-sm-4 col-12">
+                                    <div class="mb-4">
+                                        <button class="btn  btn-social-login w-100">
+                                            <img src="{{asset('assets/img/github-icon.svg')}}" alt="" class="img-fluid">
+                                            <span class="btn-text-inner">Github</span>
+                                        </button>
+                                    </div>
+                                </div>
+    
+                                <div class="col-sm-4 col-12">
+                                    <div class="mb-4">
+                                        <button class="btn  btn-social-login w-100">
+                                            <img src="{{asset('assets/img/twitter.svg')}}" alt="" class="img-fluid">
+                                            <span class="btn-text-inner">Twitter</span>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div class="social">
-                                    <a href="javascript:void(0);" class="btn social-fb">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg> 
-                                        <span class="brand-name">Facebook</span>
-                                    </a>
-                                   <a href="javascript:void(0);" class="btn social-github">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                                        <span class="brand-name">Github</span>
-                                    </a>
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <p class="mb-0">Dont't have an account ? <a href="javascript:void(0);" class="text-warning">Sign Up</a></p>
+                                    </div>
                                 </div>
-
-
+                                
                             </div>
-                        </form>
-
-                    </div>                    
+                            
+                        </div>
+                    </div>
                 </div>
+                
             </div>
+            
         </div>
+
     </div>
-    <script src="{{asset('assets/js/libs/jquery-3.1.1.min.js')}}"></script>
-    <script src="{{asset('bootstrap/js/popper.min.js')}}"></script>
-    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/js/authentication/form-2.js')}}"></script>
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="{{asset('assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
 </body>
 </html>

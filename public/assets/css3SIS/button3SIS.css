@@ -136,9 +136,9 @@
 /*Button - Edit Record*/
 .btnEditRec3SIS {
     /* color: white; */
-    border-color: black ;
-    background-color: #cccccc ;
-    padding: 0px 5px 0px 5px;
+    border-color: black !important;
+    background-color: #cccccc !important;
+    padding: 0px 5px 0px 5px !important;
 }
     /* .btnEditRec3SIS:hover {
         color: #78184A;

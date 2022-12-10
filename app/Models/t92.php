@@ -34,6 +34,4 @@ class t92 extends Model
         }
         
     }
-
-
 }

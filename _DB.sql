@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 02, 2022 at 09:41 PM
+-- Generation Time: Dec 10, 2022 at 03:19 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.5
 
@@ -236,21 +236,26 @@ CREATE TABLE `t05901l04` (
 --
 
 INSERT INTO `t05901l04` (`id`, `GMSMHStateId`, `GMSMHCountryId`, `GMSMHDesc1`, `GMSMHDesc2`, `GMSMHBiDesc`, `GMSMHMarkForDeletion`, `GMSMHUser`, `GMSMHLastCreated`, `GMSMHLastUpdated`, `GMSMHDeletedAt`) VALUES
-(1, 'MH', 'IN', 'Maharastra 1234', 'Maharastra 2', 'Maharastra', 0, 'admin', '2022-11-30 18:55:48', '2022-11-30 18:55:48', NULL),
+(1, 'MH', 'IN', 'Maharastra 1234', 'Maharastra 2', 'Maharastra', 1, 'admin', '2022-11-30 18:55:48', '2022-11-30 18:55:48', NULL),
 (2, 'BR', 'IN', 'Bihar 1', 'Bihar', 'Bihar', 0, '3SIS', '2021-10-10 07:41:12', '2021-10-10 07:41:12', NULL),
 (5, 'AP', 'IN', 'Andhra', 'a', 'a', 0, '3SIS', '2021-11-23 05:45:58', '2021-11-23 05:45:58', NULL),
-(8, 'KA', 'SG', 'KA 1', 'KA 2', NULL, 0, 'admin', '2022-11-16 04:31:53', '2022-11-16 04:31:53', NULL),
+(8, 'KA', 'SG', 'KA 1', 'KA 2', NULL, 1, 'admin', '2022-11-16 04:31:53', '2022-11-16 04:31:53', NULL),
 (17, 'GJ', 'IN', 'Description 1', 'Description 222', NULL, 0, 'admin', '2022-11-30 18:53:09', '2022-11-30 18:53:09', NULL),
 (23, 'GA', 'IN', 'GA 1', '34', NULL, 0, 'admin', '2022-11-26 12:16:37', '2022-11-26 12:16:37', NULL),
-(26, '11', 'SG', '12', '13', NULL, 0, 'admin', '2022-12-02 13:07:42', '2022-12-02 13:07:42', NULL),
-(27, 'asas', 'SG', 'sas', 'assa', NULL, 0, 'admin', '2022-11-30 19:50:41', '2022-11-30 19:50:41', NULL),
+(26, '11', 'IN', '12', '13', NULL, 0, 'Krishna', '2022-12-07 19:21:31', '2022-12-07 19:21:31', NULL),
+(27, 'asas', 'SG', 'sas', 'assa', NULL, 0, 'Krishna', '2022-12-07 19:15:24', '2022-12-07 19:15:24', NULL),
 (28, 'test', 'SG', '1', '2', NULL, 0, 'admin', '2022-11-30 19:55:02', '2022-11-30 19:55:02', NULL),
-(29, 'MH1', 'IN', '1', '22', NULL, 0, 'admin', '2022-12-02 04:15:07', '2022-12-02 04:15:07', NULL),
-(30, 'MH2', 'USA', '1', '2', NULL, 0, 'admin', '2022-12-02 04:24:41', '2022-12-02 04:24:41', NULL),
+(29, 'MH1', 'IN', '11111', '221111', NULL, 0, 'Krishna', '2022-12-09 18:15:11', '2022-12-09 18:15:11', NULL),
+(30, 'MH2', 'USA', '1', '2', NULL, 0, 'Krishna', '2022-12-07 19:16:44', '2022-12-07 19:16:44', NULL),
 (31, 'MH5', 'IN', '1', '2', NULL, 0, 'admin', '2022-12-02 04:29:18', '2022-12-02 04:29:18', NULL),
 (32, 'MH50', 'IN', '1110', '22', NULL, 0, 'admin', '2022-12-02 13:04:06', '2022-12-02 13:04:06', NULL),
 (33, '9999', 'USA', '100', '5000', NULL, 0, 'admin', '2022-12-02 13:04:45', '2022-12-02 13:04:45', NULL),
-(34, '10000', 'USA', '2222', '33333', NULL, 0, 'admin', '2022-12-02 13:06:52', '2022-12-02 13:06:52', NULL);
+(34, '10000', 'USA', '2222', '33333', NULL, 0, 'admin', '2022-12-02 13:06:52', '2022-12-02 13:06:52', NULL),
+(35, '909', 'IN', 'desc 1', 'desc 2', NULL, 0, 'Krishna', '2022-12-07 18:21:13', '2022-12-07 18:21:13', NULL),
+(36, '112', 'SG', '22', '33', NULL, 0, 'Krishna', '2022-12-07 18:32:51', '2022-12-07 18:32:51', NULL),
+(37, '12', 'aaa', '12', '12', NULL, 0, 'Krishna', '2022-12-07 18:35:23', '2022-12-07 18:35:23', NULL),
+(38, '123', 'MY', '2', '3', NULL, 0, 'Krishna', '2022-12-07 19:20:37', '2022-12-07 19:20:37', NULL),
+(39, '1000', 'SG', '123', '1233', NULL, 0, 'Krishna', '2022-12-09 18:32:40', '2022-12-09 18:32:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -493,6 +498,26 @@ INSERT INTO `t92` (`id`, `MNCompId`, `MNSystemId`, `MNRootCode`, `MNParentCode`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `technical_error`
+--
+
+CREATE TABLE `technical_error` (
+  `id` int(11) NOT NULL,
+  `error` text DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `technical_error`
+--
+
+INSERT INTO `technical_error` (`id`, `error`, `created_at`, `updated_at`) VALUES
+(1, '{\"message\":\"Undefined variable $request\",\"line\":149,\"code\":0,\"file\":\"\\/media\\/krishna\\/Tutorial\\/3sis\\/payroll\\/app\\/Http\\/Controllers\\/Config\\/GeneralMaster\\/StateController.php\",\"severity\":2}', '2022-12-10 01:27:09', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -601,6 +626,12 @@ ALTER TABLE `t92`
   ADD UNIQUE KEY `MNCompId` (`MNCompId`,`MNSystemId`,`MNRootCode`,`MNParentCode`,`MNChildCode`);
 
 --
+-- Indexes for table `technical_error`
+--
+ALTER TABLE `technical_error`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -632,7 +663,7 @@ ALTER TABLE `t05901l03`
 -- AUTO_INCREMENT for table `t05901l04`
 --
 ALTER TABLE `t05901l04`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `t05901l05`
@@ -675,6 +706,12 @@ ALTER TABLE `t05902l03`
 --
 ALTER TABLE `t05902l04`
   MODIFY `BMPMHUniqueId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `technical_error`
+--
+ALTER TABLE `technical_error`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
