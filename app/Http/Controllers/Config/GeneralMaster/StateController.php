@@ -33,8 +33,8 @@ class StateController extends Controller
        $theme_ContentModal2D_3SIS = 'purple_ContentModal2D_3SIS';
        $theme_Card1D_3SIS = 'purple_Card1D_3SIS';
 
-       // $UserId = Auth::user()->name;
-       $UserId = 'Admin_Root';
+       $UserId = Auth::user()->name;
+       // $UserId = 'Admin_Root';
        $countries = Country::all();
        return view('config.GeneralMaster.state',
             compact('menu','UserId', 'theme_Browser1_3SIS', 'theme_Browser2_3SIS', 'theme_ContentModal1D_3SIS',
@@ -50,7 +50,6 @@ class StateController extends Controller
               'GMSMHCountryId' => 'required'
             ]);
  
-            // dd($validator->errors());
             if ($validator->fails()) {
                 return response()->json(['errors'=>$validator->errors()]);
             }
@@ -64,8 +63,7 @@ class StateController extends Controller
                 $state_data->GMSMHCountryId=$request->GMSMHCountryId;
                 $state_data->GMSMHDesc1=$request->GMSMHDesc1;
                 $state_data->GMSMHDesc2=$request->GMSMHDesc2;
-                $state_data->GMSMHUser='Krishna';
-                // $state_data->GMSMHUser=Auth::user()->name;
+                $state_data->GMSMHUser=Auth::user()->name;
                 // GMSMHUser=Auth::user()->id;
                 $state_data->GMSMHLastCreated =now();
                 $state_data->GMSMHLastUpdated =now();

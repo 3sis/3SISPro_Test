@@ -10,31 +10,28 @@ class AuthController extends Controller
      public function index()
     {
         if(\Auth::id()){
-          return redirect('/company/index');
+          return redirect('/state');
         }
         return view('auth.login');
     }
     public function login(Request $request){
+        // dd($request->all());
         // validate data 
-
         $request->validate([
             'email' => 'required',
             'password' => 'required'
         ]);
-
         // login code 
-        
         if(\Auth::attempt($request->only('email','password'))){
-            return redirect('/company/index');
+            return redirect('/state');
         }
-
-        return redirect()->back()->withError('Login details are not valid');
+        return back()->withError('Login details are not valid');
 
     }
-    public function register_view()
-    {
-        return view('auth.register');
-    }
+    // public function register_view()
+    // {
+    //     return view('auth.register');
+    // }
     public function register(Request $request){
         // validate 
         $request->validate([
@@ -62,13 +59,9 @@ class AuthController extends Controller
 
 
     }
-    public function home(){
-        dd('err');
-        // return view('home');
-    }
     public function logout(){
         \Session::flush();
         \Auth::logout();
-        return redirect('');
+        return redirect('/');
     }
 }

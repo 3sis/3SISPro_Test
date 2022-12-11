@@ -32,7 +32,9 @@
     <div class="auth-container d-flex">
 
         <div class="container mx-auto align-self-center">
-    
+           
+     <form method="POST" action="{{ route('login_check') }}" class="text-left">
+            @csrf
             <div class="row">
     
                 <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
@@ -41,21 +43,32 @@
     
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    
                                     <h2>Sign In</h2>
                                     <p>Enter your email and password to login</p>
+                                    @if (Session::has('error'))
+                                        <p class="text-danger">{{ Session::get('error') }}</p>
+                                    @endif
+                                    @if (Session::has('success'))
+                                        <p class="text-success">{{ Session::get('success') }}</p>
+                                    @endif
                                     
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input type="email" class="form-control">
+                                        <input type="email" class="form-control" name="email" value="admin@cork.com">
+                                         @if ($errors->has('email'))
+                                         <p class="text-danger">{{ $errors->first('email') }}</p>
+                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-4">
                                         <label class="form-label">Password</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="password" value="1234">
+                                        @if ($errors->has('password'))
+                                        <p class="text-danger">{{ $errors->first('password') }}</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -71,7 +84,8 @@
                                 
                                 <div class="col-12">
                                     <div class="mb-4">
-                                        <button class="btn btn-secondary w-100">SIGN IN</button>
+                                        <!-- <button type="submit" class="btn btn-secondary w-100">SIGN IN</button> -->
+                                         <button type="submit" class="btn btn-secondary w-100" value="">Login</button>
                                     </div>
                                 </div>
                                 
@@ -124,6 +138,7 @@
                 </div>
                 
             </div>
+        </form>
             
         </div>
 
