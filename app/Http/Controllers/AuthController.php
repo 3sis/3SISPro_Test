@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\AppAuthorizationHeader;
+use App\Models\ApplicationMaster;
+
 
 class AuthController extends Controller
 {
@@ -16,16 +19,43 @@ class AuthController extends Controller
     }
     public function login(Request $request){
         // dd($request->all());
-        // validate data 
+     try {
+           // validate data 
         $request->validate([
             'email' => 'required',
             'password' => 'required'
         ]);
         // login code 
         if(\Auth::attempt($request->only('email','password'))){
-            return redirect('/state');
+            // return redirect('/state');
+            //landing page App Id 
+            $LandingPage_App_id = 11;
+            $fetchData = AppAuthorizationHeader::where('user_id',\Auth::id())
+                                                ->where('AAAHHAppId',$LandingPage_App_id)->first();
+
+            $app_data = ApplicationMaster::where('AMAMHAppId',$LandingPage_App_id)->first();                                    
+
+              // dd(\Auth::id(),$fetchData);                                  
+            if($fetchData){
+                   return redirect('/state');
+            }else{
+                return back()->withError('Your not authorized to '.$app_data->AMAMHDesc1);
+                   // return response()->json(['status' => 'error' ]);
+            }
+            
+
         }
         return back()->withError('Login details are not valid');
+
+
+         } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return response()->json(['status' => 'technical_error']);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
+        }
 
     }
     // public function register_view()

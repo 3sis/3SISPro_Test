@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2022 at 03:19 AM
+-- Generation Time: Dec 18, 2022 at 06:56 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.5
 
@@ -107,6 +107,107 @@ CREATE TABLE `posts` (
 
 INSERT INTO `posts` (`id`, `user_id`, `post`) VALUES
 (1, 1, 'new post');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t00900l01`
+--
+
+CREATE TABLE `t00900l01` (
+  `id` bigint(20) NOT NULL,
+  `AMAMHAppId` int(11) NOT NULL,
+  `AMAMHDesc1` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `t00900l01`
+--
+
+INSERT INTO `t00900l01` (`id`, `AMAMHAppId`, `AMAMHDesc1`) VALUES
+(1, 11, 'Payroll'),
+(2, 21, 'SnOP Pro\r\n'),
+(3, 25, 'SFA\r\n'),
+(4, 30, 'Fixed Asset\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t00900l05`
+--
+
+CREATE TABLE `t00900l05` (
+  `id` bigint(20) NOT NULL,
+  `LMLAHUserId` int(11) NOT NULL,
+  `LMLAHDesc1` varchar(100) NOT NULL,
+  `LMLAHPassword` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `t00900l05`
+--
+
+INSERT INTO `t00900l05` (`id`, `LMLAHUserId`, `LMLAHDesc1`, `LMLAHPassword`) VALUES
+(1, 1, 'Krishna\r\n', '12345'),
+(2, 2, 'Madhav', '12345'),
+(3, 3, 'Shrutav\r\n', '12345');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t00900l06`
+--
+
+CREATE TABLE `t00900l06` (
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `AAAHHAppId` int(11) NOT NULL,
+  `AAAHHDesc1` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `t00900l06`
+--
+
+INSERT INTO `t00900l06` (`id`, `user_id`, `AAAHHAppId`, `AAAHHDesc1`) VALUES
+(1, 1, 11, 'Payroll\r\n'),
+(2, 1, 21, 'S&OP Pro\r\n'),
+(3, 1, 21, 'S&OP Pro\r\n'),
+(4, 2, 11, 'Payroll\r\n'),
+(5, 2, 21, 'S&OP Pro\r\n'),
+(6, 2, 25, 'Sales Force Automation\r\n'),
+(7, 3, 11, 'Payroll\r\n'),
+(8, 3, 21, 'S&OP Pro\r\n'),
+(9, 3, 25, 'Sales Force Automation\r\n'),
+(10, 3, 30, 'Fixed Asset\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t00900l0611`
+--
+
+CREATE TABLE `t00900l0611` (
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `AAADDAppId` int(11) NOT NULL,
+  `AAADDDesc1` varchar(100) NOT NULL,
+  `AAADDProgramId` varchar(30) NOT NULL,
+  `AAADDPrgDesc1` varchar(100) NOT NULL,
+  `AAADDAccessId` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `t00900l0611`
+--
+
+INSERT INTO `t00900l0611` (`id`, `user_id`, `AAADDAppId`, `AAADDDesc1`, `AAADDProgramId`, `AAADDPrgDesc1`, `AAADDAccessId`) VALUES
+(1, 1, 11, 'Payroll\r\n', 'CompMast', 'Company Master\r\n', '3'),
+(2, 1, 11, 'Payroll\r\n', 'GendMast', 'Gender Master\r\n', '2'),
+(3, 3, 11, 'Payroll\r\n', 'CompMast', 'Company Master\r\n', '3'),
+(4, 3, 11, 'Payroll\r\n', 'GendMast', 'Gender Master\r\n', '3'),
+(5, 3, 11, 'Payroll\r\n', 'BldGroup', 'Blood Group\r\n', '4'),
+(6, 3, 11, 'Payroll\r\n', 'CurrMast', 'Currency Master\r\n', '1');
 
 -- --------------------------------------------------------
 
@@ -239,8 +340,8 @@ INSERT INTO `t05901l04` (`id`, `GMSMHStateId`, `GMSMHCountryId`, `GMSMHDesc1`, `
 (1, 'MH', 'IN', 'Maharastra 1234', 'Maharastra 2', 'Maharastra', 1, 'admin', '2022-11-30 18:55:48', '2022-11-30 18:55:48', NULL),
 (2, 'BR', 'IN', 'Bihar 1', 'Bihar', 'Bihar', 0, '3SIS', '2021-10-10 07:41:12', '2021-10-10 07:41:12', NULL),
 (5, 'AP', 'IN', 'Andhra', 'a', 'a', 0, '3SIS', '2021-11-23 05:45:58', '2021-11-23 05:45:58', NULL),
-(8, 'KA', 'SG', 'KA 1', 'KA 2', NULL, 1, 'admin', '2022-11-16 04:31:53', '2022-11-16 04:31:53', NULL),
-(17, 'GJ', 'IN', 'Description 1', 'Description 222', NULL, 0, 'admin', '2022-11-30 18:53:09', '2022-11-30 18:53:09', NULL),
+(8, 'KA', 'SG', 'KA 1', 'KA 2', NULL, 0, 'admin', '2022-11-16 04:31:53', '2022-11-16 04:31:53', NULL),
+(17, 'GJ', 'IN', 'Description 1', 'Description 222', NULL, 1, 'admin', '2022-11-30 18:53:09', '2022-11-30 18:53:09', NULL),
 (23, 'GA', 'IN', 'GA 1', '34', NULL, 0, 'admin', '2022-11-26 12:16:37', '2022-11-26 12:16:37', NULL),
 (26, '11', 'IN', '12', '13', NULL, 0, 'Krishna', '2022-12-07 19:21:31', '2022-12-07 19:21:31', NULL),
 (27, 'asas', 'SG', 'sas', 'assa', NULL, 0, 'Krishna', '2022-12-07 19:15:24', '2022-12-07 19:15:24', NULL),
@@ -255,7 +356,8 @@ INSERT INTO `t05901l04` (`id`, `GMSMHStateId`, `GMSMHCountryId`, `GMSMHDesc1`, `
 (36, '112', 'SG', '22', '33', NULL, 0, 'Krishna', '2022-12-07 18:32:51', '2022-12-07 18:32:51', NULL),
 (37, '12', 'aaa', '12', '12', NULL, 0, 'Krishna', '2022-12-07 18:35:23', '2022-12-07 18:35:23', NULL),
 (38, '123', 'MY', '2', '3', NULL, 0, 'Krishna', '2022-12-07 19:20:37', '2022-12-07 19:20:37', NULL),
-(39, '1000', 'SG', '123', '1233', NULL, 0, 'Krishna', '2022-12-09 18:32:40', '2022-12-09 18:32:40', NULL);
+(39, '1000', 'SG', '123', '1233', NULL, 0, 'Krishna', '2022-12-09 18:32:40', '2022-12-09 18:32:40', NULL),
+(40, 'NANA', 'IN', 'NANA 1', 'NANA 2', NULL, 0, 'admin', '2022-12-11 13:57:03', '2022-12-11 13:57:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -537,7 +639,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@cork.com', NULL, '$2y$10$4.qdQyWtb/vE0QFvV3H1qOQWFsJ.qo732L2mwdnpWzzt.6LAMy49S', NULL, '2022-11-01 18:14:50', '2022-11-01 18:14:50');
+(1, 'admin', 'admin@cork.com', NULL, '$2y$10$4.qdQyWtb/vE0QFvV3H1qOQWFsJ.qo732L2mwdnpWzzt.6LAMy49S', NULL, '2022-11-01 18:14:50', '2022-11-01 18:14:50'),
+(2, 'krishna', 'krishna@gmail.com', NULL, '$2y$10$4.qdQyWtb/vE0QFvV3H1qOQWFsJ.qo732L2mwdnpWzzt.6LAMy49S', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -547,6 +650,30 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `t00900l01`
+--
+ALTER TABLE `t00900l01`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `t00900l05`
+--
+ALTER TABLE `t00900l05`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `t00900l06`
+--
+ALTER TABLE `t00900l06`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `t00900l0611`
+--
+ALTER TABLE `t00900l0611`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -648,6 +775,30 @@ ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `t00900l01`
+--
+ALTER TABLE `t00900l01`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `t00900l05`
+--
+ALTER TABLE `t00900l05`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `t00900l06`
+--
+ALTER TABLE `t00900l06`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `t00900l0611`
+--
+ALTER TABLE `t00900l0611`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `t05901l01`
 --
 ALTER TABLE `t05901l01`
@@ -663,7 +814,7 @@ ALTER TABLE `t05901l03`
 -- AUTO_INCREMENT for table `t05901l04`
 --
 ALTER TABLE `t05901l04`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `t05901l05`
@@ -717,7 +868,7 @@ ALTER TABLE `technical_error`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
