@@ -55,12 +55,12 @@
                 <div class="middle-content container-xxl p-0">
                   @include('inc.breadcrumb')
                   @yield('content')
-                 {{-- @include('inc.content') --}} 
+                 {{-- @include('inc.content') --}}
 
        </div>
        </div>
 
-            {{-- @include('inc.footer') --}} 
+            {{-- @include('inc.footer') --}}
 
         </div>
         <!--  END CONTENT AREA  -->
@@ -80,6 +80,9 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <script src="{{asset('assets/plugins/src/apex/apexcharts.min.js')}}"></script>
     <script src="{{asset('assets/js/dashboard/dash_1.js')}}"></script>
+
+    <script src="{{ asset('assets/js/common3SIS/validation3SIS.js') }}"></script>
+
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @yield('js_code')
 </body>

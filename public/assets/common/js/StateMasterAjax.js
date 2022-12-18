@@ -58,8 +58,8 @@ $(document).ready(function () {
 $('#add_Data').click(function () {
     $('#id').val('');
     $('#GMSMHCountryId').val('').trigger("change");
-    $('#singleLevelDataEntryForm')[0].reset(); 
-    $('#form_output').html('');     
+    $('#singleLevelDataEntryForm')[0].reset();
+    $('#form_output').html('');
     $('#action').val('Save');
     $('.btn_action').text('Add');
     $('#button_action').val('insert');
@@ -101,9 +101,12 @@ $('#Undelete_Data').click(function () {
 $(document).on('click', '.restore', function () {
     var action = 'undelete';
     var id = $(this).attr('id');
+    var desc = $(this).closest("tr").find("td:eq(1)").text();
+    $restoreMessage3SIS = fnConfirmationMsg('Restore', 'State', id,desc);
+
         Swal.fire({
-                title: 'Are you sure?',
-                text: "Restore this State Id " + id,
+                title: $restoreMessage3SIS,
+                // text: "Restore this State Id " + id,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -132,6 +135,11 @@ $(document).on('click', '.restore', function () {
 });
 
 $(document).on('click', '.edit', function () {
+    $('#id').val('');
+    $('#GMSMHCountryId').val('').trigger("change");
+    $('#singleLevelDataEntryForm')[0].reset();
+    $('#form_output').html('');
+
     $('.modal-title').text('Edit ' + $modalTitle);
     $('.btn_action').text('Update');
     $('.btn_error').hide();
@@ -165,7 +173,7 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
     event.preventDefault();
     var action = $('#button_action').val();
     $('.msg_error').html('');
-    if($('#GMSMHStateId').val() == '' || $('#GMSMHDesc1').val() == '' 
+    if($('#GMSMHStateId').val() == '' || $('#GMSMHDesc1').val() == ''
         || $('#GMSMHDesc2').val() == '' || $('#GMSMHCountryId').val() == ''){
         if($('#GMSMHStateId').val() == ''){
            $('.msg_error').append('<p>Please Enter State name !</p>');
@@ -185,59 +193,90 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
         }
        return false;
     }else{
-                $.ajax({
-                        url: $(this).attr('action'),
-                        method: $(this).attr('method'),
-                        data: new FormData(this),
-                        processData: false,
-                        dataType: "json",
-                        contentType: false,
-                        beforeSend: function () {
-                            $(document).find('span.error-text').text('');
-                        },
-                        success: function (response) {
-                            console.log(response);
-                            if(response.errors != ''){
-                                $('.btn_error').show();
-                                $.each( response.errors, function( key, value ) {
-                                  $('.msg_error').append('<p>'+value+'</p>');
-                                });
-                            }
-                            if(response.status == 'success'){
-                                if(action == 'update'){
-                                    Swal.fire({
-                                      icon: 'success',
-                                      title: 'State update Successfully',
-                                  })
-                                 $('#entryModalSmall').modal('hide');
-                                }
-
-                                if(action == 'insert'){
-                                 Swal.fire({
-                                      icon: 'success',
-                                      title: 'State Added Successfully',
-                                  })
-                                }
-                                   
-                                $('.btn_error').hide();
-                                $('#GMSMHCountryId').val('').trigger("change");
-                                $('#singleLevelDataEntryForm')[0].reset();
-                                $('#landingPageBrowser3SIS').DataTable().ajax.reload();
-                            }
-                            if(response.status == 'error'){
-                                $('.msg_error').append('<p>State Master not save</p>');
-                            }
+        $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: new FormData(this),
+                processData: false,
+                dataType: "json",
+                contentType: false,
+                beforeSend: function () {
+                    $(document).find('span.error-text').text('');
+                },
+                success: function (response) {
+                    // console.log(response);
+                    if(response.errors != ''){
+                        $('.btn_error').show();
+                        $.each( response.errors, function( key, value ) {
+                            $('.msg_error').append('<p>'+value+'</p>');
+                        });
+                    }
+                    if(response.status == 'success'){
+                        if (action == 'insert') {
+                            $finalMessage3SIS = fnSuccessMsg('Added', 'State', $('#GMSMHStateId').val(),$('#GMSMHDesc1').val());
+                        }else{
+                            $finalMessage3SIS = fnSuccessMsg('Edited', 'State', $('#GMSMHStateId').val(),$('#GMSMHDesc1').val());
                         }
-                    })
+                        $('#FinalSaveMessage').html($finalMessage3SIS);
+                        // fnReinstateFormControl('0');
+
+                        if(action == 'update'){
+                            Swal.fire({
+                                icon: 'success',
+                                title: $finalMessage3SIS,
+                            })
+                            $('#entryModalSmall').modal('hide');
+                        }
+                        else {
+                            $('#form_output').html($finalMessage3SIS);
+                        }
+                        // if(action == 'insert'){
+                        //     // Swal.fire({
+                        //     //     icon: 'success',
+                        //     //     title: 'State Added Successfully',
+                        //     // })
+                        // }
+                        $('.btn_error').hide();
+                        $('#GMSMHCountryId').val('').trigger("change");
+                        $('#singleLevelDataEntryForm')[0].reset();
+                        $('#landingPageBrowser3SIS').DataTable().ajax.reload();
+                        // if (response.updateMode == 'Updated') {
+                        //     $('#entryModalSmall').modal('hide');
+                        //     $('#modalZoomFinalSave3SIS').modal('show');
+                        //     $('#userConfirmationNo').one('click', function(){
+                        //         $('#modalZoomFinalSave3SIS').modal('hide');
+                        //         $('#userConfirmationNo').die("click");
+                        //     });
+                        // }
+                        // else {
+                        //     $('#form_output').html($finalMessage3SIS);
+                        // }
+                    }
+                    if(response.status == 'error'){
+                        $('.msg_error').append('<p>State Master not save</p>');
+                    }
+                }
+        })
+
+
+
+
     }
 });
 
 $(document).on('click', '.delete', function () {
     var action = 'delete';
     var id = $(this).attr('id');
+    // var currentRow=$(this).closest("tr");
+    // alert(currentRow.find("td:eq(1)").text());
+    var desc = $(this).closest("tr").find("td:eq(1)").text();
+    $deleteMessage3SIS = fnConfirmationMsg('Delete', 'State', id,desc);
+    $successMessage3SIS = fnSuccessMsg('Deleted', 'State', id,desc);
+
  Swal.fire({
-        title: 'Are you sure?',
-        text: "This State Id " + id,
+        title: $deleteMessage3SIS,
+        // text: "This State Id " + id,
+        // text: $deleteMessage3SIS,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -253,11 +292,10 @@ $(document).on('click', '.delete', function () {
             success: function (data) {
                 console.log(data);
                 $('#landingPageBrowser3SIS').DataTable().ajax.reload();
-                  Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
+                  Swal.fire({
+                        icon: 'success',
+                        title: $successMessage3SIS,
+                  })
             }
         })
         }

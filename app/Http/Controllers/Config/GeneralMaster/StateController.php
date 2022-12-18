@@ -44,12 +44,13 @@ class StateController extends Controller
      public function save(Request $request)
     {
         try {
-
+            // echo 'Data Submitted.';
+            // return $request->input();
             $validator = Validator::make($request->all(), [
               'GMSMHStateId' => 'required|unique:t05901l04,GMSMHStateId,'.$request->id,
               'GMSMHCountryId' => 'required'
             ]);
- 
+
             if ($validator->fails()) {
                 return response()->json(['errors'=>$validator->errors()]);
             }
@@ -71,7 +72,7 @@ class StateController extends Controller
 
 
                if($state_data){
-                       return response()->json(['status' => 'success','data' =>$state_data]);
+                       return response()->json(['status' => 'success','data' =>$state_data ,'updateMode' => 'Updated']);
                }else{
                        return response()->json(['status' => 'error' ]);
                }
@@ -89,13 +90,13 @@ class StateController extends Controller
     public function state_list()
     {
         $state_list = State::where('GMSMHMarkForDeletion','!=',1)->with('fnCountry')->get();
-        return $this->TableActionTrait($state_list);     
+        return $this->TableActionTrait($state_list);
     }
 
     public function DeleteList()
     {
         $delete_list = State::where('GMSMHMarkForDeletion',1)->with('fnCountry')->get();
-        return $this->TableActionRestoreTrait($delete_list);     
+        return $this->TableActionRestoreTrait($delete_list);
     }
 
     public function fetchData(Request $request)
@@ -137,7 +138,7 @@ class StateController extends Controller
             $this->error_log($e);
             return response()->json(['status' => 'technical_error']);
         }
-        
+
     }
 
     public function test()
@@ -156,7 +157,7 @@ class StateController extends Controller
             Log::error($e->getmessage());
             $this->error_log($e);
             return response()->json(['status' => 'technical_error']);
-        } 
+        }
     }
 
 }

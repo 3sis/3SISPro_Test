@@ -2,7 +2,7 @@
 namespace app\Traits\CommonMasters\GeneralMaster;
 use DataTables;
 trait CommonDataTables {
-	
+
 	public function TableActionTrait($data){
 		return DataTables::of($data)
             ->addColumn('action', function ($record) {
@@ -13,15 +13,18 @@ trait CommonDataTables {
             })
             ->rawColumns(['action'])
             ->make(true);
-           
+
 	}
     public function TableActionRestoreTrait($data){
         return DataTables::of($data)
             ->addColumn('action', function ($record) {
-                return '<a href="#" class="btn mr-1 btnEditRec3SIS restore" id="' . $record->id . '">Restore
-                        <i class="fas fa-trash-restore"></i>
+                return
+                '<a href="#" class="btn mr-1 btnEditRec3SIS bs-tooltip restore" data-bs-toggle="tooltip" data-bs-placement="top" title="undo" id="' . $record->id . '">
+                        <i class="fa fa-undo  m-1"></i>
                     </a>';
+
             })
             ->make(true);
     }
 }
+// <i class="fas fa-trash-restore"></i>
