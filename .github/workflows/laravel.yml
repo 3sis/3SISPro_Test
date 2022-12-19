@@ -17,6 +17,11 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: 🔨 Install Dependencies
       run: composer install --optimize-autoloader --no-dev
+      env:
+        DB_DATABASE: u800667729_first_db
+        DB_USERNAME: u800667729_3sis
+        DB_PASSWORD: '{3Sis@1234-}'
+        
       
     - name: Generate key
       run: php artisan key:generate
