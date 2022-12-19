@@ -21,7 +21,7 @@ jobs:
     - name: Generate key
       run: php artisan key:generate
     
-    - name: Upload ftp
+    - name: Upload FTP
       uses: sebastianpopp/ftp-action@releases/v2
       with:
         host: ${{ secrets.FTP_SERVER }}
