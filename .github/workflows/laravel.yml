@@ -21,7 +21,7 @@ jobs:
     - name: Generate key
       run: php artisan key:generate
     
-    - name:  github to Upload FTP
+    - name:  github to Upload FTP server
       uses: sebastianpopp/ftp-action@releases/v2
       with:
         host: ${{ secrets.FTP_SERVER }}
