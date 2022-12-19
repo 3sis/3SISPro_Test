@@ -1,5 +1,5 @@
 on: push
-name: 🚀 Deploy website on Hosting
+name: 🚀 Deploy website on Hosting server
 jobs:
   web-deploy:
     name: 🎉 Deploy
