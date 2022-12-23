@@ -59,6 +59,11 @@ function fnConfirmationMsg(actionName,tableName,Id,Desc) {
         + "<b style='color: #F5821F'> " + Desc + ".";
     }
 }
+function fnSingleLevelFinalSave(masterName, Id, Desc1, updateMode) {
 
+        return masterName + " for Id <b style='color: #F5821F'>" +
+        Id + " [</b> <b style='color: #F5821F'>" + Desc1 + " ]</b> is " + updateMode + ' SUCCESSFULLY.';
+
+}
 
 

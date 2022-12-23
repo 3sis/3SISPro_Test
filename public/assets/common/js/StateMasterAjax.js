@@ -213,17 +213,21 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
                     }
                     if(response.status == 'success'){
                         if (action == 'insert') {
-                            $finalMessage3SIS = fnSuccessMsg('Added', 'State', $('#GMSMHStateId').val(),$('#GMSMHDesc1').val());
+                            $finalMessage3SIS = fnSingleLevelFinalSave('State', $('#GMSMHStateId').val(),$('#GMSMHDesc1').val(), 'Added');
+
+                            // $finalMessage3SIS = fnSuccessMsg('Added', 'State', $('#GMSMHStateId').val(),$('#GMSMHDesc1').val());
                         }else{
                             $finalMessage3SIS = fnSuccessMsg('Edited', 'State', $('#GMSMHStateId').val(),$('#GMSMHDesc1').val());
                         }
                         $('#FinalSaveMessage').html($finalMessage3SIS);
-                        // fnReinstateFormControl('0');
+                        fnReinstateFormControl('0');
 
                         if(action == 'update'){
                             Swal.fire({
                                 icon: 'success',
                                 title: $finalMessage3SIS,
+                                allowOutsideClick:false,
+                                timer:5000,
                             })
                             $('#entryModalSmall').modal('hide');
                         }

@@ -120,9 +120,9 @@
                 data-keyboard="false" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered 3SISPro-modal-dialog" role="document"
                     style="max-width:1000px!important;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Master</h5>
+                    <div class='modal-content {{ $theme_ContentModal1D_3SIS }}'>
+                        <div class="modal-header" id="registerModalLabel">
+                            <h5 class="modal-title text-light" id="exampleModalCenterTitle">Master</h5>
                             <button type="button" data-bs-dismiss="modal" aria-label="Close">
                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -135,8 +135,8 @@
                         </div>
                         <div class="modal-body">
                             <div id="toggleAccordion" class="accordion">
-                                <div class="card">
-                                    <div class="card-header">
+                                <div class="card {{ $theme_Card1D_3SIS }}">
+                                    <div class="card-header" style="background: black" id="headingThree1">
                                         <section class="mb-0 mt-0">
                                             <div role="menu" class="collapsed" data-bs-toggle="collapse"
                                                 data-bs-target="#defaultAccordionOne" aria-expanded="true"
@@ -209,7 +209,9 @@
                         </div>
                         <div class="modal-footer">
                             {{-- <span id='form_output' style='float:left; padding-left:0px'></span> --}}
-                            <span id='form_output' style='float:right; padding-right:750px'></span>
+                            {{-- <span id='form_output' class="mr-auto" ></span> --}}
+                            <span id='form_output' class="mr-auto" style='float:right; padding-right:750px'></span>
+                            {{-- <span id='form_output' class="mr-auto" style="outline:0"></span> --}}
                             <input type="hidden" name='button_action' id='button_action' value='insert'>
                             <fieldset class="w-100 msg_show">
                             </fieldset>
