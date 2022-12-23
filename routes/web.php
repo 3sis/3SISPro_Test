@@ -18,7 +18,7 @@ Route::controller(AuthController::class)->group(function () {
     // Route::post('login','login')->name('login_check');
 });
 
-// State Master 
+     // State Master 
 Route::controller(StateController::class)->group(function () {
     // Route::get('/','index');
     Route::get('/state','index');
