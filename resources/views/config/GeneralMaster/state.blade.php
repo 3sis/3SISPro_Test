@@ -161,7 +161,8 @@
                                                                 id='GMSMHStateId' class='form-control few-options'
                                                                 maxlength="10" placeholder="Enter State Name"
                                                                 style='opacity:1'>
-                                                            <span class="text-danger"></span>
+                                                            <span class="error-text GMSMHStateId_error text-danger"
+                                                                    style='float:right;'></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -169,7 +170,8 @@
                                                             <label class="form-label">Description 1</label>
                                                             <textarea name='GMSMHDesc1' id='GMSMHDesc1' class='form-control few-options' placeholder="Enter State Description 1"
                                                                 style='border-color: rgb(102, 175, 233); outline: 0px'></textarea>
-                                                            <span class="text-danger"></span>
+                                                                <span class="error-text GMSMHDesc1_error text-danger"
+                                                                style='float:right;'></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -177,7 +179,8 @@
                                                             <label class="form-label">Description 2</label>
                                                             <textarea name='GMSMHDesc2' id='GMSMHDesc2' class='form-control few-options' placeholder="Enter State Description 2"
                                                                 style='border-color: rgb(102, 175, 233); outline: 0px'></textarea>
-                                                            <span class="text-danger"></span>
+                                                                <span class="error-text GGMSMHDesc2_error text-danger"
+                                                                style='float:right;'></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -187,6 +190,8 @@
                                                     <div class="col-md-4">
                                                         <div class='form-group'>
                                                             <label class="form-label">Country</label>
+                                                            <span class="error-text GMSMHCountryId_error text-danger"
+                                                                style='float:right;'></span>
                                                             <select id='GMSMHCountryId' name='GMSMHCountryId'
                                                                 class="form-select" style='width: 100%;'>
                                                                 <option value=''>Select Country

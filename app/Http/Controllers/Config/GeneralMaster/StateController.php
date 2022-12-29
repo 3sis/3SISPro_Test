@@ -47,8 +47,10 @@ class StateController extends Controller
             // echo 'Data Submitted.';
             // return $request->input();
             $validator = Validator::make($request->all(), [
-              'GMSMHStateId' => 'required|unique:t05901l04,GMSMHStateId,'.$request->id,
-              'GMSMHCountryId' => 'required'
+              'GMSMHStateId'    => 'required|min:2|max:10|unique:t05901l04,GMSMHStateId,'.$request->id,
+              'GMSMHDesc1'      => 'required|max:100',
+              'GMSMHDesc2'      => 'max:200',
+              'GMSMHCountryId'  => 'required'
             ]);
 
             if ($validator->fails()) {

@@ -173,26 +173,26 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
     event.preventDefault();
     var action = $('#button_action').val();
     $('.msg_error').html('');
-    if($('#GMSMHStateId').val() == '' || $('#GMSMHDesc1').val() == ''
-        || $('#GMSMHDesc2').val() == '' || $('#GMSMHCountryId').val() == ''){
-        if($('#GMSMHStateId').val() == ''){
-           $('.msg_error').append('<p>Please Enter State name !</p>');
-        }
-       if($('#GMSMHDesc1').val() == ''){
-            $('.msg_error').append('<p>Please Enter State Description 1 !</p>');
-       }
-       if($('#GMSMHDesc2').val() == ''){
-             $('.msg_error').append('<p>Please Enter State Description 2 !</p>');
-       }
-       if($('#GMSMHCountryId').val() == ''){
-            $('.msg_error').append('<p>Please Select Country !</p>');
-       }
-        var error_count =  $(".msg_error").children().length;
-        if(error_count > 0){
-            $('.btn_error').show().animate({left: '-150px'}).animate({left: '1px'});
-        }
-       return false;
-    }else{
+    // if($('#GMSMHStateId').val() == '' || $('#GMSMHDesc1').val() == ''
+    //     || $('#GMSMHDesc2').val() == '' || $('#GMSMHCountryId').val() == ''){
+    //     if($('#GMSMHStateId').val() == ''){
+    //        $('.msg_error').append('<p>Please Enter State name !</p>');
+    //     }
+    //    if($('#GMSMHDesc1').val() == ''){
+    //         $('.msg_error').append('<p>Please Enter State Description 1 !</p>');
+    //    }
+    //    if($('#GMSMHDesc2').val() == ''){
+    //          $('.msg_error').append('<p>Please Enter State Description 2 !</p>');
+    //    }
+    //    if($('#GMSMHCountryId').val() == ''){
+    //         $('.msg_error').append('<p>Please Select Country !</p>');
+    //    }
+        // var error_count =  $(".msg_error").children().length;
+        // if(error_count > 0){
+        //     $('.btn_error').show().animate({left: '-150px'}).animate({left: '1px'});
+        // }
+    //    return false;
+    // }else{
         $.ajax({
                 url: $(this).attr('action'),
                 method: $(this).attr('method'),
@@ -206,9 +206,13 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
                 success: function (response) {
                     // console.log(response);
                     if(response.errors != ''){
+                        // getErrorMsgOnErrorBtn();
                         $('.btn_error').show();
                         $.each( response.errors, function( key, value ) {
                             $('.msg_error').append('<p>'+value+'</p>');
+
+                            $('span.' + key + '_error').text(value[0]);
+                            $('#' + key).css('border-color', '#dc3545');
                         });
                     }
                     if(response.status == 'success'){
@@ -265,7 +269,7 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
 
 
 
-    }
+    // }
 });
 
 $(document).on('click', '.delete', function () {
@@ -305,3 +309,21 @@ $(document).on('click', '.delete', function () {
         }
     })
 });
+function getErrorMsgOnErrorBtn(){
+    $('.msg_error').html('');
+    if($('#GMSMHStateId').val() == '' || $('#GMSMHDesc1').val() == ''
+        || $('#GMSMHDesc2').val() == '' || $('#GMSMHCountryId').val() == ''){
+        if($('#GMSMHStateId').val() == ''){
+           $('.msg_error').append('<p>Please Enter State name !</p>');
+        }
+       if($('#GMSMHDesc1').val() == ''){
+            $('.msg_error').append('<p>Please Enter State Description 1 !</p>');
+       }
+       if($('#GMSMHDesc2').val() == ''){
+             $('.msg_error').append('<p>Please Enter State Description 2 !</p>');
+       }
+       if($('#GMSMHCountryId').val() == ''){
+            $('.msg_error').append('<p>Please Select Country !</p>');
+       }
+    }
+}

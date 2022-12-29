@@ -158,6 +158,21 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
+        'GMSMHStateId' => [
+            'required' => 'State Id Cant be blank',
+            'min' => 'Id at least  minimum 2 char',
+            'unique'=>'Id already Exists',
+         ],
+         'GMSMHDesc1' => [
+             'required' => 'Description Cant be blank',
+         ],
+         'GMSMHDesc2' => [
+             'max' => 'Max 200 Characters allowed',
+         ],
+         'GMSMHCountryId' => [
+            'required' => 'You must select a Country Id',
+         ],
     ],
 
     /*
