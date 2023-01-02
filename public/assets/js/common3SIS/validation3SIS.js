@@ -77,10 +77,10 @@ function fnFormControlColorChange() {
         'border-color': '#66afe9',
         'outline': '0'
     });
-    $(document).find("textarea").css({
-        'border-color': '#F5821F',
-        'outline': '0'
-    });
+    // $(document).find("textarea").css({
+    //     'border-color': '#F5821F',
+    //     'outline': '0'
+    // });
     // $(document).find('textarea.form-control').css({
     //     'border-color': rgb(102, 175, 233),
     //     'outline': '0'
