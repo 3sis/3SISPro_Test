@@ -13,18 +13,18 @@ jobs:
       with:
         php-version: '8.0'
         
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: 🔨 Install Dependencies
-      run: composer install --optimize-autoloader --no-dev
-      env:
-        DB_DATABASE: u800667729_first_db
-        DB_USERNAME: u800667729_3sis
-        DB_PASSWORD: '{3Sis@1234-}'
+      #- name: Copy .env
+      #run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      #- name: 🔨 Install Dependencies
+      #run: composer install --optimize-autoloader --no-dev
+      # env:
+      #  DB_DATABASE: u800667729_first_db
+      #  DB_USERNAME: u800667729_3sis
+      # DB_PASSWORD: '{3Sis@1234-}'
         
       
-    - name: Generate key
-      run: php artisan key:generate
+      #- name: Generate key
+      #run: php artisan key:generate
     
     - name:  github to Upload FTP server
       uses: sebastianpopp/ftp-action@releases/v2
