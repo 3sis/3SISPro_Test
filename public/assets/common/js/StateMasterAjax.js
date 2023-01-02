@@ -59,7 +59,7 @@ $('#add_Data').click(function () {
     $('#id').val('');
     $('#GMSMHCountryId').val('').trigger("change");
     $('#singleLevelDataEntryForm')[0].reset();
-    $('#form_output').html('');
+    // $('#form_output').html('');
     $('#action').val('Save');
     $('.btn_action').text('Add');
     $('#button_action').val('insert');
@@ -67,7 +67,17 @@ $('#add_Data').click(function () {
     $('.btn_error').hide();
     $('#GMSMHStateId').prop('readonly',false);
     $('.modal-title').text('Add ' + $modalTitle);
-    $('#entryModalSmall').modal('show');
+    // $('#entryModalSmall').modal('show');
+
+    // $(document).find('input.form-control').css({
+    //     'border-color': '#66afe9',
+    //     'outline': '0'
+
+    //     $('#' + key).css('border-color', '#dc3545');
+
+    // });
+    fnReinstateFormControl('0');
+
 });
 
 $('.btn_error').click(function () {
@@ -111,7 +121,8 @@ $(document).on('click', '.restore', function () {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Restore it!'
+                confirmButtonText: 'Restore!',
+                allowOutsideClick:false,
             }).then((result) => {
                  console.log(result)
                 if (result.isConfirmed) {
@@ -289,7 +300,8 @@ $(document).on('click', '.delete', function () {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'delete!',
+        allowOutsideClick:false,
     }).then((result) => {
          console.log(result)
         if (result.isConfirmed) {
@@ -303,6 +315,8 @@ $(document).on('click', '.delete', function () {
                   Swal.fire({
                         icon: 'success',
                         title: $successMessage3SIS,
+                        allowOutsideClick:false,
+                        timer:5000,
                   })
             }
         })

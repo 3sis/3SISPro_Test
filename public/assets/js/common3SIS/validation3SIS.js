@@ -42,22 +42,25 @@ function fnSuccessMsg(actionName,tableName,Id,Desc) {
 }
 
 function fnConfirmationMsg(actionName,tableName,Id,Desc) {
-    if(actionName == 'Save')
-    {
-        return "Do you want to " + actionName + " this information<br>"
+    return "Do you want to " + actionName + "?<br>"
         + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
         + "<b style='color: #F5821F'> " + Desc + ".";
-    }else if(actionName == 'Delete')
-    {
-        return "Do you want to " + actionName + " this information<br>"
-        + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
-        + "<b style='color: #F5821F'> " + Desc + ".";
-    }else(actionName == 'Restore')
-    {
-        return "Do you want to " + actionName + " this information<br>"
-        + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
-        + "<b style='color: #F5821F'> " + Desc + ".";
-    }
+    // if(actionName == 'Save')
+    // {
+    //     return "Do you want to " + actionName + "?<br>"
+    //     + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
+    //     + "<b style='color: #F5821F'> " + Desc + ".";
+    // }else if(actionName == 'Delete')
+    // {
+    //     return "Do you want to " + actionName + "?<br>"
+    //     + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
+    //     + "<b style='color: #F5821F'> " + Desc + ".";
+    // }else(actionName == 'Restore')
+    // {
+    //     return "Do you want to " + actionName + "?<br>"
+    //     + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
+    //     + "<b style='color: #F5821F'> " + Desc + ".";
+    // }
 }
 function fnSingleLevelFinalSave(masterName, Id, Desc1, updateMode) {
 
@@ -65,5 +68,22 @@ function fnSingleLevelFinalSave(masterName, Id, Desc1, updateMode) {
         Id + " [</b> <b style='color: #F5821F'>" + Desc1 + " ]</b> is " + updateMode + ' SUCCESSFULLY.';
 
 }
+function fnFormControlColorChange() {
 
+    $('#form_output').html(''); // To clear success message.
+    $('#entryModalSmall').modal('show');
+    $(document).find('span.error-text').text('');
+    $(document).find('input.form-control').css({
+        'border-color': '#66afe9',
+        'outline': '0'
+    });
+    $(document).find("textarea").css({
+        'border-color': '#F5821F',
+        'outline': '0'
+    });
+    // $(document).find('textarea.form-control').css({
+    //     'border-color': rgb(102, 175, 233),
+    //     'outline': '0'
+    // });
+}
 

@@ -174,7 +174,11 @@
                                                                 style='float:right;'></span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+
+                                                </div>
+
+                                                <div class="row mt-0">
+                                                    <div class="col-md-8">
                                                         <div class='form-group'>
                                                             <label class="form-label">Description 2</label>
                                                             <textarea name='GMSMHDesc2' id='GMSMHDesc2' class='form-control few-options' placeholder="Enter State Description 2"
@@ -184,10 +188,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row mt-0">
-
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-6">
                                                         <div class='form-group'>
                                                             <label class="form-label">Country</label>
                                                             <span class="error-text GMSMHCountryId_error text-danger"
@@ -205,7 +207,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
 
                                         </div>
                                     </div>
