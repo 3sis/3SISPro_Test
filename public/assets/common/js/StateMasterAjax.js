@@ -50,10 +50,11 @@ $(document).ready(function () {
         ]
     });
 
-     $( '#GMSMHCountryId' ).select2( {
-         dropdownParent: $('#entryModalSmall'),
-         theme: "bootstrap-5",
-     } );
+    //  $( '#GMSMHCountryId' ).select2( {
+    //      dropdownParent: $('#entryModalSmall'),
+    //     //  theme: "bootstrap-5",
+
+    //  } );
 });
 $('#add_Data').click(function () {
     $('#id').val('');
@@ -76,7 +77,13 @@ $('#add_Data').click(function () {
     //     $('#' + key).css('border-color', '#dc3545');
 
     // });
-    fnReinstateFormControl('0');
+    // $("textarea").css("border-color", "#66afe9");
+
+    // $('.form-select').css('border-color', '#dc3545');
+    // $("select").css('border-color','#dc3545');
+
+
+    fnFormControlColorChange();
 
 });
 
@@ -224,6 +231,7 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
 
                             $('span.' + key + '_error').text(value[0]);
                             $('#' + key).css('border-color', '#dc3545');
+                            // $("#GMSMHCountryId").css('border-color', '#dc3545');
                         });
                     }
                     if(response.status == 'success'){

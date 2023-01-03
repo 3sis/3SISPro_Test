@@ -24,8 +24,27 @@
     <!-- END PAGE LEVEL CUSTOM STYLES -->
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"> --}}
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-5-theme/1.3.0/select2-bootstrap-5-theme.rtl.min.css"> -->
+
+
+{{-- try new select2 theme --}}
+
+<!-- Styles -->
+<!-- Styles -->
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+<!-- Or for RTL support -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>pt> --}}
+
+
+
 
     <style type="text/css">
         .select2-dropdown.increasedzindexclass {
@@ -161,41 +180,40 @@
                                                                 id='GMSMHStateId' class='form-control few-options'
                                                                 maxlength="10" placeholder="Enter State Name"
                                                                 style='opacity:1'>
-                                                            <span class="error-text GMSMHStateId_error text-danger"
-                                                                    style='float:right;'></span>
+                                                            {{-- <span class="error-text GMSMHStateId_error text-danger"
+                                                                    style='float:right;'></span> --}}
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-8">
                                                         <div class='form-group'>
                                                             <label class="form-label">Description 1</label>
-                                                            <textarea name='GMSMHDesc1' id='GMSMHDesc1' class='form-control few-options' placeholder="Enter State Description 1"
-                                                                style='border-color: rgb(102, 175, 233); outline: 0px'></textarea>
-                                                                <span class="error-text GMSMHDesc1_error text-danger"
-                                                                style='float:right;'></span>
+                                                            <input type="text" name='GMSMHDesc1' id='GMSMHDesc1' class='form-control few-options' placeholder="Enter State Description 1"
+                                                                style='border-color: rgb(102, 175, 233); outline: 0px'>
+                                                                {{-- <span class="error-text GMSMHDesc1_error text-danger"
+                                                                style='float:right;'></span> --}}
                                                         </div>
                                                     </div>
-
                                                 </div>
-
                                                 <div class="row mt-0">
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-12">
                                                         <div class='form-group'>
                                                             <label class="form-label">Description 2</label>
                                                             <textarea name='GMSMHDesc2' id='GMSMHDesc2' class='form-control few-options' placeholder="Enter State Description 2"
                                                                 style='border-color: rgb(102, 175, 233); outline: 0px'></textarea>
-                                                                <span class="error-text GGMSMHDesc2_error text-danger"
-                                                                style='float:right;'></span>
+                                                                {{-- <span class="error-text GGMSMHDesc2_error text-danger"
+                                                                style='float:right;'></span> --}}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row mt-0">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class='form-group'>
                                                             <label class="form-label">Country</label>
-                                                            <span class="error-text GMSMHCountryId_error text-danger"
-                                                                style='float:right;'></span>
+                                                            {{-- <span class="error-text GMSMHCountryId_error text-danger"
+                                                                style='float:right;'></span> --}}
+
                                                             <select id='GMSMHCountryId' name='GMSMHCountryId'
-                                                                class="form-select" style='width: 100%;'>
+                                                                class="form-select" style='width: 100%;' >
                                                                 <option value=''>Select Country
                                                                 </option>
                                                                 @foreach ($countries as $country)
@@ -207,7 +225,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                         </div>
                                     </div>
                                 </div>
