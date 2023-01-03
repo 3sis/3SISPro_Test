@@ -52,7 +52,7 @@
         }
 
         .msg_error>p {
-            color: #f00 !important;
+            color: #F5821F !important;
         }
     </style>
 @endsection
@@ -186,7 +186,8 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class='form-group'>
-                                                            <label class="form-label">Description 1</label>
+                                                            <label class="form-label">Description 1 <b
+                                                                class="text-danger">*</b></label>
                                                             <input type="text" name='GMSMHDesc1' id='GMSMHDesc1' class='form-control few-options' placeholder="Enter State Description 1"
                                                                 style='border-color: rgb(102, 175, 233); outline: 0px'>
                                                                 {{-- <span class="error-text GMSMHDesc1_error text-danger"
@@ -208,7 +209,8 @@
                                                 <div class="row mt-0">
                                                     <div class="col-md-4">
                                                         <div class='form-group'>
-                                                            <label class="form-label">Country</label>
+                                                            <label class="form-label">Country <b
+                                                                class="text-danger">*</b></label>
                                                             {{-- <span class="error-text GMSMHCountryId_error text-danger"
                                                                 style='float:right;'></span> --}}
 
