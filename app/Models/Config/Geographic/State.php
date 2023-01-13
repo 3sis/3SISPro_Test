@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Config\Geographic;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Country;
 
 class State extends Model
 {

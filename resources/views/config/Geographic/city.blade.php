@@ -23,28 +23,7 @@
         href="https://designreset.com/cork/html/src/plugins/css/dark/table/datatable/custom_dt_custom.css">
     <!-- END PAGE LEVEL CUSTOM STYLES -->
 
-
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"> --}}
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-5-theme/1.3.0/select2-bootstrap-5-theme.rtl.min.css"> -->
-
-
-{{-- try new select2 theme --}}
-
-<!-- Styles -->
-<!-- Styles -->
-{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-<!-- Or for RTL support -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>pt> --}}
-
-
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style type="text/css">
         .select2-dropdown.increasedzindexclass {
@@ -63,7 +42,7 @@
                 <button type='button' name='Undo' id='Undelete_Data' class='btnUnDeleteRec3SIS' title="Restore">
                     <i class="fa fa-undo  m-1" style="font-size:20px"></i>
                 </button>
-                <button type='button' name='add' id='add_Data' class='btnAddRec3SIS' title="Add State">
+                <button type='button' name='add' id='add_Data' class='btnAddRec3SIS' title="Add City">
                     <i class="fa fa-plus-square m-1" style="font-size:20px"></i>
                 </button>
                 <!--   <button class="btn btn-success  mb-2 me-4">
@@ -81,7 +60,8 @@
                     class="table dt-table-hover dataTable no-footer purple_Browser2D_3SIS">
                     <thead>
                         <tr>
-                            <th title="State Id">ID</th>
+                            <th title="City Id">ID</th>
+                            <th>City Name</th>
                             <th>State Name</th>
                             <th>Country Name</th>
                             <th>User</th>
@@ -118,7 +98,8 @@
                                     <table id="UndoModalTable" class="{{ $theme_Browser2_3SIS }}" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th title="State Id">ID</th>
+                                                <th title="City Id">ID</th>
+                                                <th>City Name</th>
                                                 <th>State Name</th>
                                                 <th>Country Name</th>
                                                 <th>User</th>
@@ -160,7 +141,7 @@
                                             <div role="menu" class="collapsed" data-bs-toggle="collapse"
                                                 data-bs-target="#defaultAccordionOne" aria-expanded="true"
                                                 aria-controls="defaultAccordionOne">
-                                                State Master
+                                                City Master
                                             </div>
                                         </section>
                                     </div>
@@ -168,29 +149,30 @@
                                         data-bs-parent="#toggleAccordion">
                                         <div class="card-body">
                                             <form id='singleLevelDataEntryForm' autocomplete="off" method="post"
-                                                action="{{ url('/state/save') }}">
+                                                action="{{ url('/city/save') }}">
                                                 @csrf
+                                                {{-- <input type="hidden" name="_token" id="csrfToken" value="{{ csrf_token() }}"> --}}
+
                                                 <input type="hidden" name="id" id="id">
                                                 <div class="row mb-4">
                                                     <div class="col-md-4">
                                                         <div class='form-group'>
-                                                            <label class="form-label">State Id <b
+                                                            <label class="form-label">City Id <b
                                                                     class="text-danger">*</b></label>
-                                                            <input type="text" name='GMSMHStateId'
-                                                                id='GMSMHStateId' class='form-control few-options'
-                                                                maxlength="10" placeholder="Enter State Name"
+                                                            <input type="text" name='GMCTHCityId'
+                                                                id='GMCTHCityId' class='form-control few-options'
+                                                                maxlength="10" placeholder="Enter City Name"
                                                                 style='opacity:1'>
-                                                            {{-- <span class="error-text GMSMHStateId_error text-danger"
-                                                                    style='float:right;'></span> --}}
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class='form-group'>
                                                             <label class="form-label">Description 1 <b
                                                                 class="text-danger">*</b></label>
-                                                            <input type="text" name='GMSMHDesc1' id='GMSMHDesc1' class='form-control few-options' placeholder="Enter State Description 1"
+                                                            <input type="text" name='GMCTHDesc1' id='GMCTHDesc1' class='form-control few-options' placeholder="Enter City Description 1"
                                                                 style='border-color: rgb(102, 175, 233); outline: 0px'>
-                                                                {{-- <span class="error-text GMSMHDesc1_error text-danger"
+                                                                {{-- <span class="error-text GMCTHDesc1_error text-danger"
                                                                 style='float:right;'></span> --}}
                                                         </div>
                                                     </div>
@@ -199,31 +181,33 @@
                                                     <div class="col-md-12">
                                                         <div class='form-group'>
                                                             <label class="form-label">Description 2</label>
-                                                            <textarea name='GMSMHDesc2' id='GMSMHDesc2' class='form-control few-options' placeholder="Enter State Description 2"
+                                                            <textarea name='GMCTHDesc2' id='GMCTHDesc2' class='form-control few-options' placeholder="Enter City Description 2"
                                                                 style='border-color: rgb(102, 175, 233); outline: 0px'></textarea>
-                                                                {{-- <span class="error-text GGMSMHDesc2_error text-danger"
-                                                                style='float:right;'></span> --}}
+
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row mt-0">
                                                     <div class="col-md-4">
                                                         <div class='form-group'>
-                                                            <label class="form-label">Country <b
+                                                            <label class="form-label">State <b
                                                                 class="text-danger">*</b></label>
-                                                            {{-- <span class="error-text GMSMHCountryId_error text-danger"
-                                                                style='float:right;'></span> --}}
-
-                                                            <select id='GMSMHCountryId' name='GMSMHCountryId'
+                                                            <select id='GMCTHStateId' name='GMCTHStateId'
                                                                 class="form-select" style='width: 100%;' >
-                                                                <option value=''>Select Country
-                                                                </option>
-                                                                @foreach ($countries as $country)
-                                                                    <option value='{{ $country->GMCMHCountryId }}'>
-                                                                        {{ $country->GMCMHDesc1 }}
+                                                                <option value=''>Select State</option>
+                                                                @foreach ($state_list as $state)
+                                                                    <option value='{{ $state->GMSMHStateId }}'>
+                                                                        {{ $state->GMSMHDesc1 }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class='form-group'>
+                                                            <label class="form-label">Contry<b class="text-danger">*</b></label>
+                                                                <input type="hidden" name="GMCTHCountryId" id="GMCTHCountryId">
+                                                            <input type="text" name='countryName' id='countryName' class='form-control' readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -275,7 +259,7 @@
 </div>
 @endsection
 @section('js_code')
-<script src={{ asset('assets/common/js/StateMasterAjax.js') }}></script>
+<script src={{ asset('assets/common/js/CityMasterAjax.js') }}></script>
 <!-- sweetalert2 -->
 <script src="https://designreset.com/cork/html/src/plugins/src/sweetalerts2/sweetalerts2.min.js"></script>
 <script src="https://designreset.com/cork/html/src/plugins/src/sweetalerts2/custom-sweetalert.js"></script>
