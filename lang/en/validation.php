@@ -158,10 +158,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-
+        //State
         'GMSMHStateId' => [
             'required' => 'State Id Cant be blank',
-            'min' => 'Id at least  minimum 2 char',
+            'min' => 'State Id at least  minimum 2 char',
             'unique'=>'Id already Exists',
          ],
          'GMSMHDesc1' => [
@@ -172,6 +172,48 @@ return [
          ],
          'GMSMHCountryId' => [
             'required' => 'You must select a Country Id',
+         ],
+         //City
+         'GMCTHCityId' => [
+            'required' => 'City Id Cant be blank',
+            'min' => 'City Id at least  minimum 2 char',
+            'unique'=>'Id already Exists',
+         ],
+         'GMCTHDesc1' => [
+             'required' => 'Description Cant be blank',
+         ],
+         'GMCTHDesc2' => [
+             'max' => 'Max 200 Characters allowed',
+         ],
+         'GMCTHStateId' => [
+            'required' => 'You must select a State Id',
+         ],
+         //Country
+         'GMCMHCountryId' => [
+            'required' => 'Country Id Cant be blank',
+            'min' => 'Country Id at least  minimum 2 char',
+            'unique'=>'Id already Exists',
+         ],
+         'GMCMHDesc1' => [
+             'required' => 'Description Cant be blank',
+         ],
+         'GMCMHDesc2' => [
+             'max' => 'Max 200 Characters allowed',
+         ],
+         //Location
+         'GMLMHLocationId' => [
+            'required' => 'Location Id Cant be blank',
+            'min' => 'Location Id at least  minimum 2 char',
+            'unique'=>'Id already Exists',
+         ],
+         'GMLMHDesc1' => [
+             'required' => 'Description Cant be blank',
+         ],
+         'GMLMHDesc2' => [
+             'max' => 'Max 200 Characters allowed',
+         ],
+         'GMLMHCityId' => [
+            'required' => 'You must select a City Id',
          ],
     ],
 

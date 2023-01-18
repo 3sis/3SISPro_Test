@@ -10,10 +10,10 @@ class City extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 't05901l05';
-    protected $primaryKey = 'GMCTHUniqueId';
+    protected $primaryKey = 'id';
     protected $fillable =
         [
-            'GMCTHUniqueId',
+            'id',
             'GMCTHCityId',
             'GMCTHStateId',
             'GMCTHCountryId',

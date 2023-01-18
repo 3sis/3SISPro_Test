@@ -10,10 +10,10 @@ class Location extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 't05901l06';
-    protected $primaryKey = 'GMLMHUniqueId';
+    protected $primaryKey = 'id';
     protected $fillable =
         [
-            'GMLMHUniqueId',
+            'id',
             'GMLMHCompanyId',
             'GMLMHLocationId',
             'GMLMHCityId',
@@ -33,4 +33,16 @@ class Location extends Model
             'GMLMHLastUpdated' => 'datetime:d/m/Y',
             'GMLMHDeletedAt' => 'datetime:d/m/Y'
         ];
+        public function fnCity()
+        {
+            return $this->hasOne(City::class, 'GMCTHCityId', 'GMLMHCityId');
+        }
+        public function fnState()
+        {
+            return $this->hasOne(State::class, 'GMSMHStateId', 'GMLMHStateId');
+        }
+        public function fnCountry()
+        {
+            return $this->hasOne(Country::class, 'GMCMHCountryId', 'GMLMHCountryId');
+        }
 }

@@ -63,7 +63,7 @@ class CityController extends Controller
                 $city_data = new City();
                 if($request->id != null){
                     //update
-                //    $city_data = City::find($request->id);
+                   $city_data = City::find($request->id);
                 }
 
                 $city_data->GMCTHCityId= $request->GMCTHCityId;

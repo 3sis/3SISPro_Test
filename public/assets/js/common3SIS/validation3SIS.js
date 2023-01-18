@@ -18,54 +18,23 @@ function fnReinstateFormControl(blankScreenId) {
     });
 }
 function fnSuccessMsg(actionName,tableName,Id,Desc) {
-    if(actionName == 'Added')
-    {
-        return "The Data is " + actionName + " Successfully<br>"
-        + tableName + " | <b style='color: #F5821F'> " + Id +"<br> </b>"
-        + "<b style='color: #F5821F'> " + Desc + ".";
-    }else if(actionName == 'Edited')
-    {
-        return "The Data is " + actionName + " Successfully<br>"
+        return actionName + " Successfully<br>"
         + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
         + "<b style='color: #F5821F'> " + Desc + ".";
-    }else if(actionName == 'Deleted')
-    {
-        return "The Data is " + actionName + " Successfully<br>"
-        + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
-        + "<b style='color: #F5821F'> " + Desc + ".";
-    }else(actionName == 'Restored')
-    {
-        return "The Data is " + actionName + " Successfully<br>"
-        + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
-        + "<b style='color: #F5821F'> " + Desc + ".";
-    }
+
 }
 
 function fnConfirmationMsg(actionName,tableName,Id,Desc) {
     return "Do you want to " + actionName + "?<br>"
         + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
         + "<b style='color: #F5821F'> " + Desc + ".";
-    // if(actionName == 'Save')
-    // {
-    //     return "Do you want to " + actionName + "?<br>"
-    //     + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
-    //     + "<b style='color: #F5821F'> " + Desc + ".";
-    // }else if(actionName == 'Delete')
-    // {
-    //     return "Do you want to " + actionName + "?<br>"
-    //     + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
-    //     + "<b style='color: #F5821F'> " + Desc + ".";
-    // }else(actionName == 'Restore')
-    // {
-    //     return "Do you want to " + actionName + "?<br>"
-    //     + tableName + " | <b style='color: #F5821F'> " + Id +"<br></b>"
-    //     + "<b style='color: #F5821F'> " + Desc + ".";
-    // }
 }
 function fnSingleLevelFinalSave(masterName, Id, Desc1, updateMode) {
 
-        return masterName + " for Id <b style='color: #F5821F'>" +
-        Id + " [</b> <b style='color: #F5821F'>" + Desc1 + " ]</b> is " + updateMode + ' SUCCESSFULLY.';
+    return "<b style='color: #F5821F'>" +
+    Id + " - " + Desc1 + "</b> is " + updateMode + ' SUCCESSFULLY.';
+    // return masterName + " for Id <b style='color: #F5821F'>" +
+    // Id + " [</b> <b style='color: #F5821F'>" + Desc1 + " ]</b> is " + updateMode + ' SUCCESSFULLY.';
 
 }
 function fnFormControlColorChange() {

@@ -4,7 +4,7 @@ $(document).ready(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $modalTitle = 'City'
+    $modalTitle = 'Location'
     $('#landingPageBrowser3SIS').DataTable({
         buttons: {
             buttons: [
@@ -32,27 +32,29 @@ $(document).ready(function () {
         order: [0, "desc"],
         processing: true,
         serverSide: true,
-        "ajax": "/get/city",
+        "ajax": "/get/location",
         "columns": [
-            { data: "GMCTHCityId" },
-            { data: "GMCTHDesc1" },
+            { data: "GMLMHLocationId" },
+            { data: "GMLMHDesc1" },
+            { data: "fn_city.GMCTHDesc1" },
             { data: "fn_state.GMSMHDesc1" },
             { data: "fn_country.GMCMHDesc1" },
-            { data: "GMCTHUser" },
+            { data: "GMLMHUser" },
             { data: "action", orderable: false, searchable: false },
-            { data: "GMCTHDesc1", "visible": false },
-            { data: "GMCTHDesc2", "visible": false },
-            { data: "GMCTHUser", "visible": false },
-            { data: "GMCTHLastCreated", "visible": false },
+            { data: "GMLMHDesc1", "visible": false },
+            { data: "GMLMHDesc2", "visible": false },
+            { data: "GMLMHUser", "visible": false },
+            { data: "GMLMHLastCreated", "visible": false },
             { data: "id", "visible": false },
         ],
 
         "columnDefs": [
             { "width": "5%", "targets": 0 },
-            { "width": "25%", "targets": 1 },
-            { "width": "25%", "targets": 2 },
-            { "width": "25%", "targets": 3 },
+            { "width": "20%", "targets": 1 },
+            { "width": "15%", "targets": 2 },
+            { "width": "15%", "targets": 3 },
             { "width": "15%", "targets": 4 },
+            { "width": "15%", "targets": 5 },
             { "width": "15%", "targets": 6 }
         ]
     });
@@ -60,7 +62,7 @@ $(document).ready(function () {
 });
 $('#add_Data').click(function () {
     $('#id').val('');
-    $('#GMCTHStateId').val('');
+    $('#GMLMHStateId').val('');
     $('#singleLevelDataEntryForm')[0].reset();
     // $('#form_output').html('');
     $('#action').val('Save');
@@ -68,12 +70,9 @@ $('#add_Data').click(function () {
     $('#button_action').val('insert');
     $('.msg_error').empty();
     $('.btn_error').hide();
-    $('#GMCTHCityId').prop('readonly',false);
+    $('#GMLMHLocationId').prop('readonly',false);
     $('.modal-title').text('Add ' + $modalTitle);
-
-
     fnFormControlColorChange();
-
 });
 
 $('.btn_error').click(function () {
@@ -90,13 +89,14 @@ $('#Undelete_Data').click(function () {
         processing: true,
         serverSide: true,
         destroy: true,
-        "ajax": "/city/Delete/list",
+        "ajax": "/location/Delete/list",
         "columns": [
-            { data: "GMCTHCityId" },
-            { data: "GMCTHDesc1" },
+            { data: "GMLMHLocationId" },
+            { data: "GMLMHDesc1" },
+            { data: "fn_city.GMCTHDesc1" },
             { data: "fn_state.GMSMHDesc1" },
             { data: "fn_country.GMCMHDesc1" },
-            { data: "GMCTHUser" },
+            { data: "GMLMHUser" },
             { data: "action", orderable: false, searchable: false },
             { data: "id", "visible": false },
         ]
@@ -109,7 +109,7 @@ $(document).on('click', '.restore', function () {
     var action = 'undelete';
     var id = $(this).attr('id');
     var desc = $(this).closest("tr").find("td:eq(1)").text();
-    $restoreMessage3SIS = fnConfirmationMsg('Restore', 'City', id,desc);
+    $restoreMessage3SIS = fnConfirmationMsg('Restore', 'Location', id,desc);
 
         Swal.fire({
                 title: $restoreMessage3SIS,
@@ -123,7 +123,7 @@ $(document).on('click', '.restore', function () {
                  console.log(result)
                 if (result.isConfirmed) {
                     $.ajax({
-                    url: "/city/Master/Delete",
+                    url: "/location/Master/Delete",
                     mehtod: "get",
                     data: { id: id,action:action },
                     success: function (data) {
@@ -143,7 +143,7 @@ $(document).on('click', '.restore', function () {
 
 $(document).on('click', '.edit', function () {
     $('#id').val('');
-    $('#GMCTHStateId').val('');
+    $('#GMLMHCityId').val('');
     $('#singleLevelDataEntryForm')[0].reset();
     $('#form_output').html('');
 
@@ -154,10 +154,10 @@ $(document).on('click', '.edit', function () {
     $('.msg_error').empty();
     $('#button_action').val('update');
     $('#entryModalSmall').modal('show');
-    $('#GMCTHCityId').prop('readonly',true);
+    $('#GMLMHLocationId').prop('readonly',true);
      var id = $(this).attr('id');
      $.ajax({
-        url: "/city/Master/Update",
+        url: "/location/Master/Update",
         method: 'GET',
         data: { id: id },
         dataType: 'json',
@@ -165,15 +165,16 @@ $(document).on('click', '.edit', function () {
             if(response.status == 'success'){
                  console.log(response.data);
                 $('#id').val(response.data.id);
-                $('#GMCTHCityId').val(response.data.GMCTHCityId);
-                $('#GMCTHDesc1').val(response.data.GMCTHDesc1);
-                $('#GMCTHDesc2').val(response.data.GMCTHDesc2);
-                $('#GMCTHStateId').val(response.data.GMCTHStateId).trigger('change');
-                $('#GMCTHCountryId').val(response.data.GMCTHCountryId);
+                $('#GMLMHLocationId').val(response.data.GMLMHLocationId);
+                $('#GMLMHDesc1').val(response.data.GMLMHDesc1);
+                $('#GMLMHDesc2').val(response.data.GMLMHDesc2);
+                $('#GMLMHCityId').val(response.data.GMLMHCityId).trigger('change');
+                $('#GMLMHStateId').val(response.data.GMLMHStateId)
+                $('#GMLMHCountryId').val(response.data.GMLMHCountryId);
                 $('#countryName').val(response.data.fn_country.GMCMHDesc1);
             }
             if(response.status == 'error'){
-                $('.msg_error').append('<p>City Master not found!</p>');
+                $('.msg_error').append('<p>Location Master not found!</p>');
             }
         }
     })
@@ -207,10 +208,10 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
                     }
                     if(response.status == 'success'){
                         if (action == 'insert') {
-                            $finalMessage3SIS = fnSingleLevelFinalSave('City', $('#GMCTHCityId').val(),$('#GMCTHDesc1').val(), 'Added');
+                            $finalMessage3SIS = fnSingleLevelFinalSave('Location', $('#GMLMHLocationId').val(),$('#GMLMHDesc1').val(), 'Added');
 
                         }else{
-                            $finalMessage3SIS = fnSuccessMsg('Edited', 'City', $('#GMCTHCityId').val(),$('#GMCTHDesc1').val());
+                            $finalMessage3SIS = fnSuccessMsg('Edited', 'Location', $('#GMLMHLocationId').val(),$('#GMLMHDesc1').val());
                         }
                         $('#FinalSaveMessage').html($finalMessage3SIS);
                         fnReinstateFormControl('0');
@@ -229,12 +230,12 @@ $('#singleLevelDataEntryForm').on('submit', function (event) {
                         }
 
                         $('.btn_error').hide();
-                        $('#GMCTHStateId').val('');
+                        $('#GMLMHCityId').val('');
                         $('#singleLevelDataEntryForm')[0].reset();
                         $('#landingPageBrowser3SIS').DataTable().ajax.reload();
                     }
                     if(response.status == 'error'){
-                        $('.msg_error').append('<p>City Master not save</p>');
+                        $('.msg_error').append('<p>Location Master not save</p>');
                     }
                 }
         })
@@ -251,12 +252,12 @@ $(document).on('click', '.delete', function () {
     // var currentRow=$(this).closest("tr");
     // alert(currentRow.find("td:eq(1)").text());
     var desc = $(this).closest("tr").find("td:eq(1)").text();
-    $deleteMessage3SIS = fnConfirmationMsg('Delete', 'City', id,desc);
-    $successMessage3SIS = fnSuccessMsg('Deleted', 'City', id,desc);
+    $deleteMessage3SIS = fnConfirmationMsg('Delete', 'Location', id,desc);
+    $successMessage3SIS = fnSuccessMsg('Deleted', 'Location', id,desc);
 
  Swal.fire({
         title: $deleteMessage3SIS,
-        // text: "This City Id " + id,
+        // text: "This Location Id " + id,
         // text: $deleteMessage3SIS,
         icon: 'warning',
         showCancelButton: true,
@@ -268,7 +269,7 @@ $(document).on('click', '.delete', function () {
          console.log(result)
         if (result.isConfirmed) {
              $.ajax({
-            url: "/city/Master/Delete",
+            url: "/location/Master/Delete",
             mehtod: "get",
             data: { id: id ,action:action},
             success: function (data) {
@@ -287,37 +288,35 @@ $(document).on('click', '.delete', function () {
 });
 function getErrorMsgOnErrorBtn(){
     $('.msg_error').html('');
-    if($('#GMCTHCityId').val() == '' || $('#GMCTHDesc1').val() == ''
-        || $('#GMCTHDesc2').val() == '' || $('#GMCTHStateId').val() == ''){
-        if($('#GMCTHCityId').val() == ''){
-           $('.msg_error').append('<p>Please Enter City name !</p>');
+    if($('#GMLMHLocationId').val() == '' || $('#GMLMHDesc1').val() == ''
+        || $('#GMLMHDesc2').val() == '' || $('#GMLMHCityId').val() == ''){
+        if($('#GMLMHLocationId').val() == ''){
+           $('.msg_error').append('<p>Please Enter Location name !</p>');
         }
-       if($('#GMCTHDesc1').val() == ''){
-            $('.msg_error').append('<p>Please Enter City Description 1 !</p>');
+       if($('#GMLMHDesc1').val() == ''){
+            $('.msg_error').append('<p>Please Enter Location Description 1 !</p>');
        }
-       if($('#GMCTHDesc2').val() == ''){
-             $('.msg_error').append('<p>Please Enter City Description 2 !</p>');
+       if($('#GMLMHDesc2').val() == ''){
+             $('.msg_error').append('<p>Please Enter Location Description 2 !</p>');
        }
-       if($('#GMCTHStateId').val() == ''){
-            $('.msg_error').append('<p>Please Select State !</p>');
+       if($('#GMLMHCityId').val() == ''){
+            $('.msg_error').append('<p>Please Select City !</p>');
        }
     }
 }
-$('#GMCTHStateId').change(function () {
+$('#GMLMHCityId').change(function () {
     let id = $(this).val();
     // alert(id);
     console.log(id);
     $.ajax({
-        url: "/geographic/State",
+        url: "/geographic/city",
         type: 'post',
         data: 'id=' + id,
-        // data:'id=' + id + '&_token={{csrf_token()}}',
 
-        // headers: {
-        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        // },
         success: function (response) {
-            $('#GMCTHCountryId').val(response.CountryId);
+            $('#GMLMHStateId').val(response.StateId);
+            $('#stateName').val(response.StateDesc);
+            $('#GMLMHCountryId').val(response.CountryId);
             $('#countryName').val(response.CountryDesc);
         }
     })

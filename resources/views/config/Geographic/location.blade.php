@@ -42,7 +42,7 @@
                 <button type='button' name='Undo' id='Undelete_Data' class='btnUnDeleteRec3SIS' title="Restore">
                     <i class="fa fa-undo  m-1" style="font-size:20px"></i>
                 </button>
-                <button type='button' name='add' id='add_Data' class='btnAddRec3SIS' title="Add City">
+                <button type='button' name='add' id='add_Data' class='btnAddRec3SIS' title="Add Location">
                     <i class="fa fa-plus-square m-1" style="font-size:20px"></i>
                 </button>
 
@@ -52,7 +52,8 @@
                     class="table dt-table-hover dataTable no-footer purple_Browser2D_3SIS">
                     <thead>
                         <tr>
-                            <th title="City Id">ID</th>
+                            <th title="Location Id">ID</th>
+                            <th>Location Name</th>
                             <th>City Name</th>
                             <th>State Name</th>
                             <th>Country Name</th>
@@ -90,7 +91,8 @@
                                     <table id="UndoModalTable" class="{{ $theme_Browser2_3SIS }}" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th title="City Id">ID</th>
+                                                <th title="Location Id">ID</th>
+                                                <th>Location Name</th>
                                                 <th>City Name</th>
                                                 <th>State Name</th>
                                                 <th>Country Name</th>
@@ -133,7 +135,7 @@
                                             <div role="menu" class="collapsed" data-bs-toggle="collapse"
                                                 data-bs-target="#defaultAccordionOne" aria-expanded="true"
                                                 aria-controls="defaultAccordionOne">
-                                                City Master
+                                                Location Master
                                             </div>
                                         </section>
                                     </div>
@@ -141,7 +143,7 @@
                                         data-bs-parent="#toggleAccordion">
                                         <div class="card-body">
                                             <form id='singleLevelDataEntryForm' autocomplete="off" method="post"
-                                                action="{{ url('/city/save') }}">
+                                                action="{{ url('/location/save') }}">
                                                 @csrf
                                                 {{-- <input type="hidden" name="_token" id="csrfToken" value="{{ csrf_token() }}"> --}}
 
@@ -149,11 +151,11 @@
                                                 <div class="row mb-4">
                                                     <div class="col-md-4">
                                                         <div class='form-group'>
-                                                            <label class="form-label">City Id <b
+                                                            <label class="form-label">Location Id <b
                                                                     class="text-danger">*</b></label>
-                                                            <input type="text" name='GMCTHCityId'
-                                                                id='GMCTHCityId' class='form-control few-options'
-                                                                maxlength="10" placeholder="Enter City Name"
+                                                            <input type="text" name='GMLMHLocationId'
+                                                                id='GMLMHLocationId' class='form-control few-options'
+                                                                maxlength="10" placeholder="Enter Location Name"
                                                                 style='opacity:1'>
 
                                                         </div>
@@ -162,9 +164,9 @@
                                                         <div class='form-group'>
                                                             <label class="form-label">Description 1 <b
                                                                 class="text-danger">*</b></label>
-                                                            <input type="text" name='GMCTHDesc1' id='GMCTHDesc1' class='form-control few-options' placeholder="Enter City Description 1"
+                                                            <input type="text" name='GMLMHDesc1' id='GMLMHDesc1' class='form-control few-options' placeholder="Enter Location Description 1"
                                                                 style='border-color: rgb(102, 175, 233); outline: 0px'>
-                                                                {{-- <span class="error-text GMCTHDesc1_error text-danger"
+                                                                {{-- <span class="error-text GMLMHDesc1_error text-danger"
                                                                 style='float:right;'></span> --}}
                                                         </div>
                                                     </div>
@@ -173,7 +175,7 @@
                                                     <div class="col-md-12">
                                                         <div class='form-group'>
                                                             <label class="form-label">Description 2</label>
-                                                            <textarea name='GMCTHDesc2' id='GMCTHDesc2' class='form-control few-options' placeholder="Enter City Description 2"
+                                                            <textarea name='GMLMHDesc2' id='GMLMHDesc2' class='form-control few-options' placeholder="Enter Location Description 2"
                                                                 style='border-color: rgb(102, 175, 233); outline: 0px'></textarea>
 
                                                         </div>
@@ -182,26 +184,34 @@
                                                 <div class="row mt-0">
                                                     <div class="col-md-4">
                                                         <div class='form-group'>
-                                                            <label class="form-label">State <b
+                                                            <label class="form-label">City <b
                                                                 class="text-danger">*</b></label>
-                                                            <select id='GMCTHStateId' name='GMCTHStateId'
+                                                            <select id='GMLMHCityId' name='GMLMHCityId'
                                                                 class="form-select" style='width: 100%;' >
-                                                                <option value=''>Select State</option>
-                                                                @foreach ($state_list as $state)
-                                                                    <option value='{{ $state->GMSMHStateId }}'>
-                                                                        {{ $state->GMSMHDesc1 }}
+                                                                <option value=''>Select City</option>
+                                                                @foreach ($city_list as $city)
+                                                                    <option value='{{ $city->GMCTHCityId }}'>
+                                                                        {{ $city->GMCTHDesc1 }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-4">
+                                                        <div class='form-group'>
+                                                            <label class="form-label">State<b class="text-danger">*</b></label>
+                                                                <input type="hidden" name="GMLMHStateId" id="GMLMHStateId">
+                                                            <input type="text" name='stateName' id='stateName' class='form-control' readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
                                                         <div class='form-group'>
                                                             <label class="form-label">Contry<b class="text-danger">*</b></label>
-                                                                <input type="hidden" name="GMCTHCountryId" id="GMCTHCountryId">
+                                                                <input type="hidden" name="GMLMHCountryId" id="GMLMHCountryId">
                                                             <input type="text" name='countryName' id='countryName' class='form-control' readonly>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                         </div>
                                     </div>
@@ -211,7 +221,7 @@
                         <div class="modal-footer">
                             {{-- <span id='form_output' style='float:left; padding-left:0px'></span> --}}
                             {{-- <span id='form_output' class="mr-auto" ></span> --}}
-                            <span id='form_output' class="mr-auto" style='float:right; padding-right:750px'></span>
+                            <span id='form_output' class="mr-auto" style='float:right; padding-right:700px'></span>
                             {{-- <span id='form_output' class="mr-auto" style="outline:0"></span> --}}
                             <input type="hidden" name='button_action' id='button_action' value='insert'>
                             <fieldset class="w-100 msg_show">
@@ -251,7 +261,7 @@
 </div>
 @endsection
 @section('js_code')
-<script src={{ asset('assets/common/js/CityMasterAjax.js') }}></script>
+<script src={{ asset('assets/common/js/LocationMasterAjax.js') }}></script>
 <!-- sweetalert2 -->
 <script src="https://designreset.com/cork/html/src/plugins/src/sweetalerts2/sweetalerts2.min.js"></script>
 <script src="https://designreset.com/cork/html/src/plugins/src/sweetalerts2/custom-sweetalert.js"></script>

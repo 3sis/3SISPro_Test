@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Config\Geographic\CityController;
 use App\Http\Controllers\Config\Geographic\CountryController;
 use App\Http\Controllers\Config\Geographic\StateController;
+use App\Http\Controllers\Config\Geographic\LocationController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -20,7 +21,18 @@ Route::controller(AuthController::class)->group(function () {
     // Route::post('login','login')->name('login_check');
 });
 
-
+// Location Master
+Route::controller(LocationController::class)->group(function () {
+    // Route::get('/','index');
+    Route::get('/location','index');
+    Route::post('/location/save','save');
+    Route::get('/get/location','location_list');
+    Route::get('/location/Master/Update','fetchData');
+    Route::get('/location/Master/Delete','Restore_Delete_Data');
+    Route::get('/location/Delete/list','DeleteList');
+    Route::get('/test','test');
+    Route::post('/geographic/city','getCityDesc');
+});
 // city Master
 Route::controller(CityController::class)->group(function () {
     // Route::get('/','index');
