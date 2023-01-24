@@ -18,7 +18,7 @@
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    <link href="{{asset('assets/plugins/src/apex/apexcharts.css')}}" rel="stylesheet" type="text/css">
+    <!-- <link href="{{asset('assets/plugins/src/apex/apexcharts.css')}}" rel="stylesheet" type="text/css"> -->
     <link href="{{asset('assets/css/light/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/dark/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
@@ -29,7 +29,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css3SIS/button3SIS.css') }}">
 
     <!-- END css3SIS -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/light/elements/alert.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/dark/elements/alert.css')}}">
     @yield('css')
 </head>
 <body class="layout-boxed">
@@ -75,10 +78,13 @@
     <script src="{{asset('assets/plugins/src/mousetrap/mousetrap.min.js')}}"></script>
     <script src="{{asset('assets/plugins/src/waves/waves.min.js')}}"></script>
     <script src="{{asset('assets/layouts/vertical-dark-menu/app.js')}}"></script>
+
+    <script src="{{asset('assets/plugins/src/bootstrap-maxlength/bootstrap-maxlength.js')}}"></script>
+    <script src="{{asset('assets/plugins/src/bootstrap-maxlength/custom-bs-maxlength.js')}}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-    <script src="{{asset('assets/plugins/src/apex/apexcharts.min.js')}}"></script>
+    <!-- <script src="{{asset('assets/plugins/src/apex/apexcharts.min.js')}}"></script> -->
     <script src="{{asset('assets/js/dashboard/dash_1.js')}}"></script>
 
     <script src="{{ asset('assets/js/common3SIS/validation3SIS.js') }}"></script>

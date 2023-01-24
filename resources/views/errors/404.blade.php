@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Error</title>
-    <!-- <link rel="icon" type="image/x-icon" href="../src/assets/img/favicon.ico"/> -->
+    <title>Error 11</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico"/>
      <link href="{{asset('assets/layouts/vertical-dark-menu/css/light/loader.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/layouts/vertical-dark-menu/css/dark/loader.css')}}" rel="stylesheet" type="text/css" />
     <script src="{{asset('assets/layouts/vertical-dark-menu/loader.js')}}"></script>

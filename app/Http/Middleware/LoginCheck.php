@@ -16,16 +16,15 @@ class LoginCheck
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {
-        if(Auth::user()){
-            return redirect('state');
+    {  
+        if(!Auth::check()){
+            return redirect('/')->withError('Please Login!');; 
         }
-        if(!Auth::user()){
-            return redirect('/');
+
+        if(Auth::user()){ 
+          return $next($request);
         }
-        // return $next($request)->header('Cache-Control','no-cache, no-store, max-age=0, must-revalidate')
-        //                       ->header('Pragma','no-cache')
-        //                       ->header('Expires','Sat 01 Jan 1990 00:00:00 GMT');
-        return $next($request);
+
+        return redirect('/')->withError('You have been successfully logged out!');
     }
 }

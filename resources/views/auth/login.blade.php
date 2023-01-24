@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <h2>Sign In</h2>
-                                    <p>Enter your email and password to login</p>
+                                    <!-- <p>Enter your email and password to login</p> -->
                                     @if (Session::has('error'))
                                         <p class="text-danger">{{ Session::get('error') }}</p>
                                     @endif
