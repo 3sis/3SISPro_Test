@@ -15,8 +15,8 @@ jobs:
         
       #- name: Copy .env
       #run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-      #- name: 🔨 Install Dependencies
-      #run: composer install --optimize-autoloader --no-dev
+    - name: 🔨 Install Dependencies
+      run: composer install --optimize-autoloader --no-dev --no-interaction
       # env:
       #  DB_DATABASE: u800667729_first_db
       #  DB_USERNAME: u800667729_3sis
