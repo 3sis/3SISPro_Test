@@ -7,13 +7,16 @@ use App\Http\Controllers\Config\Geographic\CountryController;
 use App\Http\Controllers\Config\Geographic\StateController;
 use App\Http\Controllers\Config\Geographic\LocationController;
 
-Route::controller(AuthController::class)->group(function () {
-   Route::get('/','index');
-   Route::post('login', 'login')->name('login_check');
-   // Route::get('logout', 'logout')->name('logout');
-}); 
+Route::group(['middleware'=>['guest']],function () {
+   Route::controller(AuthController::class)->group(function () {
+       Route::get('/','index')->name('login');
+       Route::post('login', 'login')->name('login_check');
+       // Route::get('logout', 'logout')->name('logout');
+   }); 
+});    
 
-Route::controller(StateController::class)->group(function () {
+Route::group(['middleware'=>['auth']],function () {
+    Route::controller(StateController::class)->group(function () {
             // Route::post('save_state', 'save');
             Route::get('{manage}-state{id?}', 'index');
             Route::post('/state/save', 'save');
@@ -24,7 +27,16 @@ Route::controller(StateController::class)->group(function () {
             Route::get('/test', 'test');
 });
 
-// Route::group(['middleware'=>['Auth']],function () {
+// Route::get('logout',[AuthController::class,'logout']);
+    Route::controller(AuthController::class)->group(function () {
+          Route::get('logout', 'logout')->name('logout');
+          Route::get('home','dashboard');
+    });
+
+});    
+
+
+
     Route::group(['middleware'=>['LoginCheck']],function () {
         // Route::controller(StateController::class)->group(function () {
         //     Route::get('/state', 'index');
@@ -35,14 +47,8 @@ Route::controller(StateController::class)->group(function () {
         //     Route::get('/state/Delete/list', 'DeleteList');
         //     Route::get('/test', 'test');
         // });
-
-        Route::controller(AuthController::class)->group(function () {
-          Route::get('logout', 'logout')->name('logout');
-          Route::get('/dashboard','dashboard');
-       });
     }); 
    
-// });    
 
 // Location Master
 Route::controller(LocationController::class)->group(function () {
