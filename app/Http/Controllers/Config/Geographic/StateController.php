@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-use App\Models\t92;
 use App\Models\Config\Geographic\State;
 use App\Models\Config\Geographic\Country;
 // use App\Models\Technical_Error;
@@ -21,36 +20,26 @@ class StateController extends Controller
 {
     use CommonDataTables;
     use Error;
-    public function menu()
-    {
-        return $menu = t92::tree();
-    }
     public function index(Request $request)
     { 
-
-          // $encrypt = Crypt::encryptString(1);
-          // $decrypted = Crypt::decryptString($encrypt);
+        // $encrypt = Crypt::encryptString(1);
+        // $decrypted = Crypt::decryptString($encrypt);
         $manage = $request->manage;
         $id = $request->id;
         $edit_data = '';
         if($id>0){
-           $edit_data = $this->fetchData1(Crypt::decryptString($id));
+           $edit_data = $this->getStateData(Crypt::decryptString($id));
         }
-
-        $menu = $this->menu();
         $theme_Browser1_3SIS = 'purple_Browser1D_3SIS';
         $theme_Browser2_3SIS = 'purple_Browser2D_3SIS';
         $theme_ContentModal1D_3SIS = 'purple_ContentModal1D_3SIS';
         $theme_ContentModal2D_3SIS = 'purple_ContentModal2D_3SIS';
         $theme_Card1D_3SIS = 'purple_Card1D_3SIS';
 
-        $UserId = Auth::user()->name;
         $countries = Country::all();
         return view(
             'config.Geographic.state.index',
             compact(
-                'menu',
-                'UserId',
                 'manage',
                 'id',
                 'edit_data',
@@ -67,9 +56,6 @@ class StateController extends Controller
      public function save(Request $request)
      {
          try {
-             // echo 'Data Submitted.';
-             // return $request->input();
-            // dd($request->all());
              $validator = Validator::make($request->all(), [
                'GMSMHStateId'    => 'required|min:2|max:10|unique:t05901l04,GMSMHStateId,'.$request->id,
                'GMSMHDesc1'      => 'required|max:100',
@@ -183,35 +169,10 @@ class StateController extends Controller
             return response()->json(['status' => 'technical_error']);
         }
     }
-
-    public function add()
-    { 
-        $menu = $this->menu();
-        $theme_Browser1_3SIS = 'purple_Browser1D_3SIS';
-        $theme_Browser2_3SIS = 'purple_Browser2D_3SIS';
-        $theme_ContentModal1D_3SIS = 'purple_ContentModal1D_3SIS';
-        $theme_ContentModal2D_3SIS = 'purple_ContentModal2D_3SIS';
-        $theme_Card1D_3SIS = 'purple_Card1D_3SIS';
-        // $UserId = Auth::user()->name;
-        $countries = Country::all();
-        return view('config.Geographic.state.index',compact('menu',
-                'theme_Browser1_3SIS',
-                'theme_Browser2_3SIS',
-                'theme_ContentModal1D_3SIS',
-                'theme_ContentModal2D_3SIS',
-                'theme_Card1D_3SIS','countries'));
-    }
-
-    public function fetchData1($id)
+    public function getStateData($id)
     {
         try {
-           return $fetchData = State::where('id', $id)->first();
-            // $fetchData = State::with('fnCountry')->where('id',$request->id)->first();
-            // if ($fetchData) {
-            //     return response()->json(['status' => 'success','data' =>$fetchData]);
-            // } else {
-            //     return response()->json(['status' => 'error' ]);
-            // }
+           return State::where('id', $id)->first();
         } catch (QueryException $e) {
             Log::error($e->getMessage());
             return response()->json(['status' => 'technical_error']);

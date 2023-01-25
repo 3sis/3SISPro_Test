@@ -1,29 +1,10 @@
 @extends('layouts.app')
 @section('content')
 @section('css')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<!-- sweetalert2 -->
-<!-- BEGIN THEME GLOBAL STYLES -->
-<link rel="stylesheet" href="{{asset('assets/plugins/src/sweetalerts2/sweetalerts2.css')}}">
-<link href="{{asset('assets/plugins/css/light/sweetalerts2/custom-sweetalert.css')}}" rel="stylesheet"
-   type="text/css" />
-<link href="{{asset('assets/plugins/css/dark/sweetalerts2/custom-sweetalert.css')}}" rel="stylesheet"
-   type="text/css" />
-<!-- END THEME GLOBAL STYLES -->
-<!-- sweetalert2 -->
+@include('inc.style')
 @if($manage == 'manage')
-<!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
-<link rel="stylesheet" type="text/css"
-   href="{{asset('assets/plugins/src/table/datatable/datatables.css')}}">
-<link rel="stylesheet" type="text/css"
-   href="{{asset('assets/plugins/css/light/table/datatable/dt-global_style.css')}}">
-<link rel="stylesheet" type="text/css"
-   href="{{asset('assets/plugins/css/light/table/datatable/custom_dt_custom.css')}}">
-<link rel="stylesheet" type="text/css"
-   href="{{asset('assets/plugins/css/dark/table/datatable/dt-global_style.css')}}">
-<link rel="stylesheet" type="text/css"
-   href="{{asset('assets/plugins/css/dark/table/datatable/custom_dt_custom.css')}}">
-<!-- END PAGE LEVEL CUSTOM STYLES -->
+  @include('inc.datatable')
+@endif
 <style>
    #landingPageBrowser3SIS_info{
    margin-top: 2px;
@@ -32,7 +13,6 @@
    border-color: rgb(102, 175, 233); 
    outline: 0px
    }
-   @endif
 </style>
 @endsection
 <div class="mt-1" style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
@@ -49,10 +29,18 @@
             @endif
             @if($manage == 'manage')
             <a class="btn btn-danger btn-icon btnUnDeleteRec3SIS" href="javascript:void(0)" id='Undelete_Data' class='' title="Restore">
-            <i class="fa fa-undo m-1" style="font-size:20px"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rotate-ccw"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
             </a>
             <a class="btn btn-success btn-icon" href="{{ url('add-state') }}">
-            <i class="fa fa-plus-square m-1" style="font-size:20px"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </a>
+
+            <a class="btn btn-light btn-icon" href="{{ url('add-state') }}">
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="48px" height="48px"><path fill="#169154" d="M29,6H15.744C14.781,6,14,6.781,14,7.744v7.259h15V6z"/><path fill="#18482a" d="M14,33.054v7.202C14,41.219,14.781,42,15.743,42H29v-8.946H14z"/><path fill="#0c8045" d="M14 15.003H29V24.005000000000003H14z"/><path fill="#17472a" d="M14 24.005H29V33.055H14z"/><g><path fill="#29c27f" d="M42.256,6H29v9.003h15V7.744C44,6.781,43.219,6,42.256,6z"/><path fill="#27663f" d="M29,33.054V42h13.257C43.219,42,44,41.219,44,40.257v-7.202H29z"/><path fill="#19ac65" d="M29 15.003H44V24.005000000000003H29z"/><path fill="#129652" d="M29 24.005H44V33.055H29z"/></g><path fill="#0c7238" d="M22.319,34H5.681C4.753,34,4,33.247,4,32.319V15.681C4,14.753,4.753,14,5.681,14h16.638 C23.247,14,24,14.753,24,15.681v16.638C24,33.247,23.247,34,22.319,34z"/><path fill="#fff" d="M9.807 19L12.193 19 14.129 22.754 16.175 19 18.404 19 15.333 24 18.474 29 16.123 29 14.013 25.07 11.912 29 9.526 29 12.719 23.982z"/></svg>
+            </a>
+            <a class="btn btn-light btn-icon" href="{{ url('add-state') }}">
+
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="48px" height="48px"><path fill="#e53935" d="M38,42H10c-2.209,0-4-1.791-4-4V10c0-2.209,1.791-4,4-4h28c2.209,0,4,1.791,4,4v28 C42,40.209,40.209,42,38,42z"/><path fill="#fff" d="M34.841,26.799c-1.692-1.757-6.314-1.041-7.42-0.911c-1.627-1.562-2.734-3.45-3.124-4.101 c0.586-1.757,0.976-3.515,1.041-5.402c0-1.627-0.651-3.385-2.473-3.385c-0.651,0-1.237,0.391-1.562,0.911 c-0.781,1.367-0.456,4.101,0.781,6.899c-0.716,2.018-1.367,3.97-3.189,7.42c-1.888,0.781-5.858,2.604-6.183,4.556 c-0.13,0.586,0.065,1.172,0.521,1.627C13.688,34.805,14.273,35,14.859,35c2.408,0,4.751-3.32,6.379-6.118 c1.367-0.456,3.515-1.107,5.663-1.497c2.538,2.213,4.751,2.538,5.923,2.538c1.562,0,2.148-0.651,2.343-1.237 C35.492,28.036,35.297,27.32,34.841,26.799z M33.214,27.905c-0.065,0.456-0.651,0.911-1.692,0.651 c-1.237-0.325-2.343-0.911-3.32-1.692c0.846-0.13,2.734-0.325,4.101-0.065C32.824,26.929,33.344,27.254,33.214,27.905z M22.344,14.497c0.13-0.195,0.325-0.325,0.521-0.325c0.586,0,0.716,0.716,0.716,1.302c-0.065,1.367-0.325,2.734-0.781,4.036 C21.824,16.905,22.019,15.083,22.344,14.497z M22.214,27.124c0.521-1.041,1.237-2.864,1.497-3.645 c0.586,0.976,1.562,2.148,2.083,2.669C25.794,26.213,23.776,26.604,22.214,27.124z M18.374,29.728 c-1.497,2.473-3.059,4.036-3.905,4.036c-0.13,0-0.26-0.065-0.391-0.13c-0.195-0.13-0.26-0.325-0.195-0.586 C14.078,32.136,15.77,30.899,18.374,29.728z"/></svg>
             </a>
             @endif  
          </div>
@@ -204,14 +192,8 @@
 <!-- Error Model end-->
 @endsection
 @section('js_code')
-<script src="https://designreset.com/cork/html/src/assets/js/custom.js"></script>
-<script src="https://designreset.com/cork/html/src/plugins/src/table/datatable/datatables.js"></script>
+@include('inc.js_file')
 <!-- <script src={{ asset('assets/common/js/StateMasterAjax.js') }}></script> -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-<script src="https://designreset.com/cork/html/src/plugins/src/sweetalerts2/sweetalerts2.min.js"></script>
-<!-- <script src="https://designreset.com/cork/html/src/plugins/src/sweetalerts2/custom-sweetalert.js"></script> -->
-
 <script type="text/javascript">
    $(document).ready(function(){
     // $.ajaxSetup({
@@ -241,7 +223,7 @@
             "sLengthMenu": "Results :  _MENU_",
         },
         stripeClasses: [],
-        pageLength: 6,
+        pageLength: 10,
         lengthMenu: [6, 10, 20, 50],
         order: [0, "desc"],
         processing: true,

@@ -30,26 +30,14 @@ Route::group(['middleware'=>['auth']],function () {
 // Route::get('logout',[AuthController::class,'logout']);
     Route::controller(AuthController::class)->group(function () {
           Route::get('logout', 'logout')->name('logout');
-          Route::get('home','dashboard');
+          Route::get('home','home');
     });
 
 });    
 
-
-
-    Route::group(['middleware'=>['LoginCheck']],function () {
-        // Route::controller(StateController::class)->group(function () {
-        //     Route::get('/state', 'index');
-        //     Route::post('/state/save', 'save');
-        //     Route::get('/get/state', 'state_list');
-        //     Route::get('/state/Master/Update', 'fetchData');
-        //     Route::get('/state/Master/Delete', 'Restore_Delete_Data');
-        //     Route::get('/state/Delete/list', 'DeleteList');
-        //     Route::get('/test', 'test');
-        // });
-    }); 
+// Route::group(['middleware'=>['LoginCheck']],function () {
+// }); 
    
-
 // Location Master
 Route::controller(LocationController::class)->group(function () {
     // Route::get('/','index');

@@ -8,19 +8,11 @@ use App\Models\AppAuthorizationHeader;
 use App\Models\ApplicationMaster;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use App\Models\t92;
 
 class AuthController extends Controller
-{ public function menu()
-    {
-        return $menu = t92::tree();
-    }
+{
     public function index()
     {
-        // Log::info('--Already Login --'.Auth::check());
-        // if (Auth::check()) {
-        //     return redirect('dashboard');
-        // }
         return view('auth.login');
     }
     public function login(Request $request)
@@ -85,10 +77,9 @@ class AuthController extends Controller
 
         return redirect('register')->withError('Error');
     }
-    public function dashboard()
+    public function home()
     {
-        $menu = $this->menu();
-        return view('dashboard');
+        return view('home');
     }
     public function logout()
     {

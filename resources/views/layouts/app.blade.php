@@ -30,7 +30,14 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css3SIS/button3SIS.css') }}">
 
     <!-- END css3SIS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{asset('assets/plugins/src/font-icons/fontawesome/css/regular.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/src/font-icons/fontawesome/css/fontawesome.css') }}">
+    
+    <link href="{{ asset('assets/css/light/scrollspyNav.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/light/components/font-icons.css') }}" rel="stylesheet" type="text/css">
+    
+    <link href="{{ asset('assets/css/dark/scrollspyNav.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/dark/components/font-icons.css') }}" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/light/elements/alert.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/dark/elements/alert.css')}}">
@@ -72,13 +79,14 @@
     </div>
     <!-- END MAIN CONTAINER -->
 <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> -->
-<script src="https://designreset.com/cork/html/src/plugins/src/global/vendors.min.js"></script>
+<script src="{{asset('assets/plugins/src/global/vendors.min.js')}}"></script>
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="{{asset('assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('assets/plugins/src/mousetrap/mousetrap.min.js')}}"></script>
     <script src="{{asset('assets/plugins/src/waves/waves.min.js')}}"></script>
     <script src="{{asset('assets/layouts/vertical-dark-menu/app.js')}}"></script>
+    <script src="{{asset('assets/plugins/src/font-icons/feather/feather.min.js')}}"></script>
 
     <script src="{{asset('assets/plugins/src/bootstrap-maxlength/bootstrap-maxlength.js')}}"></script>
     <script src="{{asset('assets/plugins/src/bootstrap-maxlength/custom-bs-maxlength.js')}}"></script>
