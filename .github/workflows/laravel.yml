@@ -15,12 +15,14 @@ jobs:
         
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      env:
+        DB_CONNECTION=mysql
+        DB_DATABASE: u800667729_first_db
+        DB_USERNAME: u800667729_3sis
+        DB_PASSWORD: '{3Sis@1234-}'
     - name: 🔨Install Dependencies
       run: composer install --optimize-autoloader --no-dev --no-interaction
-      env:
-       DB_DATABASE: u800667729_first_db
-       DB_USERNAME: u800667729_3sis
-       DB_PASSWORD: '{3Sis@1234-}'
+
         
       
     - name: Generate key
