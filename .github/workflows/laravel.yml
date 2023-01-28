@@ -2,7 +2,7 @@ on: push
 name: 🚀 Deploy website on Hosting ->server
 jobs:
   web-deploy:
-    name: 🎉 Deploy Code
+    name: 🚀 Deploy Code Server 👨‍💻 
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
@@ -13,13 +13,6 @@ jobs:
       with:
         php-version: '8.0'
         
-    - name:  github to Upload FTP server
-      uses: sebastianpopp/ftp-action@releases/v2
-      with:
-        host: ${{ secrets.FTP_SERVER }}
-        user: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}    
-        
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       
@@ -28,5 +21,10 @@ jobs:
       
     - name: Generate key
       run: php artisan key:generate
-    
-    
+      
+    - name:  github to Upload FTP server
+      uses: sebastianpopp/ftp-action@releases/v2
+      with:
+        host: ${{ secrets.FTP_SERVER }}
+        user: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}     
