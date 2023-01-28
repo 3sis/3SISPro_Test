@@ -18,9 +18,10 @@
 <div class="mt-1" style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
    <form id='AddForm' method="post" autocomplete="off">
       <div class="row justify-content-center">
+
          <div class="col-auto me-auto mt-2 error_msg">
-            <!-- State added successfully -->
          </div>
+         
          <div class="col-auto">
             @if($manage == 'add' || $manage == 'edit')
             <a href="#" class="btn btn-danger" id="btn_error">Error</a>
