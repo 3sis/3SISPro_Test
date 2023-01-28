@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-use App\Models\t92;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,8 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $menu = t92::tree();
-        View::share('menu', $menu);
         date_default_timezone_set('Asia/Kolkata');
     }
 }

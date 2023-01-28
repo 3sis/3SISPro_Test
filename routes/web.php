@@ -24,6 +24,7 @@ Route::group(['middleware'=>['auth']],function () {
             Route::get('/state/Master/Update', 'fetchData');
             Route::get('/state/Master/Delete', 'Restore_Delete_Data');
             Route::get('/state/Delete/list', 'DeleteList');
+            Route::get('state_report/{type}', 'report');
             Route::get('/test', 'test');
 });
 
@@ -31,8 +32,8 @@ Route::group(['middleware'=>['auth']],function () {
     Route::controller(AuthController::class)->group(function () {
           Route::get('logout', 'logout')->name('logout');
           Route::get('home','home');
+          Route::get('fastpath','fastpath');
     });
-
 });    
 
 // Route::group(['middleware'=>['LoginCheck']],function () {

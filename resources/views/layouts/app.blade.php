@@ -100,5 +100,27 @@
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @yield('js_code')
+     <script type="text/javascript">
+        function fastpath(_this) {
+            console.log('FastPath text:' + _this.value);
+            $.ajax({
+                type: 'get',
+                url: "{{ url('fastpath') }}",
+                data: {
+                    'search': _this.value
+                },
+                success: function(response) {
+                    console.log(response.status);
+                    if (response.status == 'success') {
+                        console.log(response.redirect_url);
+                        window.location = response.redirect_url;
+                    } else {
+                        alert("FastPath not found ?");
+                        return false;
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>

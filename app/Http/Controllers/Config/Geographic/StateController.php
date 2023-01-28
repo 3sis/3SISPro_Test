@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use App\Models\Config\Geographic\State;
 use App\Models\Config\Geographic\Country;
-// use App\Models\Technical_Error;
 use App\Traits\CommonMasters\GeneralMaster\CommonDataTables;
 use Illuminate\Support\Facades\Crypt;
 use App\Traits\Error;
@@ -181,5 +180,33 @@ class StateController extends Controller
             $this->error_log($e);
             return response()->json(['status' => 'technical_error']);
         }
+    }
+
+    public function report(Request $request)
+    {
+        $state = State::with('fnCountry')->get();
+        if ($state != '[]') {
+          if($request->type == 'excel'){
+            $export_data = "State List -\n\n";
+            $export_data .= "Id\tState\tDescription1\tDescription2\tCountry\tUser\n";
+                // $i = 1;
+                foreach ($state as $row) {
+                    $lineData = array($row->id, $row->GMSMHStateId, $row->GMSMHDesc1, $row->GMSMHDesc2, $row->GMSMHCountryId, $row->GMSMHUser);
+                    $export_data .= implode("\t", array_values($lineData)) . "\n";
+                }
+                return response($export_data)
+                ->header("Content-Type", "application/vnd.ms-excel")
+                ->header("Content-Disposition", "attachment;filename=state_list.xls");
+            }
+          if($request->type == 'pdf'){
+
+            $mpdf = new \Mpdf\Mpdf();
+            // $mpdf->WriteHTML('<h1>Hello world!</h1>');
+            $mpdf->WriteHTML(view('report.state_list', compact('state')));
+            return ($mpdf->Output('state_list.pdf', 'I'));
+
+          }
+        }
+
     }
 }

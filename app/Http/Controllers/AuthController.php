@@ -8,9 +8,13 @@ use App\Models\AppAuthorizationHeader;
 use App\Models\ApplicationMaster;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use App\Traits\Error;
+use App\Models\t92;
 
 class AuthController extends Controller
 {
+    use Error;
     public function index()
     {
         return view('auth.login');
@@ -19,10 +23,13 @@ class AuthController extends Controller
     {
         try {
             // validate data
-            $request->validate([
-                'email' => 'required',
-                'password' => 'required'
-            ]);
+            $validator = Validator::make($request->all(), [
+               'email'    => 'required|email',
+               'password'      => 'required'
+             ]);
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
             // login code
             if (Auth::attempt($request->only('email', 'password'))) {
                 $LandingPage_App_id = 11;
@@ -31,7 +38,7 @@ class AuthController extends Controller
                 $app_data = ApplicationMaster::where('AMAMHAppId', $LandingPage_App_id)->first();
 
                 if ($fetchData) {
-                    return redirect('manage-state');
+                    return redirect('home');
                 } else {
                     return back()->withError('Your not authorized to '.$app_data->AMAMHDesc1);
                 }
@@ -80,6 +87,16 @@ class AuthController extends Controller
     public function home()
     {
         return view('home');
+    }
+
+     public function fastpath(Request $request)
+    {
+        $fastpath = t92::where('MNFastPath', $request->search)->first();
+        if($fastpath){
+            return response(['status'=>'success','redirect_url'=>$fastpath['MNRoute']]);
+        }else{
+            return response(['status'=>'error']);
+        }
     }
     public function logout()
     {
