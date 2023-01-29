@@ -20,36 +20,15 @@ class StateController extends Controller
     use CommonDataTables;
     use Error;
     public function index(Request $request)
-    { 
-        // $encrypt = Crypt::encryptString(1);
-        // $decrypted = Crypt::decryptString($encrypt);
+    {  
         $manage = $request->manage;
         $id = $request->id;
         $edit_data = '';
         if($id>0){
            $edit_data = $this->getStateData(Crypt::decryptString($id));
         }
-        $theme_Browser1_3SIS = 'purple_Browser1D_3SIS';
-        $theme_Browser2_3SIS = 'purple_Browser2D_3SIS';
-        $theme_ContentModal1D_3SIS = 'purple_ContentModal1D_3SIS';
-        $theme_ContentModal2D_3SIS = 'purple_ContentModal2D_3SIS';
-        $theme_Card1D_3SIS = 'purple_Card1D_3SIS';
-
         $countries = Country::all();
-        return view(
-            'config.Geographic.state.index',
-            compact(
-                'manage',
-                'id',
-                'edit_data',
-                'theme_Browser1_3SIS',
-                'theme_Browser2_3SIS',
-                'theme_ContentModal1D_3SIS',
-                'theme_ContentModal2D_3SIS',
-                'theme_Card1D_3SIS',
-                'countries'
-            )
-        );
+        return view('config.Geographic.state.index1',compact( 'manage','id','edit_data','countries'));
     }
 
      public function save(Request $request)

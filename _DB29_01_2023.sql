@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 18, 2022 at 06:56 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.5
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 29, 2023 at 08:56 AM
+-- Server version: 10.6.11-MariaDB-cll-lve
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_new`
+-- Database: `u800667729_first_db`
 --
 
 -- --------------------------------------------------------
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -45,7 +45,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -66,8 +66,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -79,11 +79,11 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -99,7 +99,7 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `post` varchar(111) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `posts`
@@ -118,7 +118,7 @@ CREATE TABLE `t00900l01` (
   `id` bigint(20) NOT NULL,
   `AMAMHAppId` int(11) NOT NULL,
   `AMAMHDesc1` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t00900l01`
@@ -141,7 +141,7 @@ CREATE TABLE `t00900l05` (
   `LMLAHUserId` int(11) NOT NULL,
   `LMLAHDesc1` varchar(100) NOT NULL,
   `LMLAHPassword` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t00900l05`
@@ -163,7 +163,7 @@ CREATE TABLE `t00900l06` (
   `user_id` int(11) NOT NULL,
   `AAAHHAppId` int(11) NOT NULL,
   `AAAHHDesc1` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t00900l06`
@@ -195,7 +195,7 @@ CREATE TABLE `t00900l0611` (
   `AAADDProgramId` varchar(30) NOT NULL,
   `AAADDPrgDesc1` varchar(100) NOT NULL,
   `AAADDAccessId` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t00900l0611`
@@ -270,7 +270,7 @@ CREATE TABLE `t05901l01` (
   `GMCOHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMCOHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMCOHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05901l01`
@@ -299,7 +299,7 @@ CREATE TABLE `t05901l03` (
   `GMCMHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMCMHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMCMHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05901l03`
@@ -330,20 +330,20 @@ CREATE TABLE `t05901l04` (
   `GMSMHLastCreated` datetime NOT NULL,
   `GMSMHLastUpdated` datetime NOT NULL,
   `GMSMHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05901l04`
 --
 
 INSERT INTO `t05901l04` (`id`, `GMSMHStateId`, `GMSMHCountryId`, `GMSMHDesc1`, `GMSMHDesc2`, `GMSMHBiDesc`, `GMSMHMarkForDeletion`, `GMSMHUser`, `GMSMHLastCreated`, `GMSMHLastUpdated`, `GMSMHDeletedAt`) VALUES
-(1, 'MH', 'IN', 'Maharastra 1234', 'Maharastra 2', 'Maharastra', 1, 'admin', '2022-11-30 18:55:48', '2022-11-30 18:55:48', NULL),
+(1, 'MH', 'IN', 'Maharastra 1234', 'Maharastra 2', 'Maharastra', 0, 'admin', '2022-11-30 18:55:48', '2022-11-30 18:55:48', NULL),
 (2, 'BR', 'IN', 'Bihar 1', 'Bihar', 'Bihar', 0, '3SIS', '2021-10-10 07:41:12', '2021-10-10 07:41:12', NULL),
 (5, 'AP', 'IN', 'Andhra', 'a', 'a', 0, '3SIS', '2021-11-23 05:45:58', '2021-11-23 05:45:58', NULL),
 (8, 'KA', 'SG', 'KA 1', 'KA 2', NULL, 0, 'admin', '2022-11-16 04:31:53', '2022-11-16 04:31:53', NULL),
-(17, 'GJ', 'IN', 'Description 1', 'Description 222', NULL, 1, 'admin', '2022-11-30 18:53:09', '2022-11-30 18:53:09', NULL),
+(17, 'GJ', 'IN', 'Description 1', 'Description 222', NULL, 0, 'admin', '2022-11-30 18:53:09', '2022-11-30 18:53:09', NULL),
 (23, 'GA', 'IN', 'GA 1', '34', NULL, 0, 'admin', '2022-11-26 12:16:37', '2022-11-26 12:16:37', NULL),
-(26, '11', 'IN', '12', '13', NULL, 0, 'Krishna', '2022-12-07 19:21:31', '2022-12-07 19:21:31', NULL),
+(26, '1234', 'IN', '12', '13', NULL, 0, 'admin', '2023-01-27 16:25:13', '2023-01-27 16:25:13', NULL),
 (27, 'asas', 'SG', 'sas', 'assa', NULL, 0, 'Krishna', '2022-12-07 19:15:24', '2022-12-07 19:15:24', NULL),
 (28, 'test', 'SG', '1', '2', NULL, 0, 'admin', '2022-11-30 19:55:02', '2022-11-30 19:55:02', NULL),
 (29, 'MH1', 'IN', '11111', '221111', NULL, 0, 'Krishna', '2022-12-09 18:15:11', '2022-12-09 18:15:11', NULL),
@@ -357,7 +357,7 @@ INSERT INTO `t05901l04` (`id`, `GMSMHStateId`, `GMSMHCountryId`, `GMSMHDesc1`, `
 (37, '12', 'aaa', '12', '12', NULL, 0, 'Krishna', '2022-12-07 18:35:23', '2022-12-07 18:35:23', NULL),
 (38, '123', 'MY', '2', '3', NULL, 0, 'Krishna', '2022-12-07 19:20:37', '2022-12-07 19:20:37', NULL),
 (39, '1000', 'SG', '123', '1233', NULL, 0, 'Krishna', '2022-12-09 18:32:40', '2022-12-09 18:32:40', NULL),
-(40, 'NANA', 'IN', 'NANA 1', 'NANA 2', NULL, 0, 'admin', '2022-12-11 13:57:03', '2022-12-11 13:57:03', NULL);
+(40, 'NAN', 'IN', 'NANA 1', 'NANA 2', NULL, 0, 'admin', '2023-01-27 10:02:30', '2023-01-27 10:02:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -378,7 +378,7 @@ CREATE TABLE `t05901l05` (
   `GMCTHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMCTHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMCTHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05901l05`
@@ -410,7 +410,7 @@ CREATE TABLE `t05901l06` (
   `GMLMHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMLMHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMLMHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05901l06`
@@ -437,7 +437,7 @@ CREATE TABLE `t05901l07` (
   `GMCRHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMCRHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `GMCRHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05901l07`
@@ -465,7 +465,7 @@ CREATE TABLE `t05902l01` (
   `BMBNHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `BMBNHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `BMBNHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05902l01`
@@ -495,7 +495,7 @@ CREATE TABLE `t05902l02` (
   `BMBRHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `BMBRHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `BMBRHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05902l02`
@@ -522,7 +522,7 @@ CREATE TABLE `t05902l03` (
   `BMATHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `BMATHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `BMATHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05902l03`
@@ -548,7 +548,7 @@ CREATE TABLE `t05902l04` (
   `BMPMHLastCreated` datetime NOT NULL DEFAULT current_timestamp(),
   `BMPMHLastUpdated` datetime NOT NULL DEFAULT current_timestamp(),
   `BMPMHDeletedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `t05902l04`
@@ -577,7 +577,7 @@ CREATE TABLE `t92` (
   `MNDesc1` varchar(100) NOT NULL,
   `MNDesc2` varchar(100) NOT NULL,
   `MNDesc3` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t92`
@@ -588,7 +588,7 @@ INSERT INTO `t92` (`id`, `MNCompId`, `MNSystemId`, `MNRootCode`, `MNParentCode`,
 (2, '', 11, 0, '0.00', '91.00', 'Configuration', '', '', 'Configuration', '', '', ''),
 (3, '', 11, 0, '89.00', '88.00', 'App 2', 'APP', 'app/index', 'App 2', '', '', ''),
 (4, '', 11, 0, '91.00', '9100.00', 'Admin', '', '', 'Admin', '', '', ''),
-(5, '', 11, 0, '91.00', '9200.00', 'Systems', 'SYS', 'system/index', 'Systems', '', '', ''),
+(5, '', 11, 0, '91.00', '9200.00', 'State Master', 'ST', 'manage-state', 'State', '', '', ''),
 (5, '', 11, 0, '91.00', '9300.00', 'Common', '', '', 'Common', '', '', ''),
 (6, '', 11, 0, '9100.00', '9101.00', 'Company Master', 'CSM1', 'company/index1', 'Customize/Company Master', '', '', ''),
 (7, '', 11, 0, '9100.00', '9102.00', 'General', 'GEN', 'general/index', 'General Info', '', '', ''),
@@ -608,7 +608,7 @@ CREATE TABLE `technical_error` (
   `error` text DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `technical_error`
@@ -620,16 +620,40 @@ INSERT INTO `technical_error` (`id`, `error`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `theme_setting`
+--
+
+CREATE TABLE `theme_setting` (
+  `id` int(11) NOT NULL,
+  `type` varchar(200) DEFAULT NULL,
+  `theme` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `theme_setting`
+--
+
+INSERT INTO `theme_setting` (`id`, `type`, `theme`) VALUES
+(1, 'table', 'purple_Browser1D_3SIS'),
+(2, 'table', 'purple_Browser2D_3SIS'),
+(3, 'modal', 'purple_ContentModal1D_3SIS'),
+(4, 'modal', 'purple_ContentModal2D_3SIS'),
+(5, 'card', 'purple_Card1D_3SIS');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `theme` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`theme`)),
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -638,9 +662,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@cork.com', NULL, '$2y$10$4.qdQyWtb/vE0QFvV3H1qOQWFsJ.qo732L2mwdnpWzzt.6LAMy49S', NULL, '2022-11-01 18:14:50', '2022-11-01 18:14:50'),
-(2, 'krishna', 'krishna@gmail.com', NULL, '$2y$10$4.qdQyWtb/vE0QFvV3H1qOQWFsJ.qo732L2mwdnpWzzt.6LAMy49S', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `theme`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@cork.com', NULL, '$2y$10$4.qdQyWtb/vE0QFvV3H1qOQWFsJ.qo732L2mwdnpWzzt.6LAMy49S', NULL, '{\"table\":2, \"modal\": 3,\"card\":5}', '2022-11-01 18:14:50', '2022-11-01 18:14:50'),
+(2, 'krishna', 'krishna@gmail.com', NULL, '$2y$10$4.qdQyWtb/vE0QFvV3H1qOQWFsJ.qo732L2mwdnpWzzt.6LAMy49S', NULL, '{\"table\":1, \"modal\": 4,\"card\":5}', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -759,6 +783,12 @@ ALTER TABLE `technical_error`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `theme_setting`
+--
+ALTER TABLE `theme_setting`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -863,6 +893,12 @@ ALTER TABLE `t05902l04`
 --
 ALTER TABLE `technical_error`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `theme_setting`
+--
+ALTER TABLE `theme_setting`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
