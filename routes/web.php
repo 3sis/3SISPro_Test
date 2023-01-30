@@ -17,15 +17,14 @@ Route::group(['middleware'=>['guest']],function () {
 
 Route::group(['middleware'=>['auth']],function () {
     Route::controller(StateController::class)->group(function () {
-            // Route::post('save_state', 'save');
-            Route::get('{manage}-state{id?}', 'index');
-            Route::post('/state/save', 'save');
-            Route::get('/get/state', 'state_list');
-            Route::get('/state/Master/Update', 'fetchData');
-            Route::get('/state/Master/Delete', 'Restore_Delete_Data');
-            Route::get('/state/Delete/list', 'DeleteList');
+            //add-edit
+            Route::get('state/{action?}/{id?}', 'index');
             Route::get('state_report/{type}', 'report');
-            Route::get('/test', 'test');
+            Route::post('state_save', 'save');
+            Route::get('get_state', 'state_list');
+            Route::get('state_delete', 'Restore_Delete_Data');
+            Route::get('delete_state_list', 'DeleteList');
+            // Route::get('get_state_Update', 'fetchData');
 });
 
 // Route::get('logout',[AuthController::class,'logout']);

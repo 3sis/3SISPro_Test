@@ -21,14 +21,13 @@ class StateController extends Controller
     use Error;
     public function index(Request $request)
     {  
-        $manage = $request->manage;
-        $id = $request->id;
         $edit_data = '';
-        if($id>0){
-           $edit_data = $this->getStateData(Crypt::decryptString($id));
+        $action = $request->action;
+        if(!empty($request->id)){
+          $edit_data = $this->getStateData(Crypt::decryptString($request->id));
         }
         $countries = Country::all();
-        return view('config.Geographic.state.index1',compact( 'manage','id','edit_data','countries'));
+        return view('config.Geographic.state.index',compact( 'action','edit_data','countries'));
     }
 
      public function save(Request $request)
@@ -129,24 +128,7 @@ class StateController extends Controller
         }
     }
 
-    public function test()
-    {
-        try {
-            $fetchData = State::whereaaa('id', $request->id)->first();
-            if ($fetchData) {
-                return response()->json(['status' => 'success','data' =>$fetchData]);
-            } else {
-                return response()->json(['status' => 'error' ]);
-            }
-        } catch (QueryException $e) {
-            Log::error($e->getMessage());
-            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
-        } catch (\Exception $e) {
-            Log::error($e->getmessage());
-            $this->error_log($e);
-            return response()->json(['status' => 'technical_error']);
-        }
-    }
+   
     public function getStateData($id)
     {
         try {

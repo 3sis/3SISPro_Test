@@ -21,7 +21,7 @@
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
                     @foreach(menu() as $data)
-                    <li class="menu {{ parent_menu_id(Request::path()) == $data->MNChildCode ? 'active' : '' }}">
+                    <li class="menu {{ parent_menu_id(Request::path()) == $data->MNChildCode ? 'active' : 'active' }}">
 
                     @if(parent_menu_id(Request::path()) == $data->MNChildCode)    
                     <a href="#dashboard{{$data->id}}" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">

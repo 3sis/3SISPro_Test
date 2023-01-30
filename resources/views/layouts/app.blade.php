@@ -82,6 +82,7 @@
 <script src="{{asset('assets/plugins/src/global/vendors.min.js')}}"></script>
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="{{asset('assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/js/bootstrap/bootstrap.bundle.min2.js')}}"></script>
     <script src="{{asset('assets/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('assets/plugins/src/mousetrap/mousetrap.min.js')}}"></script>
     <script src="{{asset('assets/plugins/src/waves/waves.min.js')}}"></script>
@@ -94,7 +95,7 @@
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <!-- <script src="{{asset('assets/plugins/src/apex/apexcharts.min.js')}}"></script> -->
-    <script src="{{asset('assets/js/dashboard/dash_1.js')}}"></script>
+    <!-- <script src="{{asset('assets/js/dashboard/dash_1.js')}}"></script> -->
 
     <script src="{{ asset('assets/js/common3SIS/validation3SIS.js') }}"></script>
 

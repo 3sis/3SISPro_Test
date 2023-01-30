@@ -13,59 +13,22 @@
    border-color: rgb(102, 175, 233); 
    outline: 0px
    }
-
-   .section {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-}
-
-.section:nth-child(odd) {
-    background: rgb(157, 118, 248);
-}
-
-.section:nth-child(even) {
-    background: rgb(70, 27, 187);
-}
 </style>
- <!-- <link href="https://designreset.com/cork/html/src/assets/css/dark/apps/todolist.css" rel="stylesheet" type="text/css" /> -->
 @endsection
+<div class="mt-1" style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
+   <form id='AddForm' method="post" autocomplete="off">
+      <div class="row justify-content-center">
 
-<!-- Scroll Spy Navigation -->
-    <nav id="navbar-example2" class="navbar sticky-top bg-dark" style="top: 110px;">
-         <!-- <div class="row"> -->
          <div class="col-auto me-auto mt-2 error_msg">
-           <ul class="nav nav-pills mb-2 ms-1">
-                <li class="nav-item">
-                    <a class="nav-link" href="#home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#add">Add</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#portfolio">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#footer">Footer</a>
-                </li>
-            </ul>
          </div>
-
-
-         <div class="col-auto me-1">
-             @if($manage == 'add' || $manage == 'edit')
+         
+         <div class="col-auto">
+            @if($manage == 'add' || $manage == 'edit')
             <a href="#" class="btn btn-danger" id="btn_error">Error</a>
             <a href="{{ url('manage-state') }}" class="btn btn-info">Back</a>
             <button id="save" class="btn btn-success">{{$manage == 'add' ? 'Add' : 'Edit'}}</button>
-             @endif
-
-             @if($manage == 'manage')
+            @endif
+            @if($manage == 'manage')
             <a class="btn btn-danger btn-icon btnUnDeleteRec3SIS" href="javascript:void(0)" id='Undelete_Data' class='' title="Restore">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rotate-ccw"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
             </a>
@@ -79,46 +42,12 @@
             <a class="btn btn-light btn-icon" href="{{ url('state_report/pdf') }}" target="_blank">
 <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="48px" height="48px"><path fill="#e53935" d="M38,42H10c-2.209,0-4-1.791-4-4V10c0-2.209,1.791-4,4-4h28c2.209,0,4,1.791,4,4v28 C42,40.209,40.209,42,38,42z"/><path fill="#fff" d="M34.841,26.799c-1.692-1.757-6.314-1.041-7.42-0.911c-1.627-1.562-2.734-3.45-3.124-4.101 c0.586-1.757,0.976-3.515,1.041-5.402c0-1.627-0.651-3.385-2.473-3.385c-0.651,0-1.237,0.391-1.562,0.911 c-0.781,1.367-0.456,4.101,0.781,6.899c-0.716,2.018-1.367,3.97-3.189,7.42c-1.888,0.781-5.858,2.604-6.183,4.556 c-0.13,0.586,0.065,1.172,0.521,1.627C13.688,34.805,14.273,35,14.859,35c2.408,0,4.751-3.32,6.379-6.118 c1.367-0.456,3.515-1.107,5.663-1.497c2.538,2.213,4.751,2.538,5.923,2.538c1.562,0,2.148-0.651,2.343-1.237 C35.492,28.036,35.297,27.32,34.841,26.799z M33.214,27.905c-0.065,0.456-0.651,0.911-1.692,0.651 c-1.237-0.325-2.343-0.911-3.32-1.692c0.846-0.13,2.734-0.325,4.101-0.065C32.824,26.929,33.344,27.254,33.214,27.905z M22.344,14.497c0.13-0.195,0.325-0.325,0.521-0.325c0.586,0,0.716,0.716,0.716,1.302c-0.065,1.367-0.325,2.734-0.781,4.036 C21.824,16.905,22.019,15.083,22.344,14.497z M22.214,27.124c0.521-1.041,1.237-2.864,1.497-3.645 c0.586,0.976,1.562,2.148,2.083,2.669C25.794,26.213,23.776,26.604,22.214,27.124z M18.374,29.728 c-1.497,2.473-3.059,4.036-3.905,4.036c-0.13,0-0.26-0.065-0.391-0.13c-0.195-0.13-0.26-0.325-0.195-0.586 C14.078,32.136,15.77,30.899,18.374,29.728z"/></svg>
             </a>
-              @endif  
+            @endif  
          </div>
-      <!-- </div> -->
-
-    </nav>
-
-
-
-    <!-- Scroll Spy Main Content -->
-    <main data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0" style=" position: relative; top: 4px;">
-        
-        <!-- Hero Section Start -->
- @if($manage == 'manage')
-<div class="table-responsive mt-2" id="home" >
-   <table id="landingPageBrowser3SIS"
-      class="table dt-table-hover dataTable no-footer {{theme('table')}}">
-      <thead>
-         <tr>
-            <th title="State Id">ID</th>
-            <th>State Name</th>
-            <th>Country Name</th>
-            <th>User</th>
-            <th>Action</th>
-            <th style="visibility: hidden;">Desc2</th>
-            <th style="visibility: hidden;">Bi Desc</th>
-            <th style="visibility: hidden;">User</th>
-            <th style="visibility: hidden;">Updated</th>
-            <th style="visibility: hidden;">Unique Id</th>
-         </tr>
-      </thead>
-   </table>
+      </div>
 </div>
-@endif
-        <!-- </section> -->
-        <!-- Hero Section End -->
-
-        <!-- About Section Start -->
-            @if($manage == 'add' || $manage == 'edit')
-<div class="row" id="add">
-        <!-- <section  id="about" class="section"> -->
+@if($manage == 'add' || $manage == 'edit')
+<div class="row">
 <div id="flStackForm" class="col-lg-12 layout-spacing layout-top-spacing">
 <div class="statbox widget box box-shadow">
 <div class="widget-header">
@@ -180,31 +109,87 @@
 </div>
 </div>
 @endif
-
-        <!-- </section> -->
-        <!-- About Section End -->
-
-        <!-- Portfolio Section Start -->
-        <section id="portfolio" class="section">
-            <h1>Portfolio Section</h1>
-        </section>
-        <!-- Portfolio Section End -->
-
-        <!-- Contact Section Start -->
-        <section id="contact" class="section">
-            <h1>Contact Section</h1>
-        </section>
-        <!-- Contact Section End -->
-
-        <!-- Footer Section Start -->
-        <section id="footer" class="section">
-            <h1>Footer Section</h1>
-        </section>
-        <!-- Footer Section End -->
-
-    </main>
-
-
+@if($manage == 'manage')
+<div class="table-responsive mt-2">
+   <table id="landingPageBrowser3SIS"
+      class="table dt-table-hover dataTable no-footer {{theme('table')}}">
+      <thead>
+         <tr>
+            <th title="State Id">ID</th>
+            <th>State Name</th>
+            <th>Country Name</th>
+            <th>User</th>
+            <th>Action</th>
+            <th style="visibility: hidden;">Desc2</th>
+            <th style="visibility: hidden;">Bi Desc</th>
+            <th style="visibility: hidden;">User</th>
+            <th style="visibility: hidden;">Updated</th>
+            <th style="visibility: hidden;">Unique Id</th>
+         </tr>
+      </thead>
+   </table>
+</div>
+@endif
+<!-- start undeletemodal -->
+<div id="UndoModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog"
+   aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered 3SISPro-modal-dialog" role="document"
+      style="max-width:1000px!important;">
+      <div class="modal-content {{theme('card')}}">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+            <button type="button" data-bs-dismiss="modal" aria-label="Close">
+               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+               </svg>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="container-fluid">
+               <div class="table-responsive">
+                  <table id="UndoModalTable" class="{{theme('table')}}" style="width:100%">
+                     <thead>
+                        <tr>
+                           <th title="State Id">ID</th>
+                           <th>State Name</th>
+                           <th>Country Name</th>
+                           <th>User</th>
+                           <th>Action</th>
+                           <th style="visibility: hidden;">Unique Id</th>
+                        </tr>
+                     </thead>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end undeletemodal -->
+<!-- Error Model -->
+<div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog"
+   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Errors</h5>
+            <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            X
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="w-100 msg_error"></div>
+         </div>
+         <div class="modal-footer">
+            <button class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Error Model end-->
 @endsection
 @section('js_code')
 @include('inc.js_file')
@@ -243,7 +228,7 @@
         order: [0, "desc"],
         processing: true,
         serverSide: true,
-        "ajax": "/get/state",
+        "ajax": "get_state",
         "columns": [
             { data: "GMSMHStateId" },
             { data: "GMSMHDesc1" },
@@ -314,7 +299,7 @@
         var action = $('#action').val();
         console.log('action: '+action);
         $.ajax({
-                url: "{{url('/state/save')}}",
+                url: "{{url('state_save')}}",
                 method: 'post',
                 data: new FormData(this),
                 processData: false,
@@ -373,7 +358,7 @@
         processing: true,
         serverSide: true,
         destroy: true,
-        "ajax": "/state/Delete/list",
+        "ajax": "delete_state_list",
         "columns": [
             { data: "GMSMHStateId" },
             { data: "GMSMHDesc1" },
@@ -410,7 +395,7 @@ $(document).on('click', '.delete', function () {
          console.log(result)
         if (result.isConfirmed) {
              $.ajax({
-            url: "/state/Master/Delete",
+            url: "state_delete",
             mehtod: "get",
             data: { id: id ,action:action},
             success: function (data) {
@@ -447,7 +432,7 @@ $(document).on('click', '.restore', function () {
                  console.log(result)
                 if (result.isConfirmed) {
                     $.ajax({
-                    url: "/state/Master/Delete",
+                    url: "state_delete",
                     mehtod: "get",
                     data: { id: id,action:action },
                     success: function (data) {
@@ -464,6 +449,4 @@ $(document).on('click', '.restore', function () {
             })
 });
 </script>
-  <!-- <script src="https://designreset.com/cork/html/src/assets/js/apps/todoList.js"></script> -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 @endsection
