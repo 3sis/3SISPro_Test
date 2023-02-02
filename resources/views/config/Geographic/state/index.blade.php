@@ -107,9 +107,16 @@
             </ul>
         </div>
         <div class="col-auto me-1">
-                <a href="#" class="btn btn-danger" id="btn_error">Error</a>
-                <a href="{{ url('state') }}" class="btn btn-info">Back</a>
-                <button id="save" class="btn btn-success">{{ $action == 'add' ? 'Add' : 'Edit' }}</button>
+                <a href="#" class="btn btn-danger" id="btn_error"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></a>
+                <a href="{{ url('state') }}" class="btn btn-info"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+                <button id="save" class="btn btn-success">
+  
+                @if($action == 'add')
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                @else
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                @endif
+                </button>
         </div>
     </nav>
 @endif
@@ -204,10 +211,16 @@
                             @endif
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">State Id</label>
-                                <input type="text" name='GMSMHStateId' id='GMSMHStateId'
+                                 @if(!empty($edit_data['id']))
+                                 <input type="text" name='GMSMHStateId' id='GMSMHStateId'
                                     class='form-control threshold' maxlength="20" placeholder="Enter State Name"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMSMHStateId', $edit_data['GMSMHStateId'] ?? '') }}">
+                                    value="{{$edit_data['GMSMHStateId']}}" readonly>
+                                 @else
+                                 <input type="text" name='GMSMHStateId' id='GMSMHStateId'
+                                    class='form-control threshold' maxlength="20" placeholder="Enter State Name"
+                                    style='border-color: rgb(102, 175, 233); outline: 0px'>
+                                @endif
                             </div>
                             <div class="col-md-6">
                                 <label for="inputPassword4" class="form-label">Description 1</label>
