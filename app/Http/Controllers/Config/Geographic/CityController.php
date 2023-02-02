@@ -12,6 +12,7 @@ use App\Models\t92;
 use App\Models\Config\Geographic\City;
 use App\Models\Config\Geographic\State;
 use App\Models\Config\Geographic\Country;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Arr;
 
 // use App\Models\Technical_Error;
@@ -22,26 +23,19 @@ use DataTables;
 class CityController extends Controller
 {
     use CommonDataTables,Error;
-    public function menu()
+    public function index(Request $request)
     {
-        return $menu = t92::tree();
-    }
-    public function index()
-    {
-       // $data = $this->dataTableXLSchemaTrait();
-       $menu = $this->menu();
-       $theme_Browser1_3SIS = 'purple_Browser1D_3SIS';
-       $theme_Browser2_3SIS = 'purple_Browser2D_3SIS';
-       $theme_ContentModal1D_3SIS = 'purple_ContentModal1D_3SIS';
-       $theme_ContentModal2D_3SIS = 'purple_ContentModal2D_3SIS';
-       $theme_Card1D_3SIS = 'purple_Card1D_3SIS';
+        $edit_data = '';
+        $action = $request->action;
+        if(!empty($request->id)){
+          $edit_data = $this->getCityData(Crypt::decryptString($request->id));
+        }
+        $state_list = State::all();
+        return view('config.Geographic.city',compact( 'action','edit_data','state_list'));
 
-       $UserId = Auth::user()->name;
-       // $UserId = 'Admin_Root';
-       $state_list = State::all();
-       return view('config.Geographic.city',
-            compact('menu','UserId', 'theme_Browser1_3SIS', 'theme_Browser2_3SIS', 'theme_ContentModal1D_3SIS',
-                'theme_ContentModal2D_3SIS', 'theme_Card1D_3SIS','state_list'));
+        // $data = $this->dataTableXLSchemaTrait();
+        //$UserId = Auth::user()->name;
+        // $UserId = 'Admin_Root';
     }
 
      public function save(Request $request)
@@ -148,30 +142,25 @@ class CityController extends Controller
         }
 
     }
-
-    public function test()
+    public function getCityData($id)
     {
         try {
-            $fetchData = City::whereaaa('id',$request->id)->first();
-            if($fetchData){
-                   return response()->json(['status' => 'success','data' =>$fetchData]);
-            }else{
-                   return response()->json(['status' => 'error' ]);
-            }
-         } catch (QueryException $e) {
+           return City::where('id', $id)->with('fnState','fnCountry')->first();
+        } catch (QueryException $e) {
             Log::error($e->getMessage());
-            return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
+            return response()->json(['status' => 'technical_error']);
         } catch (\Exception $e) {
-            Log::error($e->getmessage());
+            Log::error($e->getMessage());
             $this->error_log($e);
             return response()->json(['status' => 'technical_error']);
         }
     }
+
     public function getStateDesc(Request $request)
     {
         $State_Detail = State::with('fnCountry')->where('GMSMHStateId', $request->id)->first();
-        // dd($State_Detail);
         $stateDetail = [];
+        // dd($State_Detail);
         // $stateDetail['StateId'] = $State_Detail['GMSMHStateId'];
         // $stateDetail['StateDesc'] = $State_Detail['GMSMHDesc1'];
         $stateDetail['CountryId'] = $State_Detail['fnCountry']['GMCMHCountryId'];

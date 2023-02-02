@@ -12,32 +12,45 @@ Route::group(['middleware'=>['guest']],function () {
        Route::get('/','index')->name('login');
        Route::post('login', 'login')->name('login_check');
        // Route::get('logout', 'logout')->name('logout');
-   }); 
-});    
+   });
+});
 
 Route::group(['middleware'=>['auth']],function () {
     Route::controller(StateController::class)->group(function () {
-            //add-edit
-            Route::get('state/{action?}/{id?}', 'index');
-            Route::get('state_report/{type}', 'report');
-            Route::post('state_save', 'save');
-            Route::get('get_state', 'state_list');
-            Route::get('state_delete', 'Restore_Delete_Data');
-            Route::get('delete_state_list', 'DeleteList');
-            // Route::get('get_state_Update', 'fetchData');
+        //add-edit
+        Route::get('state/{action?}/{id?}', 'index');
+        Route::get('state_report/{type}', 'report');
+        Route::post('state_save', 'save');
+        Route::get('get_state', 'state_list');
+        Route::get('state_delete', 'Restore_Delete_Data');
+        Route::get('delete_state_list', 'DeleteList');
+        // Route::get('get_state_Update', 'fetchData');
+    });
+
+    // city Master
+    Route::controller(CityController::class)->group(function () {
+        // Route::get('/','index');
+        Route::get('city/{action?}/{id?}', 'index');
+        Route::post('city_save', 'save');
+        Route::get('get_city', 'city_list');
+        Route::get('city_Delete', 'Restore_Delete_Data');
+        Route::get('delete_city_list', 'DeleteList');
+        Route::get('get_state_desc', 'getStateDesc')->name('get_state_desc');
+        Route::get('City_report/{type}', 'report');
+
+    });
+
+    // Route::get('logout',[AuthController::class,'logout']);
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('logout', 'logout')->name('logout');
+        Route::get('home','home');
+        Route::get('fastpath','fastpath');
+    });
 });
 
-// Route::get('logout',[AuthController::class,'logout']);
-    Route::controller(AuthController::class)->group(function () {
-          Route::get('logout', 'logout')->name('logout');
-          Route::get('home','home');
-          Route::get('fastpath','fastpath');
-    });
-});    
-
 // Route::group(['middleware'=>['LoginCheck']],function () {
-// }); 
-   
+// });
+
 // Location Master
 Route::controller(LocationController::class)->group(function () {
     // Route::get('/','index');
@@ -51,17 +64,16 @@ Route::controller(LocationController::class)->group(function () {
     Route::post('/geographic/city', 'getCityDesc');
 });
 // city Master
-Route::controller(CityController::class)->group(function () {
-    // Route::get('/','index');
-    Route::get('/city', 'index');
-    Route::post('/city/save', 'save');
-    Route::get('/get/city', 'city_list');
-    Route::get('/city/Master/Update', 'fetchData');
-    Route::get('/city/Master/Delete', 'Restore_Delete_Data');
-    Route::get('/city/Delete/list', 'DeleteList');
-    Route::get('/test', 'test');
-    Route::post('/geographic/State', 'getStateDesc');
-});
+// Route::controller(CityController::class)->group(function () {
+//     // Route::get('/','index');
+//     Route::get('/city', 'index');
+//     Route::post('/city/save', 'save');
+//     Route::get('/get/city', 'city_list');
+//     Route::get('/city/Master/Update', 'fetchData');
+//     Route::get('/city/Master/Delete', 'Restore_Delete_Data');
+//     Route::get('/city/Delete/list', 'DeleteList');
+//     Route::get('/test', 'test');
+// });
 // country Master
 Route::controller(CountryController::class)->group(function () {
     // Route::get('/','index');
