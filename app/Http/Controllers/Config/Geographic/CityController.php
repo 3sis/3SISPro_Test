@@ -91,8 +91,7 @@ class CityController extends Controller
     public function city_list()
     {
         $city_list = City::where('GMCTHMarkForDeletion','!=',1)->with('fnState','fnCountry')->get();
-        // dd($city_list);
-        return $this->TableActionTrait($city_list);
+        return $this->TableActionTrait('city',$city_list);
     }
 
     public function DeleteList()

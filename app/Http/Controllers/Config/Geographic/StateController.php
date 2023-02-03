@@ -78,7 +78,7 @@ class StateController extends Controller
     public function state_list()
     {
         $state_list = State::where('GMSMHMarkForDeletion', '!=', 1)->with('fnCountry')->get();
-        return $this->TableActionTrait($state_list);
+        return $this->TableActionTrait('state',$state_list);
     }
 
     public function DeleteList()
