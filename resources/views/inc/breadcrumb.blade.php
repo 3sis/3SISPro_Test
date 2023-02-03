@@ -13,8 +13,8 @@
                         
                                         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                                             <ol class="breadcrumb">
-                                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                                <li class="breadcrumb-item active" aria-current="page">Analytics 1</li>
+                                                <!-- <li class="breadcrumb-item"><a href="#">Dashboard</a></li> -->
+                                                <li class="breadcrumb-item active text-success h5" aria-current="page">{{breadcrumb(Request::segment(1))}}</li>
                                             </ol>
                                         </nav>
                         
