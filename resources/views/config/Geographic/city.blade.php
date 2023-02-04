@@ -2,8 +2,7 @@
 @section('content')
 @section('css')
     @include('inc.style')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    @include('inc.flatpickr_css')
     @if (Request::path() == 'city')
         @include('inc.datatable')
     @endif
@@ -12,9 +11,9 @@
             margin-top: 2px;
         }
 
-        #input_border {
-            border-color: rgb(102, 175, 233);
-            outline: 0px
+        .input_border {
+            border-color: rgb(102, 175, 233) !important;
+            outline: 0px !important;
         }
 
         .section {
@@ -35,7 +34,6 @@
         }
     </style>
 @endsection
-
 @if (Request::path() == 'city')
     <div class="mt-1"
         style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
@@ -53,7 +51,7 @@
                             <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
                         </svg>
                     </a>
-                    <a class="btn btn-success btn-icon" href="{{ url('city/add') }}">
+                    <a class="btn btn-success btn-icon" href="{{ url('city/add') }}" title="Create">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-plus">
@@ -61,7 +59,7 @@
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
                     </a>
-                    <a class="btn btn-light btn-icon" href="{{ url('city_report/excel') }}" target="_blank">
+                    <a class="btn btn-light btn-icon" href="{{ url('city_report/excel') }}" target="_blank" title="Excel">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
                             <path fill="#169154" d="M29,6H15.744C14.781,6,14,6.781,14,7.744v7.259h15V6z" />
                             <path fill="#18482a" d="M14,33.054v7.202C14,41.219,14.781,42,15.743,42H29v-8.946H14z" />
@@ -80,7 +78,7 @@
                                 d="M9.807 19L12.193 19 14.129 22.754 16.175 19 18.404 19 15.333 24 18.474 29 16.123 29 14.013 25.07 11.912 29 9.526 29 12.719 23.982z" />
                         </svg>
                     </a>
-                    <a class="btn btn-light btn-icon" href="{{ url('city_report/pdf') }}" target="_blank">
+                    <a class="btn btn-light btn-icon" href="{{ url('city_report/pdf') }}" target="_blank" title="Pdf">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
                             <path fill="#e53935"
                                 d="M38,42H10c-2.209,0-4-1.791-4-4V10c0-2.209,1.791-4,4-4h28c2.209,0,4,1.791,4,4v28 C42,40.209,40.209,42,38,42z" />
@@ -109,9 +107,9 @@
                 </ul>
         </div>
         <div class="col-auto me-1">
-            <a href="#" class="btn btn-danger" id="btn_error"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></a>
-            <a href="{{ url('city') }}" class="btn btn-info"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
-            <button id="save" class="btn btn-success">
+            <a href="#" class="btn btn-danger" id="btn_error" title="Error"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></a>
+            <a href="{{ url('city') }}" class="btn btn-info" title="Back"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+            <button id="save" class="btn btn-success" title="{{ $action == 'add' ? 'Save' : 'Update' }}">
 
             @if($action == 'add')
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
@@ -204,7 +202,7 @@
                         <div class="row g-3">
                             @csrf
                             @if (!empty($edit_data['id']))
-                                <input type="hidden" name="id" value="{{ $edit_data['id'] }}">
+                                <input type="hidden" name="id" id="id" value="{{ $edit_data['id'] }}">
                             @endif
                             @if ($action == 'add')
                                 <input type="hidden" id="action" value="insert">
@@ -212,14 +210,14 @@
                                 <input type="hidden" id="action" value="update">
                             @endif
                             <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">City Id</label>
+                                <label for="inputEmail4" class="form-label">City Id<b class="text-danger">*</b></label>
                                 <input type="text" name='GMCTHCityId' id='GMCTHCityId'
                                     class='form-control threshold' maxlength="20" placeholder="Enter City Name"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('GMCTHCityId', $edit_data['GMCTHCityId'] ?? '') }}">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputPassword4" class="form-label">Description 1</label>
+                                <label for="inputPassword4" class="form-label">Description 1<b class="text-danger">*</b></label>
                                 <input type="text" name='GMCTHDesc1' id='GMCTHDesc1'
                                     class='form-control threshold' maxlength="20"
                                     placeholder="Enter City Description 1"
@@ -232,7 +230,7 @@
                                     placeholder="Enter City Description 2" style='border-color: rgb(102, 175, 233); outline: 0px'>{{ old('GMCTHDesc2', $edit_data['GMCTHDesc2'] ?? '') }}</textarea>
                             </div>
                             <div class="col-md-4">
-                                <label for="inputState" class="form-label">State</label>
+                                <label for="inputState" class="form-label">State<b class="text-danger">*</b></label>
                                 <select id='GMCTHStateId' name='GMCTHStateId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
                                     <option value=''>Select State</option>
@@ -254,9 +252,6 @@
                                     <input type="text" name='countryName' id='countryName' class='form-control' readonly>
                                 </div>
                             </div>
-                            <!--  <div class="col-6 mt-5">
-   <button type="submit" class="btn btn-primary _effect--ripple waves-effect waves-light">Add</button>
-   </div> -->
                         </div>
                         </form>
                     </div>
@@ -278,26 +273,33 @@
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label for="user" class="form-label">User</label>
+                                @if(!empty($edit_data['id']))
                                 <input type="text" name='GMCTHUser' id='GMCTHUser'
-                                    class='form-control '
-                                    style='border-color: rgb(102, 175, 233); outline: 0px'
+                                    class='form-control input_border'
                                     value="{{ old('GMCTHUser', $edit_data['GMCTHUser'] ?? '') }}" readonly>
+                                     @else
+                                      <input type="text" name='GMCTHUser' id='GMCTHUser'
+                                    class='form-control input_border'
+                                    value="{{ Auth::user()->name }}" readonly>
+                                    @endif
                             </div>
                             <div class="col-md-4">
                                 <label for="Created" class="form-label">Created On</label>
-                                <input type="date" name='GMCTHLastCreated' id='GMCTHLastCreated'
-                                    class='form-control '
-                                    style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMCTHLastCreated', date('Y-m-d',strtotime($edit_data['GMCTHLastCreated'])) ?? '') }}" readonly>
-                                    {{-- value="{{ old('GMCTHLastCreated', $edit_data->GMCTHLastCreated->format('d/m/Y') ?? '') }}" readonly> --}}
-
+                                 @if(!empty($edit_data['id']))
+                                   <input type="text" name='GMCTHLastCreated' id='GMCTHLastCreated'
+                                    class='form-control input_border'
+                                    value="{{ date('d-m-Y',strtotime($edit_data['GMCTHLastCreated']))}}" readonly>
+                                 @else
+                                  <input id="GMCTHLastCreated" name='GMCTHLastCreated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly">
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label for="Updated" class="form-label">Updated On</label>
-                                <input type="date" name='GMCTHLastUpdated' id='GMCTHLastUpdated'
-                                    class='form-control '
-                                    style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMCTHLastUpdated', date('Y-m-d',strtotime($edit_data['GMCTHLastUpdated'])) ?? '') }}" readonly>
+                                 @if(!empty($edit_data['id']))
+                                  <input id="GMCTHLastUpdated" name='GMCTHLastUpdated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly" value="{{ date('d-m-Y',strtotime($edit_data['GMCTHLastUpdated']))}}">
+                                 @else
+                                  <input id="GMCTHLastUpdated" name='GMCTHLastUpdated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly">
+                                @endif
                             </div>
                         </div>
 
@@ -333,18 +335,15 @@
 @endsection
 @section('js_code')
 @include('inc.js_file')
+@include('inc.flatpickr_js')
 {{-- <!-- <script src={{ asset('assets/common/js/CityMasterAjax.js') }}></script> --> --}}
 <script type="text/javascript">
     $(document).ready(function() {
         var id = $('#GMCTHStateId').val();
-        if (id!='') {
-            getDesc(id);
+        if (id != undefined && id != '') {
+            console.log("id"+id);
+           getDesc(id);
         }
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //      }
-        // });
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -666,11 +665,10 @@
     });
     $('#GMCTHStateId').change(function () {
         var id = $(this).val();
-        // alert(id);
         getDesc(id);
-
     });
 function getDesc(id){
+    console.log(id);
     $.ajax({
         url: "{{ url('get_state_desc') }}",
         type: 'get',
@@ -680,6 +678,18 @@ function getDesc(id){
             $('#countryName').val(response.CountryDesc);
         }
     })
+}
+//Date picker
+console.log($('#id').val());
+if($('#id').val() != undefined){
+    $('#GMCTHLastCreated,#GMCTHLastUpdated').flatpickr({
+    dateFormat: "d-m-Y"
+});
+}else{
+    $('#GMCTHLastCreated,#GMCTHLastUpdated').flatpickr({
+    defaultDate: new Date(),
+    dateFormat: "d-m-Y"
+});
 }
 </script>
 @endsection

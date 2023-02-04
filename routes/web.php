@@ -63,18 +63,6 @@ Route::group(['middleware'=>['auth']],function () {
 // Route::group(['middleware'=>['LoginCheck']],function () {
 // });
 
-
-// city Master
-// Route::controller(CityController::class)->group(function () {
-//     // Route::get('/','index');
-//     Route::get('/city', 'index');
-//     Route::post('/city/save', 'save');
-//     Route::get('/get/city', 'city_list');
-//     Route::get('/city/Master/Update', 'fetchData');
-//     Route::get('/city/Master/Delete', 'Restore_Delete_Data');
-//     Route::get('/city/Delete/list', 'DeleteList');
-//     Route::get('/test', 'test');
-// });
 // country Master
 Route::controller(CountryController::class)->group(function () {
     // Route::get('/','index');

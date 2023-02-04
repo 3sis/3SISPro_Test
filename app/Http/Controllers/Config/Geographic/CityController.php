@@ -32,10 +32,6 @@ class CityController extends Controller
         }
         $state_list = State::all();
         return view('config.Geographic.city',compact( 'action','edit_data','state_list'));
-
-        // $data = $this->dataTableXLSchemaTrait();
-        //$UserId = Auth::user()->name;
-        // $UserId = 'Admin_Root';
     }
 
      public function save(Request $request)
