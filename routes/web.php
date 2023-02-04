@@ -33,10 +33,22 @@ Route::group(['middleware'=>['auth']],function () {
         Route::get('city/{action?}/{id?}', 'index');
         Route::post('city_save', 'save');
         Route::get('get_city', 'city_list');
-        Route::get('city_Delete', 'Restore_Delete_Data');
+        Route::get('city_delete', 'Restore_Delete_Data');
         Route::get('delete_city_list', 'DeleteList');
         Route::get('get_state_desc', 'getStateDesc')->name('get_state_desc');
-        Route::get('City_report/{type}', 'report');
+        Route::get('city_report/{type}', 'report');
+
+    });
+    // Location Master
+    Route::controller(LocationController::class)->group(function () {
+        // Route::get('/','index');
+        Route::get('location/{action?}/{id?}', 'index');
+        Route::post('location_save', 'save');
+        Route::get('get_location', 'location_list');
+        Route::get('location_delete', 'Restore_Delete_Data');
+        Route::get('delete_location_list', 'DeleteList');
+        Route::get('get_city_desc', 'getCityDesc')->name('get_city_desc');
+        Route::get('location_report/{type}', 'report');
 
     });
 
@@ -51,18 +63,7 @@ Route::group(['middleware'=>['auth']],function () {
 // Route::group(['middleware'=>['LoginCheck']],function () {
 // });
 
-// Location Master
-Route::controller(LocationController::class)->group(function () {
-    // Route::get('/','index');
-    Route::get('/location', 'index');
-    Route::post('/location/save', 'save');
-    Route::get('/get/location', 'location_list');
-    Route::get('/location/Master/Update', 'fetchData');
-    Route::get('/location/Master/Delete', 'Restore_Delete_Data');
-    Route::get('/location/Delete/list', 'DeleteList');
-    Route::get('/test', 'test');
-    Route::post('/geographic/city', 'getCityDesc');
-});
+
 // city Master
 // Route::controller(CityController::class)->group(function () {
 //     // Route::get('/','index');

@@ -13,6 +13,7 @@ use App\Models\Config\Geographic\City;
 use App\Models\Config\Geographic\State;
 use App\Models\Config\Geographic\Country;
 use App\Models\Config\Geographic\Location;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Arr;
 
 // use App\Models\Technical_Error;
@@ -24,27 +25,15 @@ class LocationController extends Controller
 {
     use CommonDataTables,Error;
     protected  $gCompanyId = '1000';
-
-    public function menu()
+    public function index(Request $request)
     {
-        return $menu = t92::tree();
-    }
-    public function index()
-    {
-       // $data = $this->dataTableXLSchemaTrait();
-       $menu = $this->menu();
-       $theme_Browser1_3SIS = 'purple_Browser1D_3SIS';
-       $theme_Browser2_3SIS = 'purple_Browser2D_3SIS';
-       $theme_ContentModal1D_3SIS = 'purple_ContentModal1D_3SIS';
-       $theme_ContentModal2D_3SIS = 'purple_ContentModal2D_3SIS';
-       $theme_Card1D_3SIS = 'purple_Card1D_3SIS';
-
-       $UserId = Auth::user()->name;
-       // $UserId = 'Admin_Root';
-       $city_list = City::all();
-       return view('config.Geographic.location',
-            compact('menu','UserId', 'theme_Browser1_3SIS', 'theme_Browser2_3SIS', 'theme_ContentModal1D_3SIS',
-                'theme_ContentModal2D_3SIS', 'theme_Card1D_3SIS','city_list'));
+        $edit_data = '';
+        $action = $request->action;
+        if(!empty($request->id)){
+          $edit_data = $this->getLocationData(Crypt::decryptString($request->id));
+        }
+        $city_list = City::all();
+        return view('config.Geographic.location',compact( 'action','edit_data','city_list'));
     }
 
      public function save(Request $request)
@@ -107,7 +96,7 @@ class LocationController extends Controller
     {
         $location_list = Location::where('GMLMHMarkForDeletion','!=',1)->where('t05901L06.GMLMHCompanyId', $this->gCompanyId)->with('fnCity','fnState','fnCountry')->get();
         // dd($location_list);
-        return $this->TableActionTrait($location_list);
+        return $this->TableActionTrait('location',$location_list);
     }
 
     public function DeleteList()
@@ -138,12 +127,12 @@ class LocationController extends Controller
     public function Restore_Delete_Data(Request $request)
     {
     try {
-         $city = Location::find($request->id);
+         $location = Location::find($request->id);
          //Delete  - Restore
-         $request->action == 'delete' ? $city->GMLMHMarkForDeletion = 1 :$city->GMLMHMarkForDeletion = 0;
-            $city->save();
-            if($city){
-                   return response()->json(['status' => 'success','data' =>$city]);
+         $request->action == 'delete' ? $location->GMLMHMarkForDeletion = 1 :$location->GMLMHMarkForDeletion = 0;
+            $location->save();
+            if($location){
+                   return response()->json(['status' => 'success','data' =>$location]);
             }else{
                    return response()->json(['status' => 'error' ]);
             }
@@ -172,6 +161,19 @@ class LocationController extends Controller
             return response()->json(['alert-danger'=>'Something went wrong. Please try again']);
         } catch (\Exception $e) {
             Log::error($e->getmessage());
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
+        }
+    }
+    public function getLocationData($id)
+    {
+        try {
+           return Location::where('id', $id)->with('fnCity','fnState','fnCountry')->first();
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return response()->json(['status' => 'technical_error']);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
             $this->error_log($e);
             return response()->json(['status' => 'technical_error']);
         }
