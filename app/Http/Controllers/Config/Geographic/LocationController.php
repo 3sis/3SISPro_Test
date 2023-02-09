@@ -67,7 +67,6 @@ class LocationController extends Controller
                 $location_data->GMLMHCountryId=$request->GMLMHCountryId;
                 $location_data->GMLMHDesc1=$request->GMLMHDesc1;
                 $location_data->GMLMHDesc2=$request->GMLMHDesc2;
-                $location_data->GMLMHDesc2=$request->GMLMHDesc2;
                 $location_data->GMLMHBiDesc=$request->GMLMHBiDesc;
                 $location_data->GMLMHUser=Auth::user()->name;
                 // GMLMHUser=Auth::user()->id;

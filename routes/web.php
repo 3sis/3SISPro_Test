@@ -6,6 +6,7 @@ use App\Http\Controllers\Config\Geographic\CityController;
 use App\Http\Controllers\Config\Geographic\CountryController;
 use App\Http\Controllers\Config\Geographic\StateController;
 use App\Http\Controllers\Config\Geographic\LocationController;
+use App\Http\Controllers\Config\GeneralMaster\CompanyController;
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -49,6 +50,19 @@ Route::group(['middleware'=>['auth']],function () {
         Route::get('delete_location_list', 'DeleteList');
         Route::get('get_city_desc', 'getCityDesc')->name('get_city_desc');
         Route::get('location_report/{type}', 'report');
+
+    });
+    // Company Master
+    Route::controller(CompanyController::class)->group(function () {
+        // Route::get('/','index');
+        Route::get('company/{action?}/{id?}', 'index');
+        Route::post('company_save', 'save');
+        Route::get('get_company', 'company_list');
+        Route::get('company_delete', 'Restore_Delete_Data');
+        Route::get('delete_company_list', 'DeleteList');
+        Route::get('get_city_desc1', 'getCityDesc')->name('get_city_desc1');
+        Route::get('get_branch_details', 'getBranchDetails')->name('get_branch_details');
+        Route::get('company_report/{type}', 'report');
 
     });
 
