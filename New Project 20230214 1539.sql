@@ -334,7 +334,7 @@ CREATE TABLE `t05901l01` (
   `GMCOHDeletedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `GMCOHCompId` (`GMCOHCompanyId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ems`.`t05901l01`
@@ -342,7 +342,8 @@ CREATE TABLE `t05901l01` (
 
 /*!40000 ALTER TABLE `t05901l01` DISABLE KEYS */;
 INSERT INTO `t05901l01` (`id`,`GMCOHCompanyId`,`GMCOHDesc1`,`GMCOHDesc2`,`GMCOHNickName`,`GMCOHTagLine`,`GMCOHCurrencyId`,`GMCOHAddress1`,`GMCOHAddress2`,`GMCOHAddress3`,`GMCOHCityId`,`GMCOHStateId`,`GMCOHCountryId`,`GMCOHPinCode`,`GMCOHLandLine`,`GMCOHMobileNo`,`GMCOHEmail`,`GMCOHWebsite`,`GMCOHCINNo`,`GMCOHPANNo`,`GMCOHGSTNo`,`GMCOHPFNo`,`GMCOHPTNo`,`GMCOHLWFNo`,`GMCOHESICNo`,`GMCOHTANNo`,`GMCOHVATNo`,`GMCOHESTNo`,`GMCOHESTDate`,`GMCOHBankId1`,`GMCOHBranchId1`,`GMCOHIFSId1`,`GMCOHBankAccNo1`,`GMCOHBankAcName1`,`GMCOHBankId2`,`GMCOHBranchId2`,`GMCOHIFSId2`,`GMCOHBankAccNo2`,`GMCOHBankAcName2`,`GMCOHField1`,`GMCOHField2`,`GMCOHField3`,`GMCOHField4`,`GMCOHField5`,`GMCOHBiDesc`,`GMCOHDecimalPositionQty`,`GMCOHDecimalPositionValue`,`GMCOHFolderName`,`GMCOHImageFileName`,`GMCOHMarkForDeletion`,`GMCOHUser`,`GMCOHLastCreated`,`GMCOHLastUpdated`,`GMCOHDeletedAt`) VALUES 
- (4,'1000','3S Innovative Solutions Pvt. Ltd.','3SIS','3SIS1','Journey Towards Excellence','INR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0625-256855','952482285555','test@gmaiol.com','www.3sis.com',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-02-08 21:10:26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'3SIS',0,0,NULL,NULL,0,'admin','2021-12-01 09:05:11','2023-02-09 20:32:15',NULL);
+ (4,'1000','3S Innovative Solutions Pvt. Ltd.','3SIS','3SIS1','Journey Towards Excellence','INR','cscsc','aasdv','aaa','20','BR','USA','aaav','452255.999','952482285555','test@gmaiol.com','www.3sis.com','wfwf','wfwfw','fewfw',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-02-08 00:00:00','1000','1000','1234567890','wwww','wwww','1000','1000','1234567890','www','wwww',NULL,NULL,NULL,NULL,NULL,'3SIS',2,1,'wfwf','wfwf',0,'admin','2021-12-01 09:05:11','2023-02-13 23:14:18',NULL),
+ (5,'2000','buhu','ububu','uubub','buu','INR','qfqqq','qcascascas','acascas','20','BR','USA','794155','qcqcq','qqc','qqcq','qfqf','ascasc','acasca','acasca',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-02-16 00:00:00','1200','1100','98765432109876543210','acasc','acascas','1000','1000','1234567890','acasc','acasc',NULL,NULL,NULL,NULL,NULL,'cqcq',4,2,'acasca','acasc',0,'admin','2023-02-13 23:16:38','2023-02-13 23:16:38',NULL);
 /*!40000 ALTER TABLE `t05901l01` ENABLE KEYS */;
 
 
@@ -603,8 +604,8 @@ CREATE TABLE `t05902l01` (
 /*!40000 ALTER TABLE `t05902l01` DISABLE KEYS */;
 INSERT INTO `t05902l01` (`id`,`BMBNHBankId`,`BMBNHDesc1`,`BMBNHDesc2`,`BMBNHBiDesc`,`BMBNHMarkForDeletion`,`BMBNHUser`,`BMBNHLastCreated`,`BMBNHLastUpdated`,`BMBNHDeletedAt`) VALUES 
  (1,'1000','BOM','BOM','BOM',0,'3SIS','2021-11-22 10:49:47','2021-11-22 10:49:47',NULL),
- (2,'1100','SBI1','SBI1','SBI1',0,'3SIS','2021-11-22 10:50:03','2021-11-22 10:50:36',NULL),
- (3,'1200','Bank of India','BOI','BOI',0,'3SIS','2021-11-30 08:01:31','2021-11-30 08:01:31',NULL);
+ (2,'1100','SBI1','SBI1','SBI1',1,'3SIS','2021-11-22 10:50:03','2021-11-22 10:50:36',NULL),
+ (3,'1200','Bank of India','BOI0','BOI',0,'admin','2023-02-14 08:13:25','2023-02-14 08:13:25',NULL);
 /*!40000 ALTER TABLE `t05902l01` ENABLE KEYS */;
 
 
@@ -659,7 +660,7 @@ CREATE TABLE `t05902l03` (
   `BMATHDeletedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `BMATHAcctId` (`BMATHAcctId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ems`.`t05902l03`
@@ -667,7 +668,8 @@ CREATE TABLE `t05902l03` (
 
 /*!40000 ALTER TABLE `t05902l03` DISABLE KEYS */;
 INSERT INTO `t05902l03` (`id`,`BMATHAcctId`,`BMATHDesc1`,`BMATHDesc2`,`BMATHBiDesc`,`BMATHMarkForDeletion`,`BMATHUser`,`BMATHLastCreated`,`BMATHLastUpdated`,`BMATHDeletedAt`) VALUES 
- (1,'1000','Saving Account','Sava','SavA',0,'3SIS','2021-11-22 10:51:47','2022-02-09 14:18:18',NULL);
+ (1,'1000','Saving Account11','Sava','SavA',0,'admin','2023-02-13 22:29:08','2023-02-13 22:29:08',NULL),
+ (2,'2000','hycsq','mkkk',NULL,1,'admin','2023-02-13 22:29:59','2023-02-13 22:29:59',NULL);
 /*!40000 ALTER TABLE `t05902l03` ENABLE KEYS */;
 
 
@@ -697,7 +699,7 @@ CREATE TABLE `t05902l04` (
 
 /*!40000 ALTER TABLE `t05902l04` DISABLE KEYS */;
 INSERT INTO `t05902l04` (`id`,`BMPMHPaymentModeId`,`BMPMHDesc1`,`BMPMHDesc2`,`BMPMHBiDesc`,`BMPMHMarkForDeletion`,`BMPMHUser`,`BMPMHLastCreated`,`BMPMHLastUpdated`,`BMPMHDeletedAt`) VALUES 
- (1,'1000','NEFT','NEFT',NULL,0,'3SIS','2021-11-22 10:52:59','2021-11-28 08:58:09',NULL);
+ (1,'1000','NEFT','NEFT1',NULL,0,'admin','2023-02-14 08:13:54','2023-02-14 08:13:54',NULL);
 /*!40000 ALTER TABLE `t05902l04` ENABLE KEYS */;
 
 
@@ -733,17 +735,25 @@ INSERT INTO `t92` (`id`,`MNCompId`,`MNSystemId`,`MNRootCode`,`MNParentCode`,`MNC
  (2,'',11,0,'0.00','91.00','Configuration','','','Configuration','','',''),
  (3,'',11,0,'89.00','88.00','App 2','APP','app/index','App 2','','',''),
  (4,'',11,0,'91.00','9100.00','Admin','','','Admin','','',''),
- (5,'',11,0,'91.00','9200.00','State Master','ST','state','State','','',''),
- (7,'',11,0,'91.00','9210.00','City Master','CT','city','city','','',''),
- (6,'',11,0,'91.00','9220.00','Location Master','LM','location','location','','',''),
- (8,'',11,0,'91.00','9300.00','GeneralMaster','','','Common','','',''),
+ (8,'',11,0,'91.00','9300.00','General Master','','','Common','','',''),
+ (8,'',11,0,'91.00','9400.00','Banking Master','','','Banking Master','','',''),
+ (8,'',11,0,'91.00','9500.00','Geographic','','','Geographic','','',''),
  (9,'',11,0,'9100.00','9101.00','Company Master','CSM1','company/index1','Customize/Company Master','','',''),
  (10,'',11,0,'9100.00','9102.00','General','GEN','general/index','General Info','','',''),
  (11,'',11,0,'9102.00','9103.00','Salutation','','new/index','Salutation Master','','',''),
- (13,'',11,0,'9102.00','9104.00','Gender Master','','','Gender Master','','','');
+ (13,'',11,0,'9102.00','9104.00','Gender Master','','','Gender Master','','',''),
+ (14,'',11,0,'9104.00','9501.00','New Child','','','New Child','','','');
 INSERT INTO `t92` (`id`,`MNCompId`,`MNSystemId`,`MNRootCode`,`MNParentCode`,`MNChildCode`,`MNMenuTitle`,`MNFastPath`,`MNRoute`,`MNFormHeadeding`,`MNDesc1`,`MNDesc2`,`MNDesc3`) VALUES 
- (14,'',11,0,'9104.00','9501.00','New Child','','','New Child','','',''),
- (15,'',11,0,'9300.00','9300.05','Company Master','CSM','company','GeneralMaster/Company Master','','','');
+ (15,'',11,0,'9300.00','9300.05','Company Master','CSM','company','GeneralMaster/Company Master','','',''),
+ (15,'',11,0,'9300.00','9300.10','Currency Master','CUM','Currency','General Master/Currency Master','','',''),
+ (6,'',11,0,'9400.00','9400.05','Account Type','AT','acctType','Account Type','','',''),
+ (6,'',11,0,'9400.00','9400.10','Bank Name','BN','bankName','Bank Name','','',''),
+ (6,'',11,0,'9400.00','9400.15','Branch Name','BAN','branchName','Branch Name','','',''),
+ (6,'',11,0,'9400.00','9400.20','Payment Mode','PM','paymentMode','Payment Mode','','',''),
+ (7,'',11,0,'9500.00','9500.05','City Master','CT','city','city','','',''),
+ (5,'',11,0,'9500.00','9500.10','State Master','ST','state','State','','',''),
+ (5,'',11,0,'9500.00','9500.15','Country Master','CT','country','Country','','',''),
+ (6,'',11,0,'9500.00','9500.20','Location Master','LM','location','location','','','');
 /*!40000 ALTER TABLE `t92` ENABLE KEYS */;
 
 
@@ -758,7 +768,7 @@ CREATE TABLE `technical_error` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ems`.`technical_error`
@@ -766,7 +776,14 @@ CREATE TABLE `technical_error` (
 
 /*!40000 ALTER TABLE `technical_error` DISABLE KEYS */;
 INSERT INTO `technical_error` (`id`,`error`,`created_at`,`updated_at`) VALUES 
- (1,'{\"message\":\"Undefined variable $request\",\"line\":149,\"code\":0,\"file\":\"\\/media\\/krishna\\/Tutorial\\/3sis\\/payroll\\/app\\/Http\\/Controllers\\/Config\\/GeneralMaster\\/StateController.php\",\"severity\":2}','2022-12-10 01:27:09',NULL);
+ (1,'{\"message\":\"Undefined variable $request\",\"line\":149,\"code\":0,\"file\":\"\\/media\\/krishna\\/Tutorial\\/3sis\\/payroll\\/app\\/Http\\/Controllers\\/Config\\/GeneralMaster\\/StateController.php\",\"severity\":2}','2022-12-10 01:27:09',NULL),
+ (2,'{\"message\":\"SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: \'08-02-2023\' for column \'GMCOHESTDate\' at row 1 (SQL: update `t05901l01` set `GMCOHAddress1` = cfrf, `GMCOHAddress2` = rfrfr, `GMCOHAddress3` = efefe, `GMCOHCityId` = 10, `GMCOHStateId` = MH, `GMCOHCountryId` = IN, `GMCOHPinCode` = 56888, `GMCOHCINNo` = efefe, `GMCOHPANNo` = efef, `GMCOHGSTNo` = wfw, `GMCOHESTDate` = 08-02-2023, `GMCOHBankId1` = 1000, `GMCOHBranchId1` = 1000, `GMCOHIFSId1` = 1234567890, `GMCOHBankAccNo1` = wfqwef, `GMCOHBankAcName1` = wqfqwefq, `GMCOHBankId2` = 1200, `GMCOHBranchId2` = 1100, `GMCOHIFSId2` = 98765432109876543210, `GMCOHBankAccNo2` = wefwef, `GMCOHBankAcName2` = wefewf, `GMCOHFolderName` = wfqwf3qfqw, `GMCOHImageFileName` = fqwewe, `GMCOHLastUpdated` = 2023-02-12 19:48:50 where `id` = 4)\",\"line\":760,\"code\":\"22007\",\"file\":\"E:\\\\3SIS_Pro\\\\3SISPro_Test\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Database\\\\Connection.php\"}','2023-02-12 07:48:50',NULL),
+ (3,'{\"message\":\"SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: \'08-02-2023\' for column \'GMCOHESTDate\' at row 1 (SQL: update `t05901l01` set `GMCOHAddress1` = cfrf, `GMCOHAddress2` = rfrfr, `GMCOHAddress3` = efefe, `GMCOHCityId` = 10, `GMCOHStateId` = MH, `GMCOHCountryId` = IN, `GMCOHPinCode` = 56888, `GMCOHCINNo` = efefe, `GMCOHPANNo` = efef, `GMCOHGSTNo` = wfw, `GMCOHESTDate` = 08-02-2023, `GMCOHBankId1` = 1000, `GMCOHBranchId1` = 1000, `GMCOHIFSId1` = 1234567890, `GMCOHBankAccNo1` = wfqwef, `GMCOHBankAcName1` = wqfqwefq, `GMCOHBankId2` = 1200, `GMCOHBranchId2` = 1100, `GMCOHIFSId2` = 98765432109876543210, `GMCOHBankAccNo2` = wefwef, `GMCOHBankAcName2` = wefewf, `GMCOHFolderName` = wfqwf3qfqw, `GMCOHImageFileName` = fqwewe, `GMCOHLastUpdated` = 2023-02-12 19:49:05 where `id` = 4)\",\"line\":760,\"code\":\"22007\",\"file\":\"E:\\\\3SIS_Pro\\\\3SISPro_Test\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Database\\\\Connection.php\"}','2023-02-12 07:49:05',NULL);
+INSERT INTO `technical_error` (`id`,`error`,`created_at`,`updated_at`) VALUES 
+ (4,'{\"message\":\"SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: \'07-02-2023\' for column \'GMCOHESTDate\' at row 1 (SQL: update `t05901l01` set `GMCOHAddress1` = vdvdv, `GMCOHAddress2` = dvdvdvr, `GMCOHAddress3` = eegef, `GMCOHCityId` = 10, `GMCOHStateId` = MH, `GMCOHCountryId` = IN, `GMCOHPinCode` = wwwgw4, `GMCOHCINNo` = asvdsavas, `GMCOHPANNo` = asvsav, `GMCOHGSTNo` = asvsdvas, `GMCOHESTDate` = 07-02-2023, `GMCOHBankId1` = 1200, `GMCOHBranchId1` = 1100, `GMCOHIFSId1` = 98765432109876543210, `GMCOHBankAccNo1` = svsdvds, `GMCOHBankAcName1` = avsvsd, `GMCOHBankId2` = 1000, `GMCOHBranchId2` = 1000, `GMCOHIFSId2` = 1234567890, `GMCOHBankAccNo2` = svsav, `GMCOHBankAcName2` = savsdav, `GMCOHFolderName` = savdsav, `GMCOHImageFileName` = asvasv, `GMCOHLastUpdated` = 2023-02-13 22:37:22 where `id` = 4)\",\"line\":760,\"code\":\"22007\",\"file\":\"E:\\\\3SIS_Pro\\\\3SISPro_Test\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Database\\\\Connection.php\"}','2023-02-13 10:37:22',NULL),
+ (5,'{\"message\":\"SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: \'08-02-2023\' for column \'GMCOHESTDate\' at row 1 (SQL: update `t05901l01` set `GMCOHAddress1` = ascasc, `GMCOHAddress2` = acasc, `GMCOHAddress3` = ascdave, `GMCOHCityId` = 20, `GMCOHStateId` = BR, `GMCOHCountryId` = USA, `GMCOHPinCode` = 2212, `GMCOHESTDate` = 08-02-2023, `GMCOHLastUpdated` = 2023-02-13 22:39:43 where `id` = 4)\",\"line\":760,\"code\":\"22007\",\"file\":\"E:\\\\3SIS_Pro\\\\3SISPro_Test\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Database\\\\Connection.php\"}','2023-02-13 10:39:43',NULL);
+INSERT INTO `technical_error` (`id`,`error`,`created_at`,`updated_at`) VALUES 
+ (6,'{\"message\":\"SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: \'08-02-2023\' for column \'GMCOHESTDate\' at row 1 (SQL: update `t05901l01` set `GMCOHAddress1` = ascasc, `GMCOHAddress2` = acasc, `GMCOHAddress3` = ascdave, `GMCOHCityId` = 20, `GMCOHStateId` = BR, `GMCOHCountryId` = USA, `GMCOHPinCode` = 2212, `GMCOHESTDate` = 08-02-2023, `GMCOHLastUpdated` = 2023-02-13 22:39:58 where `id` = 4)\",\"line\":760,\"code\":\"22007\",\"file\":\"E:\\\\3SIS_Pro\\\\3SISPro_Test\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Database\\\\Connection.php\"}','2023-02-13 10:39:58',NULL);
 /*!40000 ALTER TABLE `technical_error` ENABLE KEYS */;
 
 
