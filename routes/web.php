@@ -7,6 +7,10 @@ use App\Http\Controllers\Config\Geographic\CountryController;
 use App\Http\Controllers\Config\Geographic\StateController;
 use App\Http\Controllers\Config\Geographic\LocationController;
 use App\Http\Controllers\Config\GeneralMaster\CompanyController;
+use App\Http\Controllers\Config\BankingMaster\AcctTypeController;
+use App\Http\Controllers\Config\BankingMaster\BankNameController;
+use App\Http\Controllers\Config\BankingMaster\BranchNameController;
+use App\Http\Controllers\Config\BankingMaster\PaymentModeController;
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -17,6 +21,7 @@ Route::group(['middleware'=>['guest']],function () {
 });
 
 Route::group(['middleware'=>['auth']],function () {
+    // State Master
     Route::controller(StateController::class)->group(function () {
         //add-edit
         Route::get('state/{action?}/{id?}', 'index');
@@ -66,6 +71,47 @@ Route::group(['middleware'=>['auth']],function () {
 
     });
 
+    // AcctType Master
+    Route::controller(AcctTypeController::class)->group(function () {
+        //add-edit
+        Route::get('acctType/{action?}/{id?}', 'index');
+        Route::get('acctType_report/{type}', 'report');
+        Route::post('acctType_save', 'save');
+        Route::get('get_acctType', 'acctType_list');
+        Route::get('acctType_delete', 'Restore_Delete_Data');
+        Route::get('delete_acctType_list', 'DeleteList');
+    });
+// BankName Master
+Route::controller(BankNameController::class)->group(function () {
+    //add-edit
+    Route::get('bankName/{action?}/{id?}', 'index');
+    Route::get('bankName_report/{type}', 'report');
+    Route::post('bankName_save', 'save');
+    Route::get('get_bankName', 'bankName_list');
+    Route::get('bankName_delete', 'Restore_Delete_Data');
+    Route::get('delete_bankName_list', 'DeleteList');
+});
+// Branch Master
+Route::controller(BranchNameController::class)->group(function () {
+    // Route::get('/','index');
+    Route::get('branchName/{action?}/{id?}', 'index');
+    Route::post('branchName_save', 'save');
+    Route::get('get_branchName', 'branchName_list');
+    Route::get('branchName_delete', 'Restore_Delete_Data');
+    Route::get('delete_branchName_list', 'DeleteList');
+    Route::get('branchName_report/{type}', 'report');
+
+});
+// paymentMode Master
+Route::controller(PaymentModeController::class)->group(function () {
+    //add-edit
+    Route::get('paymentMode/{action?}/{id?}', 'index');
+    Route::get('paymentMode_report/{type}', 'report');
+    Route::post('paymentMode_save', 'save');
+    Route::get('get_paymentMode', 'paymentMode_list');
+    Route::get('paymentMode_delete', 'Restore_Delete_Data');
+    Route::get('delete_paymentMode_list', 'DeleteList');
+});
     // Route::get('logout',[AuthController::class,'logout']);
     Route::controller(AuthController::class)->group(function () {
         Route::get('logout', 'logout')->name('logout');

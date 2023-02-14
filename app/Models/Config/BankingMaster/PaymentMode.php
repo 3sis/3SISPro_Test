@@ -10,7 +10,7 @@ class PaymentMode extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 't05902l04';
-    protected $primaryKey = 'BMPMHUniqueId';
+    protected $primaryKey = 'id';
     protected $fillable =
         [
             'id',

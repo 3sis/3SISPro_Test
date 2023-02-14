@@ -3,9 +3,7 @@
 @section('css')
     @include('inc.style')
     @include('inc.flatpickr_css')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    @if (Request::path() == 'location')
+    @if (Request::path() == 'acctType')
         @include('inc.datatable')
     @endif
     <style>
@@ -13,9 +11,9 @@
             margin-top: 2px;
         }
 
-        #input_border {
-            border-color: rgb(102, 175, 233);
-            outline: 0px
+        .input_border {
+            border-color: rgb(102, 175, 233) !important;
+            outline: 0px !important;
         }
 
         .section {
@@ -36,8 +34,7 @@
         }
     </style>
 @endsection
-
-@if (Request::path() == 'location')
+@if (Request::path() == 'acctType')
     <div class="mt-1"
         style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
         <form id='AddForm' method="post" autocomplete="off">
@@ -54,7 +51,7 @@
                             <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
                         </svg>
                     </a>
-                    <a class="btn btn-success btn-icon" href="{{ url('location/add') }}">
+                    <a class="btn btn-success btn-icon" href="{{ url('acctType/add') }}" title="Create">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-plus">
@@ -62,7 +59,7 @@
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
                     </a>
-                    <a class="btn btn-light btn-icon" href="{{ url('location_report/excel') }}" target="_blank">
+                    <a class="btn btn-light btn-icon" href="{{ url('acctType_report/excel') }}" target="_blank" title="Excel">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
                             <path fill="#169154" d="M29,6H15.744C14.781,6,14,6.781,14,7.744v7.259h15V6z" />
                             <path fill="#18482a" d="M14,33.054v7.202C14,41.219,14.781,42,15.743,42H29v-8.946H14z" />
@@ -81,7 +78,7 @@
                                 d="M9.807 19L12.193 19 14.129 22.754 16.175 19 18.404 19 15.333 24 18.474 29 16.123 29 14.013 25.07 11.912 29 9.526 29 12.719 23.982z" />
                         </svg>
                     </a>
-                    <a class="btn btn-light btn-icon" href="{{ url('location_report/pdf') }}" target="_blank">
+                    <a class="btn btn-light btn-icon" href="{{ url('acctType_report/pdf') }}" target="_blank" title="Pdf">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
                             <path fill="#e53935"
                                 d="M38,42H10c-2.209,0-4-1.791-4-4V10c0-2.209,1.791-4,4-4h28c2.209,0,4,1.791,4,4v28 C42,40.209,40.209,42,38,42z" />
@@ -110,60 +107,31 @@
                 </ul>
         </div>
         <div class="col-auto me-1">
-            <a href="#" class="btn btn-danger" id="btn_error"><svg xmlns="http://www.w3.org/2000/svg"
-                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-alert-circle">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg></a>
-            <a href="{{ url('location') }}" class="btn btn-info"><svg xmlns="http://www.w3.org/2000/svg"
-                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-arrow-left">
-                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                    <polyline points="12 19 5 12 12 5"></polyline>
-                </svg></a>
-            <button id="save" class="btn btn-success">
+            <a href="#" class="btn btn-danger" id="btn_error" title="Error"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></a>
+            <a href="{{ url('acctType') }}" class="btn btn-info" title="Back"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+            <button id="save" class="btn btn-success" title="{{ $action == 'add' ? 'Save' : 'Update' }}">
 
-                @if ($action == 'add')
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-save">
-                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                        <polyline points="7 3 7 8 15 8"></polyline>
-                    </svg>
-                @else
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-edit">
-                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                    </svg>
-                @endif
+            @if($action == 'add')
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            @else
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            @endif
             </button>
         </div>
     </nav>
 @endif
 
-<!--location List Table -->
-@if (Request::path() == 'location')
+<!--Account Type List Table -->
+@if (Request::path() == 'acctType')
     <div class="table-responsive mt-2" id="add">
         <table id="landingPageBrowser3SIS" class="table dt-table-hover dataTable no-footer {{ theme('table') }}">
             <thead>
                 <tr>
-                    <th title="Location Id">ID</th>
-                    <th>Location Name</th>
-                    <th>Country Name</th>
+                    <th title="Account Type Id">ID</th>
+                    <th>Account Name</th>
                     <th>User</th>
                     <th>Action</th>
-                    <th style="visibility: hidden;">Desc2</th>
-                    <th style="visibility: hidden;">Bi Desc</th>
-                    <th style="visibility: hidden;">User</th>
-                    <th style="visibility: hidden;">Updated</th>
-                    <th style="visibility: hidden;">Unique Id</th>
+                   <th style="visibility: hidden;">Unique Id</th>
                 </tr>
             </thead>
         </table>
@@ -191,9 +159,8 @@
                             <table id="UndoModalTable" class="no-footer {{ theme('table') }}" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th title="Location Id">ID</th>
-                                        <th>Location Name</th>
-                                        <th>Country Name</th>
+                                        <th title="Account Id">ID</th>
+                                        <th>Account Type Name</th>
                                         <th>User</th>
                                         <th>Action</th>
                                         <th style="visibility: hidden;">Unique Id</th>
@@ -229,7 +196,7 @@
                         <div class="row g-3">
                             @csrf
                             @if (!empty($edit_data['id']))
-                                <input type="hidden" name="id" value="{{ $edit_data['id'] }}">
+                                <input type="hidden" name="id" id="id" value="{{ $edit_data['id'] }}">
                             @endif
                             @if ($action == 'add')
                                 <input type="hidden" id="action" value="insert">
@@ -237,65 +204,25 @@
                                 <input type="hidden" id="action" value="update">
                             @endif
                             <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">Location Id<span class="text-danger">
-                                        *</span></label>
-                                <input type="text" name='GMLMHLocationId' id='GMLMHLocationId'
-                                    class='form-control threshold' maxlength="20" placeholder="Enter Location Name"
+                                <label for="inputEmail4" class="form-label">Account Type Id<b class="text-danger">*</b></label>
+                                <input type="text" name='BMATHAcctId' id='BMATHAcctId'
+                                    class='form-control threshold' maxlength="20" placeholder="Enter Account Name"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMLMHLocationId', $edit_data['GMLMHLocationId'] ?? '') }}">
+                                    value="{{ old('BMATHAcctId', $edit_data['BMATHAcctId'] ?? '') }}">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputPassword4" class="form-label">Description 1<span
-                                        class="text-danger"> *</span></label>
-                                <input type="text" name='GMLMHDesc1' id='GMLMHDesc1'
+                                <label for="inputPassword4" class="form-label">Description 1<b class="text-danger">*</b></label>
+                                <input type="text" name='BMATHDesc1' id='BMATHDesc1'
                                     class='form-control threshold' maxlength="20"
-                                    placeholder="Enter Location Description 1"
+                                    placeholder="Enter Description 1"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMLMHDesc1', $edit_data['GMLMHDesc1'] ?? '') }}">
-
-
+                                    value="{{ old('BMATHDesc1', $edit_data['BMATHDesc1'] ?? '') }}">
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Description 2</label>
-                                <textarea name='GMLMHDesc2' id='GMLMHDesc2' class='form-control textarea' maxlength="200"
-                                    placeholder="Enter Location Description 2" style='border-color: rgb(102, 175, 233); outline: 0px'>{{ old('GMLMHDesc2', $edit_data['GMLMHDesc2'] ?? '') }}</textarea>
+                                <textarea name='BMATHDesc2' id='BMATHDesc2' class='form-control textarea' maxlength="200"
+                                    placeholder="Enter Description 2" style='border-color: rgb(102, 175, 233); outline: 0px'>{{ old('BMATHDesc2', $edit_data['BMATHDesc2'] ?? '') }}</textarea>
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputCity" class="form-label">City <span class="text-danger"> *</span>
-                                </label>
-                                <select id='GMLMHCityId' name='GMLMHCityId' class="form-select"
-                                    style="width: 100%;border: 1px solid #68a6ec;">
-                                    <option value=''>Select City</option>
-                                    @foreach ($city_list as $city)
-                                        @if (!empty($edit_data['GMLMHCityId']) && $edit_data['GMLMHCityId'] == $city->GMCTHCityId)
-                                            <option value='{{ $city->GMCTHCityId }}' selected>
-                                                {{ $city->GMCTHDesc1 }}</option>
-                                        @else
-                                            <option value='{{ $city->GMCTHCityId }}'>
-                                                {{ $city->GMCTHDesc1 }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <div class='form-group'>
-                                    <label class="form-label">State</label>
-                                    <input type="hidden" name="GMLMHStateId" id="GMLMHStateId">
-                                    <input type="text" name='stateName' id='stateName' class='form-control'
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class='form-group'>
-                                    <label class="form-label">Contry</label>
-                                    <input type="hidden" name="GMLMHCountryId" id="GMLMHCountryId">
-                                    <input type="text" name='countryName' id='countryName' class='form-control'
-                                        readonly>
-                                </div>
-                            </div>
-                            <!--  <div class="col-6 mt-5">
-   <button type="submit" class="btn btn-primary _effect--ripple waves-effect waves-light">Add</button>
-   </div> -->
                         </div>
                         </form>
                     </div>
@@ -317,37 +244,36 @@
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label for="user" class="form-label">User</label>
-                                <input type="text" name='GMLMHUser' id='GMLMHUser' class='form-control '
-                                    style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMLMHUser', $edit_data['GMLMHUser'] ?? '') }}" readonly>
+                                @if(!empty($edit_data['id']))
+                                <input type="text" name='BMATHUser' id='BMATHUser'
+                                    class='form-control input_border'
+                                    value="{{ old('BMATHUser', $edit_data['BMATHUser'] ?? '') }}" readonly>
+                                     @else
+                                      <input type="text" name='BMATHUser' id='BMATHUser'
+                                    class='form-control input_border'
+                                    value="{{ Auth::user()->name }}" readonly>
+                                    @endif
                             </div>
                             <div class="col-md-4">
                                 <label for="Created" class="form-label">Created On</label>
-                                @if (!empty($edit_data['id']))
-                                    <input type="text" name='GMLMHLastCreated' id='GMLMHLastCreated'
-                                        class='form-control input_border'
-                                        value="{{ date('d-m-Y', strtotime($edit_data['GMLMHLastCreated'])) }}"
-                                        readonly>
-                                @else
-                                    <input id="GMLMHLastCreated" name='GMLMHLastCreated'
-                                        class="form-control flatpickr flatpickr-input active input_border"
-                                        type="text" placeholder="Select Date.." readonly="readonly">
+                                 @if(!empty($edit_data['id']))
+                                   <input type="text" name='BMATHLastCreated' id='BMATHLastCreated'
+                                    class='form-control input_border'
+                                    value="{{ date('d-m-Y',strtotime($edit_data['BMATHLastCreated']))}}" readonly>
+                                 @else
+                                  <input id="BMATHLastCreated" name='BMATHLastCreated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly">
                                 @endif
                             </div>
                             <div class="col-md-4">
                                 <label for="Updated" class="form-label">Updated On</label>
-                                @if (!empty($edit_data['id']))
-                                    <input id="GMLMHLastUpdated" name='GMLMHLastUpdated'
-                                        class="form-control flatpickr flatpickr-input active input_border"
-                                        type="text" placeholder="Select Date.." readonly="readonly"
-                                        value="{{ date('d-m-Y', strtotime($edit_data['GMLMHLastUpdated'])) }}" readonly>
-                                @else
-                                    <input id="GMLMHLastUpdated" name='GMLMHLastUpdated'
-                                        class="form-control flatpickr flatpickr-input active input_border"
-                                        type="text" placeholder="Select Date.." readonly="readonly">
+                                 @if(!empty($edit_data['id']))
+                                  <input id="BMATHLastUpdated" name='BMATHLastUpdated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly" value="{{ date('d-m-Y',strtotime($edit_data['BMATHLastUpdated']))}}">
+                                 @else
+                                  <input id="BMATHLastUpdated" name='BMATHLastUpdated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly">
                                 @endif
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -381,19 +307,8 @@
 @section('js_code')
 @include('inc.js_file')
 @include('inc.flatpickr_js')
-
-{{-- <!-- <script src={{ asset('assets/common/js/LocationMasterAjax.js') }}></script> --> --}}
 <script type="text/javascript">
     $(document).ready(function() {
-        var id = $('#GMLMHCityId').val();
-        if (id != '') {
-            getDesc(id);
-        }
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //      }
-        // });
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -428,39 +343,20 @@
             order: [0, "desc"],
             processing: true,
             serverSide: true,
-            "ajax": "get_location",
+            "ajax": "get_acctType",
             "columns": [{
-                    data: "GMLMHLocationId"
+                    data: "BMATHAcctId"
                 },
                 {
-                    data: "GMLMHDesc1"
+                    data: "BMATHDesc1"
                 },
                 {
-                    data: "fn_city.GMCTHDesc1"
-                },
-                {
-                    data: "GMLMHUser"
+                    data: "BMATHUser"
                 },
                 {
                     data: "action",
                     orderable: false,
                     searchable: false
-                },
-                {
-                    data: "GMLMHDesc1",
-                    "visible": false
-                },
-                {
-                    data: "GMLMHDesc2",
-                    "visible": false
-                },
-                {
-                    data: "GMLMHUser",
-                    "visible": false
-                },
-                {
-                    data: "GMLMHLastCreated",
-                    "visible": false
                 },
                 {
                     data: "id",
@@ -476,60 +372,42 @@
                     "width": "25%",
                     "targets": 1
                 },
+
                 {
                     "width": "25%",
                     "targets": 2
                 },
                 {
-                    "width": "25%",
-                    "targets": 3
-                },
-                {
                     "width": "15%",
-                    "targets": 4
+                    "targets": 3
                 }
             ]
         });
-
-        $('#GMLMHCityId').select2({
-            // theme: "bootstrap-5"
-        });
-
         $('#btn_error').hide();
     });
 
     $("#AddForm").submit(function(e) {
         e.preventDefault();
-        $('#GMLMHLocationId,#GMLMHDesc1,#select2-GMLMHCityId-container').removeClass(
+        $('#BMATHAcctId,#BMATHDesc1').removeClass(
             'border border-danger');
 
-        if ($('#GMLMHLocationId').val() == '') {
-            $('#GMLMHLocationId').addClass('border border-danger');
+        if ($('#BMATHAcctId').val() == '') {
+            $('#BMATHAcctId').addClass('border border-danger');
         }
-        if ($('#GMLMHDesc1').val() == '') {
-            $('#GMLMHDesc1').addClass('border border-danger');
+        if ($('#BMATHDesc1').val() == '') {
+            $('#BMATHDesc1').addClass('border border-danger');
 
         }
-        // if($('#GMLMHDesc2').val() == ''){
-        // $('#GMLMHDesc2').addClass('border border-danger');
+        // if($('#BMATHDesc2').val() == ''){
+        // $('#BMATHDesc2').addClass('border border-danger');
         // }
-        if ($('#GMLMHCityId').val() == '') {
-            $('#select2-GMLMHCityId-container').addClass('border border-danger');
-        }
         $('.msg_error').html('');
-        if ($('#GMLMHLocationId').val() == '' || $('#GMLMHDesc1').val() == '' ||
-            $('#GMLMHCityId').val() == '') {
-            if ($('#GMLMHLocationId').val() == '') {
-                $('.msg_error').append('<p>Please Enter Location name !</p>');
+        if ($('#BMATHAcctId').val() == '' || $('#BMATHDesc1').val() == '') {
+            if ($('#BMATHAcctId').val() == '') {
+                $('.msg_error').append('<p>Please Enter Account Type name !</p>');
             }
-            if ($('#GMLMHDesc1').val() == '') {
-                $('.msg_error').append('<p>Please Enter Location Description 1 !</p>');
-            }
-            // if($('#GMLMHDesc2').val() == ''){
-            //       $('.msg_error').append('<p>Please Enter Location Description 2 !</p>');
-            // }
-            if ($('#GMLMHCityId').val() == '') {
-                $('.msg_error').append('<p>Please Select City !</p>');
+            if ($('#BMATHDesc1').val() == '') {
+                $('.msg_error').append('<p>Please Enter Account Type Description 1 !</p>');
             }
             var error_count = $(".msg_error").children().length;
             console.log(error_count);
@@ -545,7 +423,7 @@
             var action = $('#action').val();
             console.log('action: ' + action);
             $.ajax({
-                url: "{{ url('location_save') }}",
+                url: "{{ url('acctType_save') }}",
                 method: 'post',
                 data: new FormData(this),
                 processData: false,
@@ -568,27 +446,25 @@
                     }
                     if (response.status == 'success') {
                         if (action == 'insert') {
-                            $finalMessage3SIS = fnSingleLevelFinalSave('location', $(
-                                    '#GMLMHLocationId')
-                                .val(), $('#GMLMHDesc1').val(), 'Added');
+                            $finalMessage3SIS = fnSingleLevelFinalSave('acctType', $('#BMATHAcctId')
+                                .val(), $('#BMATHDesc1').val(), 'Added');
                             $('.error_msg').html($finalMessage3SIS);
-                            $('#GMLMHCityId').val('').trigger("change");
                             $('#AddForm')[0].reset();
                         }
                         if (action == 'update') {
 
                             Swal.fire({
                                 icon: 'success',
-                                title: 'location update successfully',
+                                title: 'acctType update successfully',
                                 allowOutsideClick: false,
                                 timer: 5000,
                             })
-                            window.location = "{{ url('location') }}";
+                            window.location = "{{ url('acctType') }}";
 
                         }
                     }
                     if (response.status == 'error') {
-                        $('.error_msg').append('<p>Location Master not save</p>');
+                        $('.error_msg').append('<p>Account Type Master not save</p>');
                     }
                 }
             })
@@ -605,23 +481,20 @@
             pageLength: 6,
             lengthMenu: [6, 10, 20, 50],
             order: [
-                [1, "desc"]
+                [0, "desc"]
             ],
             processing: true,
             serverSide: true,
             destroy: true,
-            "ajax": "delete_location_list",
+            "ajax": "delete_acctType_list",
             "columns": [{
-                    data: "GMLMHLocationId"
+                    data: "BMATHAcctId"
                 },
                 {
-                    data: "GMLMHDesc1"
+                    data: "BMATHDesc1"
                 },
                 {
-                    data: "fn_city.GMCTHDesc1"
-                },
-                {
-                    data: "GMLMHUser"
+                    data: "BMATHUser"
                 },
                 {
                     data: "action",
@@ -634,7 +507,7 @@
                 },
             ]
         });
-        $('.modal-title').text('Restore Location');
+        $('.modal-title').text('Restore Account Type');
         $('#UndoModal').modal('show');
     });
 
@@ -642,8 +515,8 @@
         var action = 'delete';
         var id = $(this).attr('id');
         var desc = $(this).closest("tr").find("td:eq(1)").text();
-        $deleteMessage3SIS = fnConfirmationMsg('Delete', 'Location', id, desc);
-        $successMessage3SIS = fnSuccessMsg('Deleted', 'Location', id, desc);
+        $deleteMessage3SIS = fnConfirmationMsg('Delete', 'Account Type', id, desc);
+        $successMessage3SIS = fnSuccessMsg('Deleted', 'Account Type', id, desc);
 
         Swal.fire({
             title: $deleteMessage3SIS,
@@ -657,7 +530,7 @@
             console.log(result)
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "location_delete",
+                    url: "acctType_delete",
                     mehtod: "get",
                     data: {
                         id: id,
@@ -682,7 +555,7 @@
         var action = 'undelete';
         var id = $(this).attr('id');
         var desc = $(this).closest("tr").find("td:eq(1)").text();
-        $restoreMessage3SIS = fnConfirmationMsg('Restore', 'Location', id, desc);
+        $restoreMessage3SIS = fnConfirmationMsg('Restore', 'Account Type', id, desc);
         Swal.fire({
             title: $restoreMessage3SIS,
             icon: 'warning',
@@ -695,7 +568,7 @@
             console.log(result)
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "location_delete",
+                    url: "acctType_delete",
                     mehtod: "get",
                     data: {
                         id: id,
@@ -714,25 +587,18 @@
             }
         })
     });
-    $('#GMLMHCityId').change(function() {
-        var id = $(this).val();
-        // alert(id);
-        getDesc(id);
 
-    });
-
-    function getDesc(id) {
-        $.ajax({
-            url: "{{ url('get_city_desc') }}",
-            type: 'get',
-            data: 'id=' + id,
-            success: function(response) {
-                $('#GMLMHStateId').val(response.StateId);
-                $('#stateName').val(response.StateDesc);
-                $('#GMLMHCountryId').val(response.CountryId);
-                $('#countryName').val(response.CountryDesc);
-            }
-        })
-    }
+//Date picker
+console.log($('#id').val());
+if($('#id').val() != undefined){
+    $('#BMATHLastCreated,#BMATHLastUpdated').flatpickr({
+    dateFormat: "d-m-Y"
+});
+}else{
+    $('#BMATHLastCreated,#BMATHLastUpdated').flatpickr({
+    defaultDate: new Date(),
+    dateFormat: "d-m-Y"
+});
+}
 </script>
 @endsection

@@ -87,7 +87,7 @@ class CountryController extends Controller
     public function country_list()
     {
         $country_list = Country::where('GMCMHMarkForDeletion','!=',1)->get();
-        return $this->TableActionTrait($country_list);
+        return $this->TableActionTrait('country',$country_list);
     }
 
     public function DeleteList()

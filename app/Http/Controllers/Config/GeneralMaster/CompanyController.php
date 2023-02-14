@@ -37,7 +37,8 @@ class CompanyController extends Controller
         $currency_list = Currency::all();
         $city_list = City::all();
         $branch_list = BranchName::all();
-        return view('config.GeneralMaster.company',compact( 'action','edit_data','currency_list','city_list','branch_list'));
+        $qtylist = [0,1,2,3,4,5];
+        return view('config.GeneralMaster.company',compact( 'action','edit_data','currency_list','city_list','branch_list','qtylist'));
     }
 
      public function save(Request $request)
@@ -61,7 +62,6 @@ class CompanyController extends Controller
                 }else {
                     $company_data->GMCOHLastCreated =now();
                 }
-                dd($request->all());
                 $company_data->GMCOHCompanyId               = $request->GMCOHCompanyId;
                 $company_data->GMCOHDesc1                   = $request->GMCOHDesc1;
                 $company_data->GMCOHDesc2                   = $request->GMCOHDesc2;
@@ -89,7 +89,7 @@ class CompanyController extends Controller
                 $company_data->GMCOHTANNo                   = $request->GMCOHTANNo;
                 $company_data->GMCOHVATNo                   = $request->GMCOHVATNo;
                 $company_data->GMCOHESTNo                   = $request->GMCOHESTNo;
-                $company_data->GMCOHESTDate                 = $request->GMCOHESTDate;
+                $company_data->GMCOHESTDate                 = date('Y-m-d',strtotime($request->GMCOHESTDate));
                 $company_data->GMCOHBankId1                 = $request->GMCOHBankId1;
                 $company_data->GMCOHBranchId1               = $request->GMCOHBranchId1;
                 $company_data->GMCOHIFSId1                  = $request->GMCOHIFSId1;

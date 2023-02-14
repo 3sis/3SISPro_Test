@@ -10,7 +10,7 @@ class BankName extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 't05902l01';
-    protected $primaryKey = 'BMBNHUniqueId';
+    protected $primaryKey = 'id';
     protected $fillable =
         [
             'id',

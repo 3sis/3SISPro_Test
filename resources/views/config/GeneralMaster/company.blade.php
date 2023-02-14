@@ -2,6 +2,8 @@
 @section('content')
 @section('css')
     @include('inc.style')
+    @include('inc.flatpickr_css')
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @if (Request::path() == 'company')
@@ -299,12 +301,15 @@
                                     <label>Quantity Decimals</label>
                                     <select id='GMCOHDecimalPositionQty' name='GMCOHDecimalPositionQty'
                                         class="form-select" style="width: 100%;border: 1px solid #68a6ec;">
-                                        <option value='0'>0</option>
-                                        <option value='1'>1</option>
-                                        <option value='2'>2</option>
-                                        <option value='3'>3</option>
-                                        <option value='4'>4</option>
-                                        <option value='5'>5</option>
+                                        @foreach ($qtylist as $Decimal)
+                                            @if (!empty($edit_data['GMCOHDecimalPositionQty']) && $edit_data['GMCOHDecimalPositionQty'] == $Decimal)
+                                                <option value='{{ $Decimal }}' selected>
+                                                    {{ $Decimal }}</option>
+                                            @else
+                                                <option value='{{ $Decimal }}'>
+                                                    {{ $Decimal }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -313,12 +318,16 @@
                                     <label>Value Decimals</label>
                                     <select id='GMCOHDecimalPositionValue' name='GMCOHDecimalPositionValue'
                                         class="form-select" style="width: 100%;border: 1px solid #68a6ec;">
-                                        <option value='0'>0</option>
-                                        <option value='1'>1</option>
-                                        <option value='2'>2</option>
-                                        <option value='3'>3</option>
-                                        <option value='4'>4</option>
-                                        <option value='5'>5</option>
+                                        <option value=''>Select Qty</option>
+                                        @foreach ($qtylist as $qty)
+                                            @if (!empty($edit_data['GMCOHDecimalPositionValue']) && $edit_data['GMCOHDecimalPositionValue'] == $qty)
+                                                <option value='{{ $qty }}' selected>
+                                                    {{ $qty }}</option>
+                                            @else
+                                                <option value='{{ $qty }}'>
+                                                    {{ $qty }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -492,14 +501,14 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="bank" class="form-label">A/C Name</label>
-                                    <input type="test" name="GMCOHBankAcName1" id="GMCOHBankAcName1"
+                                    <input type="text" name="GMCOHBankAcName1" id="GMCOHBankAcName1"
                                         class='form-control threshold' maxlength="100" placeholder="Enter A/C Name 1"
                                         style='border-color: rgb(102, 175, 233); outline: 0px'
                                         value="{{ old('GMCOHBankAcName1', $edit_data['GMCOHBankAcName1'] ?? '') }}">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="ifsc" class="form-label">A/C No.</label>
-                                    <input type="test" name="GMCOHBankAccNo1" id="GMCOHBankAccNo1"
+                                    <input type="text" name="GMCOHBankAccNo1" id="GMCOHBankAccNo1"
                                         class='form-control threshold' maxlength="20" placeholder="Enter A/C No. 1"
                                         style='border-color: rgb(102, 175, 233); outline: 0px'
                                         value="{{ old('GMCOHBankAccNo1', $edit_data['GMCOHBankAccNo1'] ?? '') }}">
@@ -541,14 +550,14 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="bank" class="form-label">A/C Name</label>
-                                    <input type="test" name="GMCOHBankAcName2" id="GMCOHBankAcName2"
+                                    <input type="text" name="GMCOHBankAcName2" id="GMCOHBankAcName2"
                                         class='form-control threshold' maxlength="100" placeholder="Enter A/C Name 2"
                                         style='border-color: rgb(102, 175, 233); outline: 0px'
                                         value="{{ old('GMCOHBankAcName2', $edit_data['GMCOHBankAcName2'] ?? '') }}">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="ifsc" class="form-label">A/C No.</label>
-                                    <input type="test" name="GMCOHBankAccNo2" id="GMCOHBankAccNo2"
+                                    <input type="text" name="GMCOHBankAccNo2" id="GMCOHBankAccNo2"
                                         class='form-control threshold' maxlength="20" placeholder="Enter A/C No. 2"
                                         style='border-color: rgb(102, 175, 233); outline: 0px'
                                         value="{{ old('GMCOHBankAccNo2', $edit_data['GMCOHBankAccNo2'] ?? '') }}">
@@ -577,22 +586,22 @@
 
                             <div class="col-md-6">
                                 <label for="bank" class="form-label">GST</label>
-                                <input type="test" name="GMCOHGSTNo" id="GMCOHGSTNo"
-                                    class='form-control threshold' placeholder="GST No"
+                                <input type="text" name="GMCOHGSTNo" id="GMCOHGSTNo"
+                                    class='form-control' placeholder="GST No"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('GMCOHGSTNo', $edit_data['GMCOHGSTNo'] ?? '') }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="bank" class="form-label">PAN No.</label>
-                                <input type="test" name="GMCOHPANNo" id="GMCOHPANNo"
-                                    class='form-control threshold' placeholder="PAN No"
+                                <input type="text" name="GMCOHPANNo" id="GMCOHPANNo"
+                                    class='form-control' placeholder="PAN No"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('GMCOHPANNo', $edit_data['GMCOHPANNo'] ?? '') }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="bank" class="form-label">CIN No.</label>
-                                <input type="test" name="GMCOHCINNo" id="GMCOHCINNo"
-                                    class='form-control threshold' placeholder="CIN No"
+                                <input type="text" name="GMCOHCINNo" id="GMCOHCINNo"
+                                    class='form-control' placeholder="CIN No"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('GMCOHCINNo', $edit_data['GMCOHCINNo'] ?? '') }}">
                             </div>
@@ -612,15 +621,15 @@
 
                             <div class="col-md-6">
                                 <label for="bank" class="form-label">Folder Name</label>
-                                <input type="test" name="GMCOHFolderName" id="GMCOHFolderName"
-                                    class='form-control threshold' placeholder="Folder Name"
+                                <input type="text" name="GMCOHFolderName" id="GMCOHFolderName"
+                                    class='form-control' placeholder="Folder Name"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('GMCOHFolderName', $edit_data['GMCOHFolderName'] ?? '') }}">
                             </div>
                             <div class="col-md-6">
                                 <label for="bank" class="form-label">Company Logo</label>
-                                <input type="test" name="GMCOHImageFileName" id="GMCOHImageFileName"
-                                    class='form-control threshold' placeholder="Company Logo"
+                                <input type="text" name="GMCOHImageFileName" id="GMCOHImageFileName"
+                                    class='form-control' placeholder="Company Logo"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('GMCOHImageFileName', $edit_data['GMCOHImageFileName'] ?? '') }}">
                             </div>
@@ -718,6 +727,8 @@
 @endsection
 @section('js_code')
 @include('inc.js_file')
+@include('inc.flatpickr_js')
+
 {{-- <!-- <script src={{ asset('assets/common/js/CompanyMasterAjax.js') }}></script> --> --}}
 <script type="text/javascript">
     $(document).ready(function() {

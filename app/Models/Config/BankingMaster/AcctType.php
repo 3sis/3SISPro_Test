@@ -10,7 +10,7 @@ class AcctType extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 't05902l03';
-    protected $primaryKey = 'BMATHUniqueId';
+    protected $primaryKey = 'id';
     protected $fillable =
         [
             'id',
