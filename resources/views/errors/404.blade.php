@@ -46,8 +46,8 @@
         <div class="row">
             <div class="col-md-4 mr-auto mt-5 text-md-left text-center">
                 <a href="index.html" class="ml-md-5">
-                    <img alt="image-404" src="{{asset('assets/img/logo.svg')}}" class="dark-element theme-logo">
-                    <img alt="image-404" src="{{asset('assets/img/logo2.svg')}}" class="light-element theme-logo">
+                    <img alt="image-404" src="{{asset('assets/img/LOGOForPayroll.png')}}" class="dark-element theme-logo">
+                    <img alt="image-404" src="{{asset('assets/img/LOGOForPayroll.png')}}" class="light-element theme-logo">
                 </a>
             </div>
         </div>
