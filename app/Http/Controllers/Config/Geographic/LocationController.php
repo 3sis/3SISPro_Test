@@ -93,7 +93,8 @@ class LocationController extends Controller
 
     public function location_list()
     {
-        $location_list = Location::where('GMLMHMarkForDeletion','!=',1)->where('t05901L06.GMLMHCompanyId', $this->gCompanyId)->with('fnCity','fnState','fnCountry')->get();
+        $location_list = Location::where('GMLMHMarkForDeletion','!=',1)->where('t05901l06.GMLMHCompanyId', $this->gCompanyId)->with('fnCity','fnState','fnCountry')->get();
+
         // dd($location_list);
         return $this->TableActionTrait('location',$location_list);
     }
