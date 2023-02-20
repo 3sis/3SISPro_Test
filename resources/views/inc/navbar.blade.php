@@ -3,14 +3,14 @@
         <header class="header navbar navbar-expand-sm expand-header">
 
             <ul class="navbar-item theme-brand flex-row  text-center">
-                <li class="nav-item theme-logo">
+                <li class="nav-item theme-logo" style="margin-right: 47px;">
                     <a href="{{url('home')}}">
-                        <img src="{{asset('assets/img/logo2.svg')}}" class="navbar-logo" alt="logo">
+                        <img src="{{asset('assets/img/LOGOForPayroll.png')}}" class="navbar-logo" alt="logo 1" style="margin-top: 10px;width: 60px;height: 30px;">
                     </a>
                 </li>
-                <li class="nav-item theme-text">
-                    <a href="{{url('home')}}" class="nav-link"> CORK </a>
-                </li>
+               <!--  <li class="nav-item theme-text">
+                    <a href="{{url('home')}}" class="nav-link"> CORK 1</a>
+                </li> -->
             </ul>
 
             <div class="search-animated toggle-search">

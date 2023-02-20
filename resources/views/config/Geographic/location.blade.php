@@ -385,15 +385,13 @@
 {{-- <!-- <script src={{ asset('assets/common/js/LocationMasterAjax.js') }}></script> --> --}}
 <script type="text/javascript">
     $(document).ready(function() {
-        var id = $('#GMLMHCityId').val();
-        if (id != '') {
-            getDesc(id);
+        var GMLMHCityId = $('#GMLMHCityId').val();
+            console.log(GMLMHCityId);
+        if (GMLMHCityId != '' && GMLMHCityId != undefined) {
+            console.log(GMLMHCityId);
+            getDesc(GMLMHCityId);
         }
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //      }
-        // });
+       
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -436,7 +434,7 @@
                     data: "GMLMHDesc1"
                 },
                 {
-                    data: "fn_city.GMCTHDesc1"
+                    data: "fn_country.GMCMHDesc1"
                 },
                 {
                     data: "GMLMHUser"
