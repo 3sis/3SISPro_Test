@@ -11,6 +11,7 @@ use App\Http\Controllers\Config\BankingMaster\AcctTypeController;
 use App\Http\Controllers\Config\BankingMaster\BankNameController;
 use App\Http\Controllers\Config\BankingMaster\BranchNameController;
 use App\Http\Controllers\Config\BankingMaster\PaymentModeController;
+use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -111,6 +112,21 @@ Route::controller(PaymentModeController::class)->group(function () {
     Route::get('get_paymentMode', 'paymentMode_list');
     Route::get('paymentMode_delete', 'Restore_Delete_Data');
     Route::get('delete_paymentMode_list', 'DeleteList');
+});
+
+// GeneralInfo Master
+Route::controller(GeneralInfoController::class)->group(function () {
+    //add-edit
+    Route::get('generalInfo/{action?}/{id?}', 'index');
+    Route::get('generalInfo_report/{type}', 'report');
+    Route::post('generalInfo_save', 'save');
+    Route::get('get_generalInfo', 'generalInfo_list');
+    Route::get('generalInfo_delete', 'Restore_Delete_Data');
+    Route::get('delete_generalInfo_list', 'DeleteList');
+    Route::get('get_city_desc', 'getCityDesc')->name('get_city_desc');
+    Route::get('get_branch_details', 'getBranchDetails')->name('get_branch_details');
+
+
 });
     // Route::get('logout',[AuthController::class,'logout']);
     Route::controller(AuthController::class)->group(function () {
