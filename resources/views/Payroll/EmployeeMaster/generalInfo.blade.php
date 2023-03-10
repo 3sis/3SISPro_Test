@@ -299,7 +299,7 @@
                                     value="{{ old('EMGIHFullName', $edit_data['EMGIHFullName'] ?? '') }}" readonly>
                             </div>
 
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Salutation<span class="text-danger">
                                     *</span> </label>
                                 <select id='EMGIHSalutationId' name='EMGIHSalutationId' class="form-select"
@@ -316,7 +316,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Gender<span class="text-danger">
                                     *</span> </label>
                                 <select id='EMGIHGenderId' name='EMGIHGenderId' class="form-select"
@@ -333,7 +333,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Location<span class="text-danger">
                                     *</span> </label>
                                 <select id='EMGIHLocationId' name='EMGIHLocationId' class="form-select"
@@ -350,7 +350,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Employment Type<span class="text-danger">
                                     *</span> </label>
                                 <select id='EMGIHEmploymentTypeId' name='EMGIHEmploymentTypeId' class="form-select"
@@ -368,7 +368,7 @@
 
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Grade Id</label>
                                 <select id='EMGIHGradeId' name='EMGIHGradeId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -384,7 +384,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Designation Id</label>
                                 <select id='EMGIHDesignationId' name='EMGIHDesignationId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -400,7 +400,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Department Id</label>
                                 <select id='EMGIHDepartmentId' name='EMGIHDepartmentId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -416,7 +416,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Calendar Id<span class="text-danger">
                                     *</span> </label>
                                 <select id='EMGIHCalendarId' name='EMGIHCalendarId' class="form-select"
@@ -475,7 +475,7 @@
                     </div>
                     <div class="widget-content widget-content-area">
                         <div class="row g-3">
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Nationality<span class="text-danger">
                                     *</span> </label>
                                 <select id='EMGIHNationalityId' name='EMGIHNationalityId' class="form-select"
@@ -492,7 +492,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Religion</label>
                                 <select id='EMGIHReligionId' name='EMGIHReligionId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -508,7 +508,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Race/Cast</label>
                                 <select id='EMGIHRaceCastId' name='EMGIHRaceCastId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -532,7 +532,7 @@
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('EMGIHPANNo', $edit_data['EMGIHPANNo'] ?? '') }}">
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Blood Group</label>
                                 <select id='EMGIHBloodGroupId' name='EMGIHBloodGroupId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -548,7 +548,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Physical Status</label>
                                 <select id='EMGIHPhysicalStatusId' name='EMGIHPhysicalStatusId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -564,7 +564,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Leave Group</span> </label>
                                 {{-- <select id='EMGIHLeaveGroupId' name='EMGIHLeaveGroupId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -589,7 +589,7 @@
                                         value="{{ old('EMGIHAadharNo', $edit_data['EMGIHAadharNo'] ?? '') }}">
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Marital Status</label>
                                 <select id='EMGIHMaritalStatusId' name='EMGIHMaritalStatusId' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
@@ -720,7 +720,7 @@
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('EMGIHOTApplicable', $edit_data['EMGIHOTApplicable'] ?? '') }}">
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label>OT Basis</label>
                                 <select id='EMGIHOTBasisId' name='EMGIHOTBasisId'
                                     class="form-select" style="width: 100%;border: 1px solid #68a6ec;">
@@ -756,7 +756,7 @@
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('EMGIHIsDailyWages', $edit_data['EMGIHIsDailyWages'] ?? '') }}">
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Wage Basis </label>
                                 <select id='EMGIHDailyWagesId' name='EMGIHDailyWagesId'
                                     class="form-select" style="width: 100%;border: 1px solid #68a6ec;">
@@ -785,7 +785,7 @@
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('EMGIHPFCompLimit', $edit_data['EMGIHPFCompLimit'] ?? '0.00') }}">
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <label for="dropdown" class="form-label">Regime Id<span class="text-danger">
                                     *</span> </label>
                                 <select id='EMGIHRegimeId' name='EMGIHRegimeId' class="form-select"
@@ -890,14 +890,16 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="n-chk col-md-12">
-                                    <div class="form-group">
-                                        <span class="error-text EMGIHSameAsPresentAdd_error text-danger"
-                                            style='float:right;'></span>
-                                        <label class="new-control new-checkbox new-checkbox-text checkbox-success">
-                                            <input type="checkbox" class="new-control-input" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd'>
-                                            <span class="new-control-indicator"></span><span class="new-chk-content">Same As Present</span>
-                                        </label>
-                                    </div>
+                                    {{-- <div class="form-group"> --}}
+                                        {{-- <div class="n-chk mt-4"> --}}
+                                            <div class="form-check form-check-primary form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd'>
+                                                <label class="form-check-label" for="form-check-default">
+                                                    Same As Present
+                                                </label>
+                                            </div>
+                                        {{-- </div> --}}
+                                    {{-- </div> --}}
                                 </div>
                             </div>
                             <!-- Permanent Address-->
@@ -1079,13 +1081,18 @@
                             <div class="col-md-9">
                                 <div class="row mt-0">
                                     <div class="col-md-3 n-chk mt-4">
-                                        <div class="form-group">
-                                            <span class=" text-danger" style='float:right;'></span>
+                                        <div class="form-check form-check-primary form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name='EMGIHIsResignation' id='EMGIHIsResignation'>
+                                            <label class="form-check-label" for="form-check-default">
+                                                Is Resignation
+                                            </label>
+                                        </div>
+                                            {{-- <span class=" text-danger" style='float:right;'></span>
                                             <label class="new-control new-checkbox new-checkbox-text checkbox-success">
                                                 <input type="checkbox" class="new-control" name='EMGIHIsResignation' id='EMGIHIsResignation'>
                                                 <span class="new-control-indicator"></span><span class="new-chk-content">Is Resignation</span>
                                             </label>
-                                        </div>
+                                            --}}
                                     </div>
                                     <div class="col-md-3">
                                         <label for="Updated" class="form-label">Letter Submission</label>
@@ -1129,12 +1136,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="row mt-0">
-                                    <div class="n-chk mt-4">
-                                        <div class="form-group">
-                                            <span class=" text-danger" style='float:right;'></span>
-                                            <label class="new-control new-checkbox new-checkbox-text checkbox-success">
-                                                <input type="checkbox" class="new-control" name='EMGIHLeaveWithoutPayIndicator' id='EMGIHLeaveWithoutPayIndicator'>
-                                                <span class="new-control-indicator"></span><span class="new-chk-content">Leave Without Pay Indicator</span>
+                                    <div class="n-chk col-md-12">
+                                        <div class="form-check form-check-primary form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name='EMGIHLeaveWithoutPayIndicator' id='EMGIHLeaveWithoutPayIndicator'>
+                                            <label class="form-check-label" for="form-check-default">
+                                                Leave Without Pay Indicator
                                             </label>
                                         </div>
                                     </div>
@@ -1159,6 +1165,8 @@
         </div>
         <!-- resignation_info End -->
         <!-- User Info Start -->
+        {{-- @if ($action == 'add') --}}
+
         <div class="row" id="user_info">
             <div id="flStackForm5" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
@@ -1203,6 +1211,19 @@
                                         type="text" placeholder="Select Date.." readonly="readonly">
                                 @endif
                             </div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
+                            <div class="col-md-12"></div>
 
 
 
@@ -1214,6 +1235,7 @@
             </div>
         </div>
         <!-- User_info End -->
+        {{-- @endif --}}
     </main>
 
     <!-- Error Model -->
