@@ -9,7 +9,7 @@ class Type extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'T11903l04';
+    protected $table = 't11903l04';
     protected $primaryKey = 'id';
     protected $fillable =
         [

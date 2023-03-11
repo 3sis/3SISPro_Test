@@ -863,7 +863,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class='form-group'>
-                                            <label class="form-label">State</label>
+                                            <label class="form-label">State </label>
                                             <input type="hidden" name="EMGIHPresentStateId" id="EMGIHPresentStateId">
                                             <input type="text" name='PresentStateName' id='PresentStateName' class='form-control'
                                                 readonly>

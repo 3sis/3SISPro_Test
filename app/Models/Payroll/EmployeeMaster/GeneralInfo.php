@@ -27,7 +27,7 @@ class GeneralInfo extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'T11101l01';
+    protected $table = 't11101l01';
     protected $primaryKey = 'id';
     protected $fillable =
     [

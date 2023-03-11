@@ -9,7 +9,7 @@ class Grade extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'T11903l02';
+    protected $table = 't11903l02';
     protected $primaryKey = 'id';
     protected $fillable =
         [

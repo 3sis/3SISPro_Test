@@ -9,7 +9,7 @@ class Salutation extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'T11901L01';
+    protected $table = 't11901L01';
     protected $primaryKey = 'id';
     protected $fillable =
         [

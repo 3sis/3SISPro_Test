@@ -9,7 +9,7 @@ class Department extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'T11903L03';
+    protected $table = 't11903L03';
     protected $primaryKey = 'id';
     protected $fillable =
         [

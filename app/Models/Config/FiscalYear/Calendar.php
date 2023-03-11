@@ -9,7 +9,7 @@ class Calendar extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'T05903L02';
+    protected $table = 't05903L02';
     protected $primaryKey = 'id';
     protected $fillable =
         [
