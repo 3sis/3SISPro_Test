@@ -893,7 +893,8 @@
                                     {{-- <div class="form-group"> --}}
                                         {{-- <div class="n-chk mt-4"> --}}
                                             <div class="form-check form-check-primary form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd'>
+                                                <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd'
+                                                value="{{ old('EMGIHSameAsPresentAdd', $edit_data['EMGIHSameAsPresentAdd'] ?? '') }}">
                                                 <label class="form-check-label" for="form-check-default">
                                                     Same As Present
                                                 </label>

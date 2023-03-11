@@ -9,7 +9,7 @@ class MaritalStatus extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't11901L07';
+    protected $table = 't11901l07';
     protected $primaryKey = 'id';
     protected $fillable =
         [

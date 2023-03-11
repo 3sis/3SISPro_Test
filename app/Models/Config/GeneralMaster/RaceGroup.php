@@ -9,7 +9,7 @@ class RaceGroup extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't11901L05';
+    protected $table = 't11901l05';
     protected $primaryKey = 'id';
     protected $fillable =
         [

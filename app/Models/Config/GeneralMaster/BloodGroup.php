@@ -9,7 +9,7 @@ class BloodGroup extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't11901L03';
+    protected $table = 't11901l03';
     protected $primaryKey = 'id';
     protected $fillable =
         [

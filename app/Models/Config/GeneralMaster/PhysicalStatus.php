@@ -9,7 +9,7 @@ class PhysicalStatus extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't11901L08';
+    protected $table = 't11901l08';
     protected $primaryKey = 'id';
     protected $fillable =
         [

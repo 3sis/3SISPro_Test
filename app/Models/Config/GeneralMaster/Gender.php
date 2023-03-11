@@ -9,7 +9,7 @@ class Gender extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't11901L02';
+    protected $table = 't11901l02';
     protected $primaryKey = 'id';
     protected $fillable =
         [

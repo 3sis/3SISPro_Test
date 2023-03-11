@@ -9,7 +9,7 @@ class Designation extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't11903L01';
+    protected $table = 't11903l01';
     protected $primaryKey = 'id';
     protected $fillable =
         [

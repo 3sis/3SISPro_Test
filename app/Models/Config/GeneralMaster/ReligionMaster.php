@@ -9,7 +9,7 @@ class ReligionMaster extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't11901L06';
+    protected $table = 't11901l06';
     protected $primaryKey = 'id';
     protected $fillable =
         [
