@@ -97,7 +97,7 @@ class GeneralInfoController extends Controller
             $request->merge(['EMGIHCompId' => $this->gCompanyId]);
 
             $validator = Validator::make($request->all(), [
-              'EMGIHEmployeeId'         => 'required|min:2|max:10|unique:T11101l01,EMGIHEmployeeId,'.$request->id,
+              'EMGIHEmployeeId'         => 'required|min:2|max:10|unique:t11101l01,EMGIHEmployeeId,'.$request->id,
               'EMGIHFirstName'          => 'required|max:100',
               'EMGIHEmploymentTypeId'   => 'max:200',
               'EMGIHLocationId'         => 'required'
@@ -223,7 +223,7 @@ class GeneralInfoController extends Controller
 
     public function generalInfo_list()
     {
-        $generalInfo_list = GeneralInfo::where('EMGIHMarkForDeletion','!=',1)->where('T11101l01.EMGIHCompId', $this->gCompanyId)->with('fnCity','fnLocation','fnSalutation')->get();
+        $generalInfo_list = GeneralInfo::where('EMGIHMarkForDeletion','!=',1)->where('t11101l01.EMGIHCompId', $this->gCompanyId)->with('fnCity','fnLocation','fnSalutation')->get();
         return $this->TableActionTrait('generalInfo',$generalInfo_list);
     }
 
