@@ -70,7 +70,7 @@ class GeneralInfoController extends Controller
         $calendar_list = Calendar::all();
         $wadge = ['Daily','Hourly'];
 
-        return view('payroll.EmployeeMaster.generalInfo',compact( 'action','edit_data','salutation_list',
+        return view('Payroll.EmployeeMaster.generalInfo',compact( 'action','edit_data','salutation_list',
         'location_list','city_list','country_list','branch_list','acctType_list','paymentMode_list','paymentMode_list','paymentMode_list',
         'paymentMode_list','gender_list','bloodGroup_list','maritalStatus_list','maritalStatus_list',
         'nationality_list','physicalStatus_list','raceGroup_list','religionMaster_list','department_list',
