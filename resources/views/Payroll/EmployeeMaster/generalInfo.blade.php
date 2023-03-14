@@ -893,13 +893,15 @@
                                     {{-- <div class="form-group"> --}}
                                         {{-- <div class="n-chk mt-4"> --}}
                                             <div class="form-check form-check-primary form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd'
-                                                value="{{ old('EMGIHSameAsPresentAdd', $edit_data['EMGIHSameAsPresentAdd'] ?? '') }}">
-                                                {{-- value="1" {{ $edit_data->EMGIHSameAsPresentAdd || old('EMGIHSameAsPresentAdd', 0) === 1 ? 'checked' }} --}}
 
-                                                <label class="form-check-label" for="form-check-default">
-                                                    Same As Present
-                                                </label>
+                                @if(!empty($edit_data['EMGIHSameAsPresentAdd']))
+                                  <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd' value="{{$edit_data['EMGIHSameAsPresentAdd']}}" checked>
+                                 @else
+                                  <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd' value="{{old('EMGIHSameAsPresentAdd',$edit_data['EMGIHSameAsPresentAdd'] ?? '') }}">
+                                @endif
+                                <label class="form-check-label" for="form-check-default">
+                                    Same As Present
+                                </label>
                                             </div>
                                         {{-- </div> --}}
                                     {{-- </div> --}}
@@ -1085,7 +1087,11 @@
                                 <div class="row mt-0">
                                     <div class="col-md-3 n-chk mt-4">
                                         <div class="form-check form-check-primary form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name='EMGIHIsResignation' id='EMGIHIsResignation'>
+                                         @if(!empty($edit_data['EMGIHIsResignation']))
+                                          <input class="form-check-input" type="checkbox" name='EMGIHIsResignation' id='EMGIHIsResignation' value="{{$edit_data['EMGIHIsResignation']}}" checked>
+                                         @else
+                                          <input class="form-check-input" type="checkbox" name='EMGIHIsResignation' id='EMGIHIsResignation' value="{{old('EMGIHIsResignation',$edit_data['EMGIHIsResignation'] ?? '') }}">
+                                        @endif
                                             <label class="form-check-label" for="form-check-default">
                                                 Is Resignation
                                             </label>
@@ -1141,7 +1147,11 @@
                                 <div class="row mt-0">
                                     <div class="n-chk col-md-12">
                                         <div class="form-check form-check-primary form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name='EMGIHLeaveWithoutPayIndicator' id='EMGIHLeaveWithoutPayIndicator'>
+                                        @if(!empty($edit_data['EMGIHLeaveWithoutPayIndicator']))
+                                          <input class="form-check-input" type="checkbox" name='EMGIHLeaveWithoutPayIndicator' id='EMGIHLeaveWithoutPayIndicator' value="{{$edit_data['EMGIHLeaveWithoutPayIndicator']}}" checked>
+                                         @else
+                                          <input class="form-check-input" type="checkbox" name='EMGIHLeaveWithoutPayIndicator' id='EMGIHLeaveWithoutPayIndicator' value="{{old('EMGIHLeaveWithoutPayIndicator',$edit_data['EMGIHLeaveWithoutPayIndicator'] ?? '') }}">
+                                        @endif
                                             <label class="form-check-label" for="form-check-default">
                                                 Leave Without Pay Indicator
                                             </label>
