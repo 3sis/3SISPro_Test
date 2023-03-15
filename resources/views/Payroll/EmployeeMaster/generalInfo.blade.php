@@ -100,7 +100,7 @@
 <!-- Scroll Spy Navigation -->
 @if ($action == 'add' || $action == 'edit')
     <nav id="navbar-example2" class="navbar sticky-top bg-dark" style="top: 110px;">
-        <div class="col-auto me-auto mt-2">
+        <div class="col-auto me-auto mt-2" style="width:850px;">
             <form id='AddForm' method="post" autocomplete="off">
                 <ul class="nav nav-pills mb-2 ms-1">
                     <li class="nav-item">
@@ -127,9 +127,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#resignation_info">Resignation & LWP</a>
                     </li>
+
+                   @if (!empty($edit_data['id']))
                     <li class="nav-item">
                         <a class="nav-link" href="#user_info">User Info</a>
                     </li>
+                    @endif
                 </ul>
 
         </div>
@@ -1177,9 +1180,9 @@
             </div>
         </div>
         <!-- resignation_info End -->
-        <!-- User Info Start -->
-        {{-- @if ($action == 'add') --}}
 
+        @if (!empty($edit_data['id']))
+        <!-- User Info Start -->
         <div class="row" id="user_info">
             <div id="flStackForm5" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
@@ -1237,10 +1240,6 @@
                             <div class="col-md-12"></div>
                             <div class="col-md-12"></div>
                             <div class="col-md-12"></div>
-
-
-
-
                         </div>
 
                     </div>
@@ -1248,7 +1247,7 @@
             </div>
         </div>
         <!-- User_info End -->
-        {{-- @endif --}}
+        @endif
     </main>
 
     <!-- Error Model -->
