@@ -1659,7 +1659,48 @@
         var id = $(this).val();
         getBank2Details(id);
     });
+    if($('#EMGIHIsResignation').prop('checked')==true) {
+        $("#EMGIHDateOfLetterSubmission").attr("readonly", false);
 
+    }else{
+        $("#EMGIHDateOfLetterSubmission").attr("readonly", true);
+
+    }
+      // When SameAsPresentAdd is Checked, bring all to addres1 to address2
+      $("#EMGIHSameAsPresentAdd").on("click", function(){
+            if (this.checked) {
+                $('#EMGIHPermanentAddress1').val($("#EMGIHPresentAddress1").val());
+                $('#EMGIHPermanentAddress2').val($("#EMGIHPresentAddress2").val());
+                $('#EMGIHPermanentAddress3').val($("#EMGIHPresentAddress3").val());
+                $('#EMGIHPermanentCityId').val($("#EMGIHPresentCityId").val()).change();
+
+                $('#EMGIHPermanentStateId').val($("#EMGIHPresentStateId").val());
+                $('#PermanentStateName').val($("#PresentStateName").val());
+
+                $('#EMGIHPermanentCountryId').val($("#EMGIHPresentCountryId").val());
+                $('#PermanentCountryName').val($("#PresentCountryName").val());
+
+                $('#EMGIHPermanentPinCode').val($("#EMGIHPresentPinCode").val());
+
+                $("#EMGIHPermanentAddress1").attr("readonly", true);
+                $("#EMGIHPermanentAddress2").attr("readonly", true);
+                $("#EMGIHPermanentAddress3").attr("readonly", true);
+                $("#EMGIHPermanentCityId").attr("readonly", true);
+                $("#EMGIHPermanentPinCode").attr("readonly", true);
+
+            }
+            else {
+                $("#EMGIHPermanentAddress1").val('');
+                $("#EMGIHPermanentAddress2").val('');
+                $("#EMGIHPermanentAddress3").val('');
+                $("#EMGIHPermanentCityId").val('').change();
+                $("#EMGIHPermanentStateId").val('');
+                $("#PermanentStateName").val('');
+                $("#EMGIHPermanentCountryId").val('');
+                $("#PermanentCountryName").val('');
+                $("#EMGIHPermanentPinCode").val('');
+            }
+        });
     function getPresentCityDetail(id) {
         $.ajax({
             url: "{{ url('get_city_desc') }}",
