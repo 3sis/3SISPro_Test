@@ -297,7 +297,7 @@
                             <div class="col-md-3">
                                 <label for="name" class="form-label">Full Name</label>
                                 <input type="text" name='EMGIHFullName' id='EMGIHFullName'
-                                    class='form-control threshold' maxlength="20" placeholder="Full Name"
+                                    class='form-control' placeholder="Full Name"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('EMGIHFullName', $edit_data['EMGIHFullName'] ?? '') }}" readonly>
                             </div>
@@ -716,14 +716,18 @@
                     <div class="widget-content widget-content-area">
                         <div class="row g-3">
 
-                            <div class="col-md-3">
-                                <label for="bank" class="form-label">OT Applicable</label>
-                                <input type="text" name="EMGIHOTApplicable" id="EMGIHOTApplicable"
-                                    class='form-control' placeholder="GST No"
-                                    style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('EMGIHOTApplicable', $edit_data['EMGIHOTApplicable'] ?? '') }}">
+                            <div class="col-md-2">
+
+                                <div class="form-check form-check-primary form-check-inline">
+                                    @if(!empty($edit_data['EMGIHOTApplicable']))
+                                    <input class="form-check-input" type="checkbox" name='EMGIHOTApplicable' id='EMGIHOTApplicable' value="{{$edit_data['EMGIHOTApplicable']}}" checked>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name='EMGIHOTApplicable' id='EMGIHOTApplicable' value="{{old('EMGIHOTApplicable',$edit_data['EMGIHOTApplicable'] ?? '') }}">
+                                    @endif
+                                    <label class="form-check-label" for="form-check-default">OT Applicable</label>
+                                </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>OT Basis</label>
                                 <select id='EMGIHOTBasisId' name='EMGIHOTBasisId'
                                     class="form-select" style="width: 100%;border: 1px solid #68a6ec;">
@@ -737,6 +741,16 @@
                                         @endif
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check form-check-primary form-check-inline">
+                                    @if(!empty($edit_data['EMGIHPFApplicable']))
+                                    <input class="form-check-input" type="checkbox" name='EMGIHPFApplicable' id='EMGIHPFApplicable' value="{{$edit_data['EMGIHPFApplicable']}}" checked>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name='EMGIHPFApplicable' id='EMGIHPFApplicable' value="{{old('EMGIHPFApplicable',$edit_data['EMGIHPFApplicable'] ?? '') }}">
+                                    @endif
+                                    <label class="form-check-label" for="form-check-default">PF Applicable</label>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <label for="bank" class="form-label">PF Threshold</label>
@@ -752,14 +766,17 @@
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('EMGIHPFAcctNo', $edit_data['EMGIHPFAcctNo'] ?? '') }}">
                             </div>
-                            <div class="col-md-3">
-                                <label for="bank" class="form-label">Daily Wages</label>
-                                <input type="text" name="EMGIHIsDailyWages" id="EMGIHIsDailyWages"
-                                    class='form-control' placeholder="IsDailyWages"
-                                    style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('EMGIHIsDailyWages', $edit_data['EMGIHIsDailyWages'] ?? '') }}">
+                            <div class="col-md-2">
+                                <div class="form-check form-check-primary form-check-inline">
+                                    @if(!empty($edit_data['EMGIHIsDailyWages']))
+                                    <input class="form-check-input" type="checkbox" name='EMGIHIsDailyWages' id='EMGIHIsDailyWages' value="{{$edit_data['EMGIHIsDailyWages']}}" checked>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name='EMGIHIsDailyWages' id='EMGIHIsDailyWages' value="{{old('EMGIHIsDailyWages',$edit_data['EMGIHIsDailyWages'] ?? '') }}">
+                                    @endif
+                                    <label class="form-check-label" for="form-check-default">Daily Wages</label>
+                                </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label for="dropdown" class="form-label">Wage Basis </label>
                                 <select id='EMGIHDailyWagesId' name='EMGIHDailyWagesId'
                                     class="form-select" style="width: 100%;border: 1px solid #68a6ec;">
@@ -774,12 +791,15 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <label for="bank" class="form-label">Agreed By Comp</label>
-                                <input type="text" name="EMGIHPFAgreedByComp" id="EMGIHPFAgreedByComp"
-                                    class='form-control' placeholder="PF Agreed By Comp"
-                                    style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('EMGIHPFAgreedByComp', $edit_data['EMGIHPFAgreedByComp'] ?? '') }}">
+                            <div class="col-md-2">
+                                <div class="form-check form-check-primary form-check-inline">
+                                    @if(!empty($edit_data['EMGIHPFAgreedByComp']))
+                                    <input class="form-check-input" type="checkbox" name='EMGIHPFAgreedByComp' id='EMGIHPFAgreedByComp' value="{{$edit_data['EMGIHPFAgreedByComp']}}" checked>
+                                    @else
+                                    <input class="form-check-input" type="checkbox" name='EMGIHPFAgreedByComp' id='EMGIHPFAgreedByComp' value="{{old('EMGIHPFAgreedByComp',$edit_data['EMGIHPFAgreedByComp'] ?? '') }}">
+                                    @endif
+                                    <label class="form-check-label" for="form-check-default">Agreed By Comp</label>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <label for="bank" class="form-label">Comp Limit</label>
@@ -893,21 +913,17 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="n-chk col-md-12">
-                                    {{-- <div class="form-group"> --}}
-                                        {{-- <div class="n-chk mt-4"> --}}
-                                            <div class="form-check form-check-primary form-check-inline">
+                                    <div class="form-check form-check-primary form-check-inline">
 
-                                @if(!empty($edit_data['EMGIHSameAsPresentAdd']))
-                                  <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd' value="{{$edit_data['EMGIHSameAsPresentAdd']}}" checked>
-                                 @else
-                                  <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd' value="{{old('EMGIHSameAsPresentAdd',$edit_data['EMGIHSameAsPresentAdd'] ?? '') }}">
-                                @endif
-                                <label class="form-check-label" for="form-check-default">
-                                    Same As Present
-                                </label>
-                                            </div>
-                                        {{-- </div> --}}
-                                    {{-- </div> --}}
+                                        @if(!empty($edit_data['EMGIHSameAsPresentAdd']))
+                                        <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd' value="{{$edit_data['EMGIHSameAsPresentAdd']}}" checked>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name='EMGIHSameAsPresentAdd' id='EMGIHSameAsPresentAdd' value="{{old('EMGIHSameAsPresentAdd',$edit_data['EMGIHSameAsPresentAdd'] ?? '') }}">
+                                        @endif
+                                        <label class="form-check-label" for="form-check-default">
+                                            Same As Present
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Permanent Address-->
@@ -1322,6 +1338,14 @@
         $( "#EMGIHRegimeId" ).select2();
         $( "#EMGIHGroup" ).select2();
 
+        maritalStatus();
+        sameAsPresentAddress();
+        isResignation();
+        isLWP();
+        isOTApplicable();
+        isPFApplicable();
+        isAgreedByComp();
+        isDailyWages();
 
         // $.ajaxSetup({
         //     headers: {
@@ -1422,7 +1446,7 @@
     });
 
     $("#AddForm").submit(function(e) {
-        alert('test');
+        // alert('test');
         e.preventDefault();
         $('#EMGIHEmployeeId,#EMGIHFullName,#select2-EMGIHCityId-container').removeClass(
             'border border-danger');
@@ -1475,6 +1499,11 @@
                 contentType: false,
                 beforeSend: function() {
                     $('#btn_error').hide();
+                    if($('#EMGIHIsResignation').prop('checked')==true) {
+                        $('#EMGIHIsResignation').val(1);
+                    }else {
+                        $('#EMGIHIsResignation').val(0);
+                    }
                 },
                 success: function(response) {
                     console.log(response);
@@ -1658,48 +1687,45 @@
         var id = $(this).val();
         getBank2Details(id);
     });
-    if($('#EMGIHIsResignation').prop('checked')==true) {
-        $("#EMGIHDateOfLetterSubmission").attr("readonly", false);
+    $("#EMGIHFirstName").change(function(){
+        // alert($('#EMGIHMaritalStatusId').val());
+        constructFullName();
+    });
+    $("#EMGIHMiddleName").change(function(){
+        // alert($('#EMGIHMaritalStatusId').val());
+        constructFullName();
+    });
+    $("#EMGIHLastName").change(function(){
+        // alert($('#EMGIHMaritalStatusId').val());
+        constructFullName();
+    });
+    $("#EMGIHMaritalStatusId").change(function(){
+        // alert($('#EMGIHMaritalStatusId').val());
+        maritalStatus();
+    });
+    // When SameAsPresentAdd is Checked, bring all to addres1 to address2
+    $("#EMGIHSameAsPresentAdd").on("click", function(){
+        sameAsPresentAddress();
+    });
+    $("#EMGIHIsResignation").on("click", function(){
+        isResignation();
+    });
+    $("#EMGIHLeaveWithoutPayIndicator").on("click", function(){
+        isLWP();
+    });
+    $("#EMGIHOTApplicable").on("click", function(){
+        isOTApplicable();
+    });
+    $("#EMGIHPFApplicable").on("click", function(){
+        isPFApplicable();
+    });
+    $("#EMGIHPFAgreedByComp").on("click", function(){
+        isAgreedByComp();
+    });
+    $("#EMGIHIsDailyWages").on("click", function(){
+        isDailyWages();
+    });
 
-    }else{
-        $("#EMGIHDateOfLetterSubmission").attr("readonly", true);
-
-    }
-      // When SameAsPresentAdd is Checked, bring all to addres1 to address2
-      $("#EMGIHSameAsPresentAdd").on("click", function(){
-            if (this.checked) {
-                $('#EMGIHPermanentAddress1').val($("#EMGIHPresentAddress1").val());
-                $('#EMGIHPermanentAddress2').val($("#EMGIHPresentAddress2").val());
-                $('#EMGIHPermanentAddress3').val($("#EMGIHPresentAddress3").val());
-                $('#EMGIHPermanentCityId').val($("#EMGIHPresentCityId").val()).change();
-
-                $('#EMGIHPermanentStateId').val($("#EMGIHPresentStateId").val());
-                $('#PermanentStateName').val($("#PresentStateName").val());
-
-                $('#EMGIHPermanentCountryId').val($("#EMGIHPresentCountryId").val());
-                $('#PermanentCountryName').val($("#PresentCountryName").val());
-
-                $('#EMGIHPermanentPinCode').val($("#EMGIHPresentPinCode").val());
-
-                $("#EMGIHPermanentAddress1").attr("readonly", true);
-                $("#EMGIHPermanentAddress2").attr("readonly", true);
-                $("#EMGIHPermanentAddress3").attr("readonly", true);
-                $("#EMGIHPermanentCityId").attr("readonly", true);
-                $("#EMGIHPermanentPinCode").attr("readonly", true);
-
-            }
-            else {
-                $("#EMGIHPermanentAddress1").val('');
-                $("#EMGIHPermanentAddress2").val('');
-                $("#EMGIHPermanentAddress3").val('');
-                $("#EMGIHPermanentCityId").val('').change();
-                $("#EMGIHPermanentStateId").val('');
-                $("#PermanentStateName").val('');
-                $("#EMGIHPermanentCountryId").val('');
-                $("#PermanentCountryName").val('');
-                $("#EMGIHPermanentPinCode").val('');
-            }
-        });
     function getPresentCityDetail(id) {
         $.ajax({
             url: "{{ url('get_city_desc') }}",
@@ -1726,7 +1752,6 @@
             }
         })
     }
-
     function getBank1Details(id) {
         $.ajax({
             url: "{{ url('get_branch_details') }}",
@@ -1739,7 +1764,6 @@
             }
         })
     }
-
     function getBank2Details(id) {
         $.ajax({
             url: "{{ url('get_branch_details') }}",
@@ -1752,6 +1776,108 @@
             }
         })
     }
+    function constructFullName (){
+        var FullName=$("#EMGIHFirstName").val() + " " +
+                        $("#EMGIHMiddleName").val() + " " +
+                        $("#EMGIHLastName").val();
+        $('#EMGIHFullName').val(FullName);
+    }
+    function maritalStatus() {
+        if($('#EMGIHMaritalStatusId').val()== '1000') {
+            $("#EMGIHSpouseName").attr("readonly", false);
+            $("#EMGIHDateOfMarriage").attr("disabled", false);
+        }else {
+            $("#EMGIHSpouseName").attr("readonly", true);
+            $("#EMGIHDateOfMarriage").attr("disabled", true);
+        }
+    }
+    function sameAsPresentAddress() {
+        if($('#EMGIHSameAsPresentAdd').prop('checked')==true) {
+            $('#EMGIHPermanentAddress1').val($("#EMGIHPresentAddress1").val());
+            $('#EMGIHPermanentAddress2').val($("#EMGIHPresentAddress2").val());
+            $('#EMGIHPermanentAddress3').val($("#EMGIHPresentAddress3").val());
+            $('#EMGIHPermanentCityId').val($("#EMGIHPresentCityId").val()).change();
+
+            $('#EMGIHPermanentStateId').val($("#EMGIHPresentStateId").val());
+            $('#PermanentStateName').val($("#PresentStateName").val());
+
+            $('#EMGIHPermanentCountryId').val($("#EMGIHPresentCountryId").val());
+            $('#PermanentCountryName').val($("#PresentCountryName").val());
+
+            $('#EMGIHPermanentPinCode').val($("#EMGIHPresentPinCode").val());
+
+            $("#EMGIHPermanentAddress1").attr("readonly", true);
+            $("#EMGIHPermanentAddress2").attr("readonly", true);
+            $("#EMGIHPermanentAddress3").attr("readonly", true);
+            $("#EMGIHPermanentCityId").attr("disabled", true);
+            $("#EMGIHPermanentPinCode").attr("readonly", true);
+        }else {
+            $("#EMGIHPermanentAddress1").val('');
+            $("#EMGIHPermanentAddress2").val('');
+            $("#EMGIHPermanentAddress3").val('');
+            $("#EMGIHPermanentCityId").val('').change();
+            $("#EMGIHPermanentStateId").val('');
+            $("#PermanentStateName").val('');
+            $("#EMGIHPermanentCountryId").val('');
+            $("#PermanentCountryName").val('');
+            $("#EMGIHPermanentPinCode").val('');
+            $("#EMGIHPermanentCityId").attr("disabled", false);
+
+        }
+    }
+    function isResignation() {
+        if($('#EMGIHIsResignation').prop('checked')==true) {
+            $("#EMGIHDateOfLetterSubmission").attr("disabled", false);
+            $("#EMGIHDateOfResignation").attr("disabled", false);
+            $("#EMGIHDateOfLeaving").attr("disabled", false);
+            $("#EMGIHReason").attr("readonly", false);
+            $("#EMGIHRemarksForFnF").attr("readonly", false);
+        }else {
+            $("#EMGIHDateOfLetterSubmission").attr("disabled", true);
+            $("#EMGIHDateOfResignation").attr("disabled", true);
+            $("#EMGIHDateOfLeaving").attr("disabled", true);
+            $("#EMGIHReason").attr("readonly", true);
+            $("#EMGIHRemarksForFnF").attr("readonly", true);
+        }
+    }
+    function isLWP() {
+        if($('#EMGIHLeaveWithoutPayIndicator').prop('checked')==true) {
+            $("#EMGIHLeaveWithoutPayFrom").attr("disabled", false);
+        }else {
+            $("#EMGIHLeaveWithoutPayFrom").attr("disabled", true);
+        }
+    }
+    function isOTApplicable() {
+        if($('#EMGIHOTApplicable').prop('checked')==true) {
+            $("#EMGIHOTBasisId").attr("disabled", false);
+        }else {
+            $("#EMGIHOTBasisId").attr("disabled", true);
+        }
+    }
+    function isPFApplicable() {
+        if($('#EMGIHPFApplicable').prop('checked')==true) {
+            $("#EMGIHPFThreshold").attr("readonly", false);
+        }else {
+            $("#EMGIHPFThreshold").attr("readonly", true);
+        }
+    }
+    function isAgreedByComp() {
+        if($('#EMGIHPFAgreedByComp').prop('checked')==true) {
+            $("#EMGIHPFCompLimit").attr("readonly", false);
+            $("#EMGIHPFAcctNo").attr("readonly", false);
+        }else {
+            $("#EMGIHPFCompLimit").attr("readonly", true);
+            $("#EMGIHPFAcctNo").attr("readonly", true);
+        }
+    }
+    function isDailyWages() {
+        if($('#EMGIHIsDailyWages').prop('checked')==true) {
+            $("#EMGIHDailyWagesId").attr("disabled", false);
+        }else {
+            $("#EMGIHDailyWagesId").attr("disabled", true);
+        }
+    }
+
     //Date picker
 // console.log($('#id').val());
 if($('#EMGIHDateOfBirth').val() != undefined){

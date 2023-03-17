@@ -92,8 +92,8 @@ class GeneralInfoController extends Controller
     public function save(Request $request)
     {
         try {
-            // echo 'Data Submitted.';
-            // return $request->id;
+            echo 'Data Submitted.';
+            return $request->EMGIHOTApplicable;
             $request->merge(['EMGIHCompId' => $this->gCompanyId]);
 
             $validator = Validator::make($request->all(), [

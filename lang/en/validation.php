@@ -215,6 +215,24 @@ return [
          'GMLMHCityId' => [
             'required' => 'You must select a City Id',
          ],
+         //Employee
+         'EMGIHEmployeeId' => [
+            'required' => 'Employee Id Cant be blank',
+            'min' => 'Employee Id at least  minimum 2 char',
+            'unique'=>'Id already Exists',
+         ],
+         'EMGIHGenderId' => [
+            'required' => 'You must select a Gender Id',
+        ],
+         'EMGIHFirstName' => [
+             'required' => 'First Name Cant be blank',
+         ],
+         'EMGIHPresentAddress1' => [
+             'required' => 'Present Address Cant be blank',
+         ],
+         'EMGIHPresentCityId' => [
+            'required' => 'You must select a City Id',
+         ],
     ],
 
     /*
