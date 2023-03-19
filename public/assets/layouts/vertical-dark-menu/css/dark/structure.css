@@ -13,6 +13,10 @@ html {
   direction: ltr;
 }
 
+body.dark .scrollspy_menu{
+   background: rgb(26, 28, 45) !important;
+}
+
 body.dark {
   color: #888ea8;
   height: 100%;
@@ -645,7 +649,7 @@ body.dark .navbar .navbar-item .nav-item.user-profile-dropdown .dropdown-menu .d
 }
 body.dark .secondary-nav {
   position: fixed;
-  top: 54px;
+  top: 48px;
   width: 100%;
   z-index: 1031;
   left: 0;

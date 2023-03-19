@@ -99,7 +99,7 @@
 
 <!-- Scroll Spy Navigation -->
 @if ($action == 'add' || $action == 'edit')
-    <nav id="navbar-example2" class="navbar sticky-top bg-dark" style="top: 110px;">
+    <nav id="navbar-example2" class="navbar sticky-top scrollspy_menu" style="top:100px;">
         <div class="col-auto me-auto mt-2" style="width:850px;">
             <form id='AddForm' method="post" autocomplete="off">
              <div class="container" id="list1-wrapper">
