@@ -9,45 +9,36 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use App\Models\t92;
 use App\Models\Config\Geographic\Country;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Arr;
 // use App\Models\Technical_Error;
 use App\Traits\CommonMasters\GeneralMaster\CommonDataTables;
 use App\Traits\Error;
 use DataTables;
 class CountryController extends Controller
 {
-    //
     use CommonDataTables,Error;
-    public function menu()
+    public function index(Request $request)
     {
-        return $menu = t92::tree();
-    }
-    public function index()
-    {
-       // $data = $this->dataTableXLSchemaTrait();
-       $menu = $this->menu();
-       $theme_Browser1_3SIS = 'purple_Browser1D_3SIS';
-       $theme_Browser2_3SIS = 'purple_Browser2D_3SIS';
-       $theme_ContentModal1D_3SIS = 'purple_ContentModal1D_3SIS';
-       $theme_ContentModal2D_3SIS = 'purple_ContentModal2D_3SIS';
-       $theme_Card1D_3SIS = 'purple_Card1D_3SIS';
-
-       $UserId = Auth::user()->name;
-       // $UserId = 'Admin_Root';
-       return view('config.Geographic.country',
-            compact('menu','UserId', 'theme_Browser1_3SIS', 'theme_Browser2_3SIS', 'theme_ContentModal1D_3SIS',
-                'theme_ContentModal2D_3SIS', 'theme_Card1D_3SIS'));
+        $edit_data = '';
+        $action = $request->action;
+        if(!empty($request->id)){
+          $edit_data = $this->getCountryData(Crypt::decryptString($request->id));
+        }
+        return view('config.Geographic.country',compact( 'action','edit_data'));
     }
 
      public function save(Request $request)
     {
         try {
             // echo 'Data Submitted.';
-            // return $request->input();
+            // return $request->id;
             $validator = Validator::make($request->all(), [
-              'GMCMHCountryId'    => 'required|min:2|max:10|unique:t05901l03,GMCMHCountryId,'.$request->id,
+              'GMCMHCountryId'     => 'required|min:2|max:10|unique:t05901l03,GMCMHCountryId,'.$request->id,
               'GMCMHDesc1'      => 'required|max:100',
               'GMCMHDesc2'      => 'max:200'
             ]);
+            // return $validator;
 
             if ($validator->fails()) {
                 return response()->json(['errors'=>$validator->errors()]);
@@ -100,6 +91,7 @@ class CountryController extends Controller
     {
     try {
             $fetchData = Country::where('id',$request->id)->first();
+            // dd($fetchData);
             if($fetchData){
                    return response()->json(['status' => 'success','data' =>$fetchData]);
             }else{
@@ -136,6 +128,19 @@ class CountryController extends Controller
         }
 
     }
-
+    public function getCountryData($id)
+    {
+        try {
+           return Country::where('id', $id)->first();
+        } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return response()->json(['status' => 'technical_error']);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
+        }
+    }
 }
+
 

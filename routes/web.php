@@ -22,6 +22,17 @@ Route::group(['middleware'=>['guest']],function () {
 });
 
 Route::group(['middleware'=>['auth']],function () {
+    // country Master
+    Route::controller(CountryController::class)->group(function () {
+        // Route::get('/','index');
+        Route::get('country/{action?}/{id?}', 'index');
+        Route::post('country_save', 'save');
+        Route::get('get_country', 'country_list');
+        Route::get('country_delete', 'Restore_Delete_Data');
+        Route::get('delete_country_list', 'DeleteList');
+        Route::get('country_report/{type}', 'report');
+
+    });
     // State Master
     Route::controller(StateController::class)->group(function () {
         //add-edit
@@ -139,17 +150,7 @@ Route::controller(GeneralInfoController::class)->group(function () {
 // Route::group(['middleware'=>['LoginCheck']],function () {
 // });
 
-// country Master
-Route::controller(CountryController::class)->group(function () {
-    // Route::get('/','index');
-    Route::get('/country', 'index');
-    Route::post('/country/save', 'save');
-    Route::get('/get/country', 'country_list');
-    Route::get('/country/Master/Update', 'fetchData');
-    Route::get('/country/Master/Delete', 'Restore_Delete_Data');
-    Route::get('/country/Delete/list', 'DeleteList');
-    Route::get('/test', 'test');
-});
+
 
 // testing route
 Route::get('/bug', function () {
