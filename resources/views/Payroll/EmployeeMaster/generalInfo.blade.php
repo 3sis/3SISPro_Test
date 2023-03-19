@@ -2,6 +2,7 @@
 @section('content')
 @section('css')
     @include('inc.style')
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css3SIS/scrollspy.css')}}">
     @include('inc.flatpickr_css')
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -41,7 +42,6 @@
 @if (Request::path() == 'generalInfo')
     <div class="mt-1"
         style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
-        {{-- <form id='AddForm' method="post" autocomplete="off"> --}}
             <div class="row justify-content-center">
                 <div class="col-auto me-auto mt-2">
                 </div>
@@ -99,42 +99,27 @@
 
 <!-- Scroll Spy Navigation -->
 @if ($action == 'add' || $action == 'edit')
-    <nav id="navbar-example2" class="navbar sticky-top bg-dark" style="top: 110px;">
+    <nav id="navbar-example2" class="navbar sticky-top scrollspy_menu" style="top:100px;">
         <div class="col-auto me-auto mt-2" style="width:850px;">
             <form id='AddForm' method="post" autocomplete="off">
-                <ul class="nav nav-pills mb-2 ms-1">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#add">{{ $action == 'add' ? 'Create' : 'Edit' }} </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#general_info">General Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#additional_info">Additional Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#office_info">Office Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#statutory_waged_info">Statutory & waged</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#address_info">address</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#banking_info">Banking Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#resignation_info">Resignation & LWP</a>
-                    </li>
-
-                   @if (!empty($edit_data['id']))
-                    <li class="nav-item">
-                        <a class="nav-link" href="#user_info">User Info</a>
-                    </li>
-                    @endif
-                </ul>
-
+             <div class="container" id="list1-wrapper">
+              <div class="wrapper">
+              <div class="nav nav-tabs list" id="list1" role="tablist">
+                <li class="nav-item" id="nav-home-tab"> <a class="nav-link" href="#general_info_link1">{{ $action == 'add' ? 'Create' : 'Edit' }} </a></li>
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#general_info_link1">General Info</a></li>
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#additional_info_link1">Additional Info</a></li>
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#office_info_link1">Office Info</a></li>
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#statutory_waged_info_link1">Statutory & waged</a> </li>
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#address_info_link1">address</a> </li>
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#banking_info_link1">Banking Info</a> </li>
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#resignation_info_link1">Resignation & LWP</a> </li>
+                @if (!empty($edit_data['id']))
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#user_info_link1">User Info</a></li>
+                @endif
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#empty1"></a> </li>
+              </div>
+              </div>
+            </div>
         </div>
         <div class="col-auto me-1">
             <a href="#" class="btn btn-danger" id="btn_error"><svg xmlns="http://www.w3.org/2000/svg"
@@ -237,15 +222,15 @@
 @if ($action == 'add' || $action == 'edit')
     <!-- Scroll Spy Main Content -->
     <main data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
-        data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0"
-        style=" position: relative; top: 4px;">
+        data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
 
-        <div class="row" id="add">
+        <div class="row" id="general_info_link1">
             <div id="flStackForm1" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12 error_msg">
+                                 <h3>General Info</h3>
                             </div>
                         </div>
                     </div>
@@ -466,7 +451,7 @@
             </div>
         </div>
         <!-- additional_info Start -->
-        <div class="row" id="additional_info">
+        <div class="row" id="additional_info_link1">
             <div id="flStackForm2" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
@@ -642,7 +627,7 @@
         </div>
         <!-- additional_info End -->
         <!-- office_info Start -->
-        <div class="row" id="office_info">
+        <div class="row" id="office_info_link1">
             <div id="flStackForm3" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
@@ -703,7 +688,7 @@
         </div>
         <!-- office_info End -->
         <!-- statutory_waged_info Start -->
-        <div class="row" id="statutory_waged_info">
+        <div class="row" id="statutory_waged_info_link1">
             <div id="flStackForm4" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
@@ -833,7 +818,7 @@
         </div>
         <!-- statutory_waged_info End -->
          <!-- address_info Start -->
-         <div class="row" id="address_info">
+         <div class="row" id="address_info_link1">
             <div id="flStackForm4" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
@@ -1001,7 +986,7 @@
         </div>
         <!-- address_info End -->
          <!-- banking_info Start -->
-         <div class="row" id="banking_info">
+         <div class="row" id="banking_info_link1">
             <div id="flStackForm4" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
@@ -1090,7 +1075,7 @@
         </div>
         <!-- banking_info End -->
          <!-- resignation_info Start -->
-         <div class="row" id="resignation_info">
+         <div class="row" id="resignation_info_link1">
             <div id="flStackForm4" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
@@ -1199,7 +1184,7 @@
 
         @if (!empty($edit_data['id']))
         <!-- User Info Start -->
-        <div class="row" id="user_info">
+        <div class="row" id="user_info_link1">
             <div id="flStackForm5" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
@@ -1210,53 +1195,35 @@
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <label for="user" class="form-label">User</label>
-                                <input type="text" name='EMGIHUser' id='EMGIHUser' class='form-control '
-                                    style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('EMGIHUser', $edit_data['EMGIHUser'] ?? '') }}" readonly>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="Created" class="form-label">Created On</label>
-                                @if (!empty($edit_data['id']))
-                                    <input type="text" name='EMGIHLastCreated' id='EMGIHLastCreated'
-                                        class='form-control input_border'
-                                        value="{{ date('d-m-Y', strtotime($edit_data['EMGIHLastCreated'])) }}"
-                                        readonly>
-                                @else
-                                    <input id="EMGIHLastCreated" name='EMGIHLastCreated'
-                                        class="form-control flatpickr flatpickr-input active input_border"
-                                        type="text" placeholder="Select Date.." readonly="readonly">
-                                @endif
-                            </div>
-                            <div class="col-md-4">
-                                <label for="Updated" class="form-label">Updated On</label>
-                                @if (!empty($edit_data['id']))
-                                    <input id="EMGIHLastUpdated" name='EMGIHLastUpdated'
-                                        class="form-control flatpickr flatpickr-input active input_border"
-                                        type="text" placeholder="Select Date.." readonly="readonly"
-                                        value="{{ date('d-m-Y', strtotime($edit_data['EMGIHLastUpdated'])) }}">
-                                @else
-                                    <input id="EMGIHLastUpdated" name='EMGIHLastUpdated'
-                                        class="form-control flatpickr flatpickr-input active input_border"
-                                        type="text" placeholder="Select Date.." readonly="readonly">
-                                @endif
-                            </div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12"></div>
-                        </div>
+                       <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                           <thead>
+                                                <tr>
+                                                    <th scope="col">User</th>
+                                                    <th scope="col">Created_at</th>
+                                                    <th class="text-center" scope="col">Update_at</th>
+                                                    <!-- <th class="text-center" scope="col"></th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                            <div class="media-body align-self-center">
+                                                                <h6 class="mb-0 text-success">Admin</h6>
+                                                                <!-- <span>shaun.park@mail.com</span> -->
+                                                            </div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="mb-0 text-info">12-03-2023</p>
+                                                        <!-- <span class="text-success">Management</span> -->
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <!-- class="badge badge-light-success" -->
+                                                        <span class="text-info">12-03-2023</span>
+                                                    </td>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
                     </div>
                 </div>
@@ -1264,6 +1231,10 @@
         </div>
         <!-- User_info End -->
         @endif
+
+        <div class="row" id="empty1" style="height: 300px;">
+        </div>
+        </div>
     </main>
 
     <!-- Error Model -->
