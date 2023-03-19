@@ -669,7 +669,7 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
 */
 .secondary-nav {
   position: fixed;
-  top: 48px;
+  top: 48px !important;;
   width: 100%;
   z-index: 1030;
   left: 0;

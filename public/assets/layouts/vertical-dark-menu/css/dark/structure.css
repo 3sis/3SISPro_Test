@@ -649,7 +649,7 @@ body.dark .navbar .navbar-item .nav-item.user-profile-dropdown .dropdown-menu .d
 }
 body.dark .secondary-nav {
   position: fixed;
-  top: 48px;
+  top: 48px !important;;
   width: 100%;
   z-index: 1031;
   left: 0;
