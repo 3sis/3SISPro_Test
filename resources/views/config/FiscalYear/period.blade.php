@@ -3,7 +3,7 @@
 @section('css')
     @include('inc.style')
     @include('inc.flatpickr_css')
-    @if (Request::path() == 'city')
+    @if (Request::path() == 'period')
         @include('inc.datatable')
     @endif
     <style>
@@ -34,7 +34,7 @@
         }
     </style>
 @endsection
-@if (Request::path() == 'city')
+@if (Request::path() == 'period')
     <div class="mt-1"
         style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
         <form id='AddForm' method="post" autocomplete="off">
@@ -42,7 +42,7 @@
                 <div class="col-auto me-auto mt-2">
                 </div>
                 <div class="col-auto">
-                    <a class="btn btn-danger btn-icon btnUnDeleteRec3SIS" href="javascript:void(0)" id='Undelete_Data'
+                    {{-- <a class="btn btn-danger btn-icon btnUnDeleteRec3SIS" href="javascript:void(0)" id='Undelete_Data'
                         class='' title="Restore">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -51,15 +51,15 @@
                             <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
                         </svg>
                     </a>
-                    <a class="btn btn-success btn-icon" href="{{ url('city/add') }}" title="Create">
+                    <a class="btn btn-success btn-icon" href="{{ url('period/add') }}" title="Create">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-plus">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
-                    </a>
-                    <a class="btn btn-light btn-icon" href="{{ url('city_report/excel') }}" target="_blank" title="Excel">
+                    </a> --}}
+                    <a class="btn btn-light btn-icon" href="{{ url('period_report/excel') }}" target="_blank" title="Excel">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
                             <path fill="#169154" d="M29,6H15.744C14.781,6,14,6.781,14,7.744v7.259h15V6z" />
                             <path fill="#18482a" d="M14,33.054v7.202C14,41.219,14.781,42,15.743,42H29v-8.946H14z" />
@@ -78,7 +78,7 @@
                                 d="M9.807 19L12.193 19 14.129 22.754 16.175 19 18.404 19 15.333 24 18.474 29 16.123 29 14.013 25.07 11.912 29 9.526 29 12.719 23.982z" />
                         </svg>
                     </a>
-                    <a class="btn btn-light btn-icon" href="{{ url('city_report/pdf') }}" target="_blank" title="Pdf">
+                    <a class="btn btn-light btn-icon" href="{{ url('period_report/pdf') }}" target="_blank" title="Pdf">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
                             <path fill="#e53935"
                                 d="M38,42H10c-2.209,0-4-1.791-4-4V10c0-2.209,1.791-4,4-4h28c2.209,0,4,1.791,4,4v28 C42,40.209,40.209,42,38,42z" />
@@ -108,7 +108,7 @@
         </div>
         <div class="col-auto me-1">
             <a href="#" class="btn btn-danger" id="btn_error" title="Error"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></a>
-            <a href="{{ url('city') }}" class="btn btn-info" title="Back"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+            <a href="{{ url('period') }}" class="btn btn-info" title="Back"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
             <button id="save" class="btn btn-success" title="{{ $action == 'add' ? 'Save' : 'Update' }}">
 
             @if($action == 'add')
@@ -121,67 +121,26 @@
     </nav>
 @endif
 
-<!--City List Table -->
-@if (Request::path() == 'city')
+<!--period List Table -->
+@if (Request::path() == 'period')
     <div class="table-responsive mt-2" id="add">
         <table id="landingPageBrowser3SIS" class="table dt-table-hover dataTable no-footer {{ theme('table') }}">
             <thead>
                 <tr>
-                    <th title="City Id">ID</th>
-                    <th>City Name</th>
-                    <th>Country Name</th>
+                    <th title="Period Id">Period</th>
+                    <th>Month Name</th>
+                    <th>Month No.</th>
+                    <th>Add Int.</th>
                     <th>User</th>
+                    <th>Updated</th>
                     <th>Action</th>
-                    <th style="visibility: hidden;">Desc2</th>
-                    <th style="visibility: hidden;">Bi Desc</th>
-                    <th style="visibility: hidden;">User</th>
-                    <th style="visibility: hidden;">Updated</th>
-                    <th style="visibility: hidden;">Unique Id</th>
+                    <th style="visibility: hidden;">Id</th>
                 </tr>
             </thead>
         </table>
     </div>
-    <!-- Restore list undeletemodal -->
-    <div id="UndoModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered 3SISPro-modal-dialog" role="document"
-            style="max-width:1000px!important;">
-            <div class="modal-content {{ theme('card') }}">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
-                    <button type="button" data-bs-dismiss="modal" aria-label="Close">
-                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="table-responsive">
-                            <table id="UndoModalTable" class="no-footer {{ theme('table') }}" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th title="City Id">ID</th>
-                                        <th>City Name</th>
-                                        <th>Country Name</th>
-                                        <th>User</th>
-                                        <th>Action</th>
-                                        <th style="visibility: hidden;">Unique Id</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end undeletemodal -->
-@endif
 
+@endif
 @if ($action == 'add' || $action == 'edit')
     <!-- Scroll Spy Main Content -->
     <main data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
@@ -204,54 +163,41 @@
                             @if (!empty($edit_data['id']))
                                 <input type="hidden" name="id" id="id" value="{{ $edit_data['id'] }}">
                             @endif
-                            @if ($action == 'add')
-                                <input type="hidden" id="action" value="insert">
-                            @else
                                 <input type="hidden" id="action" value="update">
-                            @endif
-                            <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">City Id<b class="text-danger">*</b></label>
-                                <input type="text" name='GMCTHCityId' id='GMCTHCityId'
-                                    class='form-control threshold' maxlength="20" placeholder="Enter City Name"
+                            <div class="col-md-2">
+                                <label for="inputPassword4" class="form-label">Period Id</label>
+                                <input type="number" name='FYPMHPeriodId' id='FYPMHPeriodId'
+                                    class='form-control'
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMCTHCityId', $edit_data['GMCTHCityId'] ?? '') }}">
+                                    value="{{ old('FYPMHPeriodId', $edit_data['FYPMHPeriodId'] ?? '') }}"readonly>
                             </div>
-                            <div class="col-md-6">
-                                <label for="inputPassword4" class="form-label">Description 1<b class="text-danger">*</b></label>
-                                <input type="text" name='GMCTHDesc1' id='GMCTHDesc1'
+                            <div class="col-md-2">
+                                <label for="inputPassword4" class="form-label">Month<b class="text-danger">*</b></label>
+                                <input type="text" name='FYPMHDesc1' id='FYPMHDesc1'
                                     class='form-control threshold' maxlength="20"
-                                    placeholder="Enter City Description 1"
+                                    placeholder="Enter Month Name"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMCTHDesc1', $edit_data['GMCTHDesc1'] ?? '') }}">
+                                    value="{{ old('FYPMHDesc1', $edit_data['FYPMHDesc1'] ?? '') }}">
                             </div>
-                            <div class="col-12">
-                                <label for="inputAddress" class="form-label">Description 2</label>
-                                <textarea name='GMCTHDesc2' id='GMCTHDesc2' class='form-control textarea' maxlength="200"
-                                    placeholder="Enter City Description 2" style='border-color: rgb(102, 175, 233); outline: 0px'>{{ old('GMCTHDesc2', $edit_data['GMCTHDesc2'] ?? '') }}</textarea>
+                            <div class="col-2">
+                                <label for="inputAddress" class="form-label">Month No.</label>
+                                <input type="text" name='FYPMHNMonth' id='FYPMHNMonth'
+                                    class='form-control'
+                                    placeholder="Month Number"
+                                    style='border-color: rgb(102, 175, 233); outline: 0px'
+                                    value="{{ old('FYPMHNMonth', $edit_data['FYPMHNMonth'] ?? '') }}"readonly>
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputState" class="form-label">State<b class="text-danger">*</b></label>
-                                <select id='GMCTHStateId' name='GMCTHStateId' class="form-select"
-                                    style="width: 100%;border: 1px solid #68a6ec;">
-                                    <option value=''>Select State</option>
-                                    @foreach ($state_list as $state)
-                                        @if (!empty($edit_data['GMCTHStateId']) && $edit_data['GMCTHStateId'] == $state->GMSMHStateId)
-                                            <option value='{{ $state->GMSMHStateId }}' selected>
-                                                {{ $state->GMSMHDesc1 }}</option>
-                                        @else
-                                            <option value='{{ $state->GMSMHStateId }}'>
-                                                {{ $state->GMSMHDesc1 }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                            <div class="col-6">
+                                <label for="inputAddress" class="form-label">Description</label>
+                                <input type="text" name='FYPMHDesc2' id='FYPMHDesc2'
+                                    class='form-control threshold' maxlength="20"
+                                    placeholder="Enter Period Desc"
+                                    style='border-color: rgb(102, 175, 233); outline: 0px'
+                                    value="{{ old('FYPMHDesc2', $edit_data['FYPMHDesc2'] ?? '') }}">
                             </div>
-                            <div class="col-md-8">
-                                <div class='form-group'>
-                                    <label class="form-label">Contry<b class="text-danger">*</b></label>
-                                        <input type="hidden" name="GMCTHCountryId" id="GMCTHCountryId">
-                                    <input type="text" name='countryName' id='countryName' class='form-control' readonly>
-                                </div>
-                            </div>
+
+
+
                         </div>
                         </form>
                     </div>
@@ -274,11 +220,11 @@
                             <div class="col-md-4">
                                 <label for="user" class="form-label">User</label>
                                 @if(!empty($edit_data['id']))
-                                <input type="text" name='GMCTHUser' id='GMCTHUser'
+                                <input type="text" name='FYPMHUser' id='FYPMHUser'
                                     class='form-control input_border'
-                                    value="{{ old('GMCTHUser', $edit_data['GMCTHUser'] ?? '') }}" readonly>
+                                    value="{{ old('FYPMHUser', $edit_data['FYPMHUser'] ?? '') }}" readonly>
                                      @else
-                                      <input type="text" name='GMCTHUser' id='GMCTHUser'
+                                      <input type="text" name='FYPMHUser' id='FYPMHUser'
                                     class='form-control input_border'
                                     value="{{ Auth::user()->name }}" readonly>
                                     @endif
@@ -286,19 +232,19 @@
                             <div class="col-md-4">
                                 <label for="Created" class="form-label">Created On</label>
                                  @if(!empty($edit_data['id']))
-                                   <input type="text" name='GMCTHLastCreated' id='GMCTHLastCreated'
+                                   <input type="text" name='FYPMHLastCreated' id='FYPMHLastCreated'
                                     class='form-control input_border'
-                                    value="{{ date('d-m-Y',strtotime($edit_data['GMCTHLastCreated']))}}" readonly>
+                                    value="{{ date('d-m-Y',strtotime($edit_data['FYPMHLastCreated']))}}" readonly>
                                  @else
-                                  <input id="GMCTHLastCreated" name='GMCTHLastCreated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly">
+                                  <input id="FYPMHLastCreated" name='FYPMHLastCreated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly">
                                 @endif
                             </div>
                             <div class="col-md-4">
                                 <label for="Updated" class="form-label">Updated On</label>
                                  @if(!empty($edit_data['id']))
-                                  <input id="GMCTHLastUpdated" name='GMCTHLastUpdated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly" value="{{ date('d-m-Y',strtotime($edit_data['GMCTHLastUpdated']))}}">
+                                  <input id="FYPMHLastUpdated" name='FYPMHLastUpdated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly" value="{{ date('d-m-Y',strtotime($edit_data['FYPMHLastUpdated']))}}">
                                  @else
-                                  <input id="GMCTHLastUpdated" name='GMCTHLastUpdated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly">
+                                  <input id="FYPMHLastUpdated" name='FYPMHLastUpdated' class="form-control flatpickr flatpickr-input active input_border" type="text" placeholder="Select Date.." readonly="readonly">
                                 @endif
                             </div>
                         </div>
@@ -332,18 +278,13 @@
     </div>
     <!-- Error Model end-->
 @endif
+
 @endsection
 @section('js_code')
 @include('inc.js_file')
 @include('inc.flatpickr_js')
-{{-- <!-- <script src={{ asset('assets/common/js/CityMasterAjax.js') }}></script> --> --}}
 <script type="text/javascript">
     $(document).ready(function() {
-        var id = $('#GMCTHStateId').val();
-        if (id != undefined && id != '') {
-            console.log("id"+id);
-           getDesc(id);
-        }
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -378,39 +319,19 @@
             order: [0, "desc"],
             processing: true,
             serverSide: true,
-            "ajax": "get_city",
-            "columns": [{
-                    data: "GMCTHCityId"
-                },
-                {
-                    data: "GMCTHDesc1"
-                },
-                {
-                    data: "fn_state.GMSMHDesc1"
-                },
-                {
-                    data: "GMCTHUser"
-                },
+            "ajax": "get_period",
+
+            "columns": [
+                {data: "FYPMHPeriodId"},
+                {data: "FYPMHDesc1"},
+                {data: "FYPMHNMonth"},
+                {data: "FYPMHNAddInt"},
+                {data: "FYPMHUser"},
+                {data: "FYPMHLastUpdated"},
                 {
                     data: "action",
                     orderable: false,
                     searchable: false
-                },
-                {
-                    data: "GMCTHDesc1",
-                    "visible": false
-                },
-                {
-                    data: "GMCTHDesc2",
-                    "visible": false
-                },
-                {
-                    data: "GMCTHUser",
-                    "visible": false
-                },
-                {
-                    data: "GMCTHLastCreated",
-                    "visible": false
                 },
                 {
                     data: "id",
@@ -418,69 +339,18 @@
                 },
             ],
 
-            "columnDefs": [{
-                    "width": "5%",
-                    "targets": 0
-                },
-                {
-                    "width": "25%",
-                    "targets": 1
-                },
-                {
-                    "width": "25%",
-                    "targets": 2
-                },
-                {
-                    "width": "25%",
-                    "targets": 3
-                },
-                {
-                    "width": "15%",
-                    "targets": 4
-                }
-            ]
         });
-
-        $('#GMCTHStateId').select2({
-            // theme: "bootstrap-5"
-        });
-
         $('#btn_error').hide();
     });
-
     $("#AddForm").submit(function(e) {
         e.preventDefault();
-        $('#GMCTHCityId,#GMCTHDesc1,#select2-GMCTHStateId-container').removeClass(
-            'border border-danger');
-
-        if ($('#GMCTHCityId').val() == '') {
-            $('#GMCTHCityId').addClass('border border-danger');
-        }
-        if ($('#GMCTHDesc1').val() == '') {
-            $('#GMCTHDesc1').addClass('border border-danger');
-
-        }
-        // if($('#GMCTHDesc2').val() == ''){
-        // $('#GMCTHDesc2').addClass('border border-danger');
-        // }
-        if ($('#GMCTHStateId').val() == '') {
-            $('#select2-GMCTHStateId-container').addClass('border border-danger');
+        if ($('#FYPMHDesc1').val() == '') {
+            $('#FYPMHDesc1').addClass('border border-danger');
         }
         $('.msg_error').html('');
-        if ($('#GMCTHCityId').val() == '' || $('#GMCTHDesc1').val() == '' ||
-            $('#GMCTHStateId').val() == '') {
-            if ($('#GMCTHCityId').val() == '') {
-                $('.msg_error').append('<p>Please Enter City name !</p>');
-            }
-            if ($('#GMCTHDesc1').val() == '') {
-                $('.msg_error').append('<p>Please Enter City Description 1 !</p>');
-            }
-            // if($('#GMCTHDesc2').val() == ''){
-            //       $('.msg_error').append('<p>Please Enter City Description 2 !</p>');
-            // }
-            if ($('#GMCTHStateId').val() == '') {
-                $('.msg_error').append('<p>Please Select State !</p>');
-            }
+        if ($('#FYPMHDesc1').val() == '') {
+            $('.msg_error').append('<p>Please Enter Month Name !</p>');
+
             var error_count = $(".msg_error").children().length;
             console.log(error_count);
             if (error_count > 0) {
@@ -495,7 +365,7 @@
             var action = $('#action').val();
             console.log('action: ' + action);
             $.ajax({
-                url: "{{ url('city_save') }}",
+                url: "{{ url('period_save') }}",
                 method: 'post',
                 data: new FormData(this),
                 processData: false,
@@ -518,175 +388,39 @@
                     }
                     if (response.status == 'success') {
                         if (action == 'insert') {
-                            $finalMessage3SIS = fnSingleLevelFinalSave('city', $('#GMCTHCityId')
-                                .val(), $('#GMCTHDesc1').val(), 'Added');
+                            $finalMessage3SIS = fnSingleLevelFinalSave('period', $('#FYPMHPeriodId')
+                                .val(), $('#FYPMHDesc1').val(), 'Added');
                             $('.error_msg').html($finalMessage3SIS);
-                            $('#GMCTHStateId').val('').trigger("change");
                             $('#AddForm')[0].reset();
                         }
                         if (action == 'update') {
 
                             Swal.fire({
                                 icon: 'success',
-                                title: 'City updated successfully',
+                                title: 'Period master updated successfully',
                                 allowOutsideClick: false,
                                 timer: 5000,
                             })
-                            window.location = "{{ url('city') }}";
+                            window.location = "{{ url('period') }}";
 
                         }
                     }
                     if (response.status == 'error') {
-                        $('.error_msg').append('<p>City Master not save</p>');
+                        $('.error_msg').append('<p>Period Master not save</p>');
                     }
                 }
             })
         }
     });
-    $('#btn_error').click(function() {
-        $('#ErrorModal').modal('show');
-    });
 
-    $('#Undelete_Data').click(function() {
-        $('#UndoModalTable').DataTable({
-            // pagingType   : "simple_numbers",
-            stripeClasses: [],
-            pageLength: 6,
-            lengthMenu: [6, 10, 20, 50],
-            order: [
-                [0, "desc"]
-            ],
-            processing: true,
-            serverSide: true,
-            destroy: true,
-            "ajax": "delete_city_list",
-            "columns": [{
-                    data: "GMCTHCityId"
-                },
-                {
-                    data: "GMCTHDesc1"
-                },
-                {
-                    data: "fn_state.GMSMHDesc1"
-                },
-                {
-                    data: "GMCTHUser"
-                },
-                {
-                    data: "action",
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: "id",
-                    "visible": false
-                },
-            ]
-        });
-        $('.modal-title').text('Restore City');
-        $('#UndoModal').modal('show');
-    });
-
-    $(document).on('click', '.delete', function() {
-        var action = 'delete';
-        var id = $(this).attr('id');
-        var desc = $(this).closest("tr").find("td:eq(1)").text();
-        $deleteMessage3SIS = fnConfirmationMsg('Delete', 'City', id, desc);
-        $successMessage3SIS = fnSuccessMsg('Deleted', 'City', id, desc);
-
-        Swal.fire({
-            title: $deleteMessage3SIS,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'delete!',
-            allowOutsideClick: false,
-        }).then((result) => {
-            console.log(result)
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "city_delete",
-                    mehtod: "get",
-                    data: {
-                        id: id,
-                        action: action
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#landingPageBrowser3SIS').DataTable().ajax.reload();
-                        Swal.fire({
-                            icon: 'success',
-                            title: $successMessage3SIS,
-                            allowOutsideClick: false,
-                            timer: 5000,
-                        })
-                    }
-                })
-            }
-        })
-    });
-
-    $(document).on('click', '.restore', function() {
-        var action = 'undelete';
-        var id = $(this).attr('id');
-        var desc = $(this).closest("tr").find("td:eq(1)").text();
-        $restoreMessage3SIS = fnConfirmationMsg('Restore', 'City', id, desc);
-        Swal.fire({
-            title: $restoreMessage3SIS,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Restore!',
-            allowOutsideClick: false,
-        }).then((result) => {
-            console.log(result)
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "city_delete",
-                    mehtod: "get",
-                    data: {
-                        id: id,
-                        action: action
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#landingPageBrowser3SIS').DataTable().ajax.reload();
-                        $('#UndoModalTable').DataTable().ajax.reload();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Your data has been Restored.',
-                        })
-                    }
-                })
-            }
-        })
-    });
-    $('#GMCTHStateId').change(function () {
-        var id = $(this).val();
-        getDesc(id);
-    });
-function getDesc(id){
-    console.log(id);
-    $.ajax({
-        url: "{{ url('get_state_desc') }}",
-        type: 'get',
-        data: 'id=' + id,
-        success: function (response) {
-            $('#GMCTHCountryId').val(response.CountryId);
-            $('#countryName').val(response.CountryDesc);
-        }
-    })
-}
 //Date picker
 console.log($('#id').val());
 if($('#id').val() != undefined){
-    $('#GMCTHLastCreated,#GMCTHLastUpdated').flatpickr({
+    $('#FYPMHLastCreated,#FYPMHLastUpdated').flatpickr({
     dateFormat: "d-m-Y"
 });
 }else{
-    $('#GMCTHLastCreated,#GMCTHLastUpdated').flatpickr({
+    $('#FYPMHLastCreated,#FYPMHLastUpdated').flatpickr({
     defaultDate: new Date(),
     dateFormat: "d-m-Y"
 });

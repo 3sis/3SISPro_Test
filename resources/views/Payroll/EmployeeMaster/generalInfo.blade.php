@@ -1202,23 +1202,19 @@
                                                     <th scope="col">User</th>
                                                     <th scope="col">Created_at</th>
                                                     <th class="text-center" scope="col">Update_at</th>
-                                                    <!-- <th class="text-center" scope="col"></th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                            <div class="media-body align-self-center">
-                                                                <h6 class="mb-0 text-success">Admin</h6>
-                                                                <!-- <span>shaun.park@mail.com</span> -->
-                                                            </div>
+                                                        <div class="media-body align-self-center">
+                                                            <h6>Admin</h6>
+                                                        </div>
                                                     </td>
                                                     <td>
                                                         <p class="mb-0 text-info">12-03-2023</p>
-                                                        <!-- <span class="text-success">Management</span> -->
                                                     </td>
                                                     <td class="text-center">
-                                                        <!-- class="badge badge-light-success" -->
                                                         <span class="text-info">12-03-2023</span>
                                                     </td>
                                             </tbody>
@@ -1470,11 +1466,7 @@
                 contentType: false,
                 beforeSend: function() {
                     $('#btn_error').hide();
-                    if($('#EMGIHIsResignation').prop('checked')==true) {
-                        $('#EMGIHIsResignation').val(1);
-                    }else {
-                        $('#EMGIHIsResignation').val(0);
-                    }
+                    updateCheckBoxValue();
                 },
                 success: function(response) {
                     console.log(response);
@@ -1659,19 +1651,18 @@
         getBank2Details(id);
     });
     $("#EMGIHFirstName").change(function(){
-        // alert($('#EMGIHMaritalStatusId').val());
+
         constructFullName();
     });
     $("#EMGIHMiddleName").change(function(){
-        // alert($('#EMGIHMaritalStatusId').val());
+
         constructFullName();
     });
     $("#EMGIHLastName").change(function(){
-        // alert($('#EMGIHMaritalStatusId').val());
+
         constructFullName();
     });
     $("#EMGIHMaritalStatusId").change(function(){
-        // alert($('#EMGIHMaritalStatusId').val());
         maritalStatus();
     });
     // When SameAsPresentAdd is Checked, bring all to addres1 to address2
@@ -1848,6 +1839,45 @@
             $("#EMGIHDailyWagesId").attr("disabled", true);
         }
     }
+    function updateCheckBoxValue() {
+        if($('#EMGIHIsResignation').prop('checked')==true) {
+            $('#EMGIHIsResignation').val(1);
+        }else {
+            $('#EMGIHIsResignation').val(0);
+        }
+        if($('#EMGIHIsDailyWages').prop('checked')==true) {
+            $('#EMGIHIsDailyWages').val(1);
+        }else {
+            $('#EMGIHIsDailyWages').val(0);
+        }
+        if($('#EMGIHPFApplicable').prop('checked')==true) {
+            $('#EMGIHPFApplicable').val(1);
+        }else {
+            $('#EMGIHPFApplicable').val(0);
+        }
+        if($('#EMGIHPFAgreedByComp').prop('checked')==true) {
+            $('#EMGIHPFAgreedByComp').val(1);
+        }else {
+            $('#EMGIHPFAgreedByComp').val(0);
+        }
+        if($('#EMGIHOTApplicable').prop('checked')==true) {
+            $('#EMGIHOTApplicable').val(1);
+        }else {
+            $('#EMGIHOTApplicable').val(0);
+        }
+        if($('#EMGIHSameAsPresentAdd').prop('checked')==true) {
+            $('#EMGIHSameAsPresentAdd').val(1);
+        }else {
+            $('#EMGIHSameAsPresentAdd').val(0);
+        }
+        if($('#EMGIHLeaveWithoutPayIndicator').prop('checked')==true) {
+            $('#EMGIHLeaveWithoutPayIndicator').val(1);
+        }else {
+            $('#EMGIHLeaveWithoutPayIndicator').val(0);
+        }
+    }
+
+
 
     //Date picker
 // console.log($('#id').val());

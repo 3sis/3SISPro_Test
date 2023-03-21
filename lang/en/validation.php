@@ -233,6 +233,14 @@ return [
          'EMGIHPresentCityId' => [
             'required' => 'You must select a City Id',
          ],
+         //Period Master
+         'FYPMHPeriodId' => [
+            'required' => 'Period Cant be blank',
+            'unique'=>'Period already Exists',
+         ],
+         'FYPMHDesc1' => [
+            'required' => 'Month cant be blank',
+        ],
     ],
 
     /*

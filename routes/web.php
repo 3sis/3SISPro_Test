@@ -2,16 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Config\Geographic\CityController;
-use App\Http\Controllers\Config\Geographic\CountryController;
-use App\Http\Controllers\Config\Geographic\StateController;
-use App\Http\Controllers\Config\Geographic\LocationController;
 use App\Http\Controllers\Config\GeneralMaster\CompanyController;
+use App\Http\Controllers\Config\GeneralMaster\CurrencyController;
+use App\Http\Controllers\Config\Geographic\CityController;
+use App\Http\Controllers\Config\Geographic\StateController;
+use App\Http\Controllers\Config\Geographic\CountryController;
+use App\Http\Controllers\Config\Geographic\LocationController;
 use App\Http\Controllers\Config\BankingMaster\AcctTypeController;
 use App\Http\Controllers\Config\BankingMaster\BankNameController;
 use App\Http\Controllers\Config\BankingMaster\BranchNameController;
 use App\Http\Controllers\Config\BankingMaster\PaymentModeController;
 use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
+use App\Http\Controllers\Config\FiscalYear\PeriodController;
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -82,6 +84,17 @@ Route::group(['middleware'=>['auth']],function () {
         Route::get('company_report/{type}', 'report');
 
     });
+    // currency Master
+    Route::controller(CurrencyController::class)->group(function () {
+        // Route::get('/','index');
+        Route::get('currency/{action?}/{id?}', 'index');
+        Route::post('currency_save', 'save');
+        Route::get('get_currency', 'currency_list');
+        Route::get('currency_delete', 'Restore_Delete_Data');
+        Route::get('delete_currency_list', 'DeleteList');
+        Route::get('currency_report/{type}', 'report');
+
+    });
 
     // AcctType Master
     Route::controller(AcctTypeController::class)->group(function () {
@@ -136,7 +149,14 @@ Route::controller(GeneralInfoController::class)->group(function () {
     Route::get('delete_generalInfo_list', 'DeleteList');
     Route::get('get_city_desc', 'getCityDesc')->name('get_city_desc');
     Route::get('get_branch_details', 'getBranchDetails')->name('get_branch_details');
-
+});
+// Period Master
+Route::controller(PeriodController::class)->group(function () {
+    Route::get('period/{action?}/{id?}', 'index');
+    Route::get('period_report/{type}', 'report');
+    Route::post('period_save', 'save');
+    Route::get('get_period', 'period_list');
+    Route::get('period_report/{type}', 'report');
 
 });
     // Route::get('logout',[AuthController::class,'logout']);
