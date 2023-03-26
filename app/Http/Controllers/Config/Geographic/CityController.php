@@ -34,7 +34,7 @@ class CityController extends Controller
         return view('config.Geographic.city',compact( 'action','edit_data','state_list'));
     }
 
-     public function save(Request $request)
+    public function save(Request $request)
     {
         try {
             // echo 'Data Submitted.';

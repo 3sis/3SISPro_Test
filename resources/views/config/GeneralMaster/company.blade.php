@@ -115,9 +115,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#statutory">Statutory</a>
                     </li>
+                    @if (!empty($edit_data['id']))
                     <li class="nav-item">
                         <a class="nav-link" href="#user_info">User Info</a>
                     </li>
+                    @endif
                 </ul>
 
         </div>
@@ -642,6 +644,7 @@
         </div>
         <!-- Statutory End -->
         <!-- User Info Start -->
+        @if (!empty($edit_data['id']))
         <div class="row" id="user_info">
             <div id="flStackForm5" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
@@ -696,6 +699,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <!-- User_info End -->
     </main>
 

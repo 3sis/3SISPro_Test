@@ -2,7 +2,8 @@
 @section('content')
 @section('css')
     @include('inc.style')
-    @if (Request::path() == 'state')
+    @include('inc.flatpickr_css')
+    @if (Request::path() == 'fiscalYear')
         @include('inc.datatable')
     @endif
     <style>
@@ -10,9 +11,9 @@
             margin-top: 2px;
         }
 
-        #input_border {
-            border-color: rgb(102, 175, 233);
-            outline: 0px
+        .input_border {
+            border-color: rgb(102, 175, 233) !important;
+            outline: 0px !important;
         }
 
         .section {
@@ -33,8 +34,7 @@
         }
     </style>
 @endsection
-
-@if (Request::path() == 'state')
+@if (Request::path() == 'fiscalYear')
     <div class="mt-1"
         style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
         <form id='AddForm' method="post" autocomplete="off">
@@ -51,7 +51,7 @@
                             <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
                         </svg>
                     </a>
-                    <a class="btn btn-success btn-icon" href="{{ url('state/add') }}" title="Create">
+                    <a class="btn btn-success btn-icon" href="{{ url('fiscalYear/add') }}" title="Create">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="feather feather-plus">
@@ -59,7 +59,7 @@
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
                     </a>
-                    <a class="btn btn-light btn-icon" href="{{ url('state_report/excel') }}" target="_blank"
+                    <a class="btn btn-light btn-icon" href="{{ url('fiscalYear_report/excel') }}" target="_blank"
                         title="Excel">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
                             <path fill="#169154" d="M29,6H15.744C14.781,6,14,6.781,14,7.744v7.259h15V6z" />
@@ -79,7 +79,7 @@
                                 d="M9.807 19L12.193 19 14.129 22.754 16.175 19 18.404 19 15.333 24 18.474 29 16.123 29 14.013 25.07 11.912 29 9.526 29 12.719 23.982z" />
                         </svg>
                     </a>
-                    <a class="btn btn-light btn-icon" href="{{ url('state_report/pdf') }}" target="_blank"
+                    <a class="btn btn-light btn-icon" href="{{ url('fiscalYear_report/pdf') }}" target="_blank"
                         title="Pdf">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
                             <path fill="#e53935"
@@ -100,14 +100,14 @@
         <div class="col-auto me-auto mt-2">
             <form id='AddForm' method="post" autocomplete="off">
                 <ul class="nav nav-pills mb-2 ms-1">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#add">{{ $action == 'add' ? 'Add' : 'Edit' }} State Master</a>
-                    </li>
+                    <li class="nav-item" id="nav-home-tab"> <a class="nav-link"
+                            href="#home">{{ $action == 'add' ? 'Create' : 'Edit' }} </a></li>
+                    <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#home">General Info</a></li>
                     @if (!empty($edit_data['id']))
-                        <li class="nav-item">
-                            <a class="nav-link" href="#user_info">User Info</a>
+                        <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#user_info">User Info</a>
                         </li>
                     @endif
+                    <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#empty"></a> </li>
                 </ul>
         </div>
         <div class="col-auto me-1">
@@ -119,7 +119,7 @@
                     <line x1="12" y1="8" x2="12" y2="12"></line>
                     <line x1="12" y1="16" x2="12.01" y2="16"></line>
                 </svg></a>
-            <a href="{{ url('state') }}" class="btn btn-info" title="Back"><svg
+            <a href="{{ url('fiscalYear') }}" class="btn btn-info" title="Back"><svg
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" class="feather feather-arrow-left">
@@ -127,6 +127,7 @@
                     <polyline points="12 19 5 12 12 5"></polyline>
                 </svg></a>
             <button id="save" class="btn btn-success" title="{{ $action == 'add' ? 'Save' : 'Update' }}">
+
                 @if ($action == 'add')
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -148,74 +149,39 @@
     </nav>
 @endif
 
-<!--State List Table -->
-@if (Request::path() == 'state')
+<!--fiscalYear List Table -->
+@if (Request::path() == 'fiscalYear')
     <div class="table-responsive mt-2" id="add">
         <table id="landingPageBrowser3SIS" class="table dt-table-hover dataTable no-footer {{ theme('table') }}">
             <thead>
                 <tr>
-                    <th title="State Id">ID</th>
-                    <th>State Name</th>
-                    <th>Country Name</th>
-                    <th>User</th>
+                    <!-- <th>Company</th> -->
+                    <th title="Fiscal Year">FY</th>
+                    <th>Start Data</th>
+                    <th>End Date</th>
+                    <th title=" Active Fiscal Year">AFY</th>
+                    <th title="Active Period">AP</th>
+                    <th title="Active Month">AM</th>
+                    <th>Period Start</th>
+                    <th>Period End</th>
                     <th>Action</th>
-                    <th style="visibility: hidden;">Desc2</th>
-                    <th style="visibility: hidden;">Bi Desc</th>
                     <th style="visibility: hidden;">User</th>
+                    <th style="visibility: hidden;">Created</th>
                     <th style="visibility: hidden;">Updated</th>
                     <th style="visibility: hidden;">Unique Id</th>
+                    <th style="visibility: hidden;">Company</th>
                 </tr>
             </thead>
         </table>
     </div>
-    <!-- Restore list undeletemodal -->
-    <div id="UndoModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered 3SISPro-modal-dialog" role="document"
-            style="max-width:1000px!important;">
-            <div class="modal-content {{ theme('card') }}">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
-                    <button type="button" data-bs-dismiss="modal" aria-label="Close">
-                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="table-responsive">
-                            <table id="UndoModalTable" class="{{ theme('table') }}" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th title="State Id">ID</th>
-                                        <th>State Name</th>
-                                        <th>Country Name</th>
-                                        <th>User</th>
-                                        <th>Action</th>
-                                        <th style="visibility: hidden;">Unique Id</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end undeletemodal -->
 @endif
-
 @if ($action == 'add' || $action == 'edit')
     <!-- Scroll Spy Main Content -->
     <main data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
         data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0"
         style=" position: relative; top: 4px;">
 
-        <div class="row" id="add">
+        <div class="row" id="home">
             <!-- <section  id="about" class="section"> -->
             <div id="flStackForm" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
@@ -229,58 +195,76 @@
                         <div class="row g-3">
                             @csrf
                             @if (!empty($edit_data['id']))
-                                <input type="hidden" name="id" value="{{ $edit_data['id'] }}">
+                                <input type="hidden" name="id" id="id" value="{{ $edit_data['id'] }}">
+                                <input type="hidden" name="FYFYHCompanyId" id="FYFYHCompanyId"
+                                    value="{{ $edit_data['FYFYHCompanyId'] }}">
+                                    <input type="hidden" name="FYFYHPeriodStartDate" id="FYFYHPeriodStartDate"
+                                    value="{{ $edit_data['FYFYHPeriodStartDate'] }}">
+                                    <input type="hidden" name="FYFYHPeriodEndDate" id="FYFYHPeriodEndDate"
+                                    value="{{ $edit_data['FYFYHPeriodEndDate'] }}">
                             @endif
                             @if ($action == 'add')
                                 <input type="hidden" id="action" value="insert">
                             @else
                                 <input type="hidden" id="action" value="update">
                             @endif
-                            <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">State Id</label>
-                                @if (!empty($edit_data['id']))
-                                    <input type="text" name='GMSMHStateId' id='GMSMHStateId'
-                                        class='form-control threshold' maxlength="20" placeholder="Enter State Name"
-                                        style='border-color: rgb(102, 175, 233); outline: 0px'
-                                        value="{{ $edit_data['GMSMHStateId'] }}" readonly>
-                                @else
-                                    <input type="text" name='GMSMHStateId' id='GMSMHStateId'
-                                        class='form-control threshold' maxlength="20" placeholder="Enter State Name"
-                                        style='border-color: rgb(102, 175, 233); outline: 0px'>
-                                @endif
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputPassword4" class="form-label">Description 1</label>
-                                <input type="text" name='GMSMHDesc1' id='GMSMHDesc1'
-                                    class='form-control threshold' maxlength="20"
-                                    placeholder="Enter State Description 1"
+                            <div class="col-md-2">
+                                <label for="inputEmail4" class="form-label">Fiscal Year Id<b
+                                        class="text-danger">*</b></label>
+
+                                <input type="text" name='FYFYHFiscalYearId' id='FYFYHFiscalYearId'
+                                    class='form-control threshold' maxlength="20" placeholder="Enter Fiscal Year"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('GMSMHDesc1', $edit_data['GMSMHDesc1'] ?? '') }}">
+                                    value="{{ old('FYFYHFiscalYearId', $edit_data['FYFYHFiscalYearId'] ?? '') }}">
+
+
                             </div>
-                            <div class="col-12">
-                                <label for="inputAddress" class="form-label">Description 2</label>
-                                <textarea name='GMSMHDesc2' id='GMSMHDesc2' class='form-control textarea' maxlength="200"
-                                    placeholder="Enter State Description 2" style='border-color: rgb(102, 175, 233); outline: 0px'>{{ old('GMSMHDesc2', $edit_data['GMSMHDesc2'] ?? '') }}</textarea>
+                            <div class="col-md-2">
+                                <label for="inputPassword4" class="form-label">Start Date</label>
+                                <input type="text" name='FYFYHStartDate' id='FYFYHStartDate'
+                                    class='form-control' placeholder="Start Date"
+                                    style='border-color: rgb(102, 175, 233); outline: 0px'
+                                    value="{{ date('d-m-Y',strtotime($edit_data['FYFYHStartDate']))}}" readonly>
                             </div>
-                            <div class="col-6 mb-4">
-                                <label for="inputState" class="form-label">Country</label>
-                                <select id='GMSMHCountryId' name='GMSMHCountryId' class="form-select"
+                            <div class="col-md-2">
+                                <label for="inputPassword4" class="form-label">End Date</label>
+                                <input type="text" name='FYFYHEndDate' id='FYFYHEndDate'
+                                    class='form-control' placeholder="End Date"
+                                    style='border-color: rgb(102, 175, 233); outline: 0px'
+                                    value="{{ date('d-m-Y',strtotime($edit_data['FYFYHEndDate']))}}" readonly>
+                            </div>
+                            <div class="col-md-2 n-chk mt-4">
+                                <div class="form-check form-check-primary form-check-inline">
+                                    @if (!empty($edit_data['FYFYHCurrentFY']))
+                                        <input class="form-check-input" type="checkbox" name='FYFYHCurrentFY'
+                                            id='FYFYHCurrentFY' value="{{ $edit_data['FYFYHCurrentFY'] }}" checked>
+                                    @else
+                                        <input class="form-check-input" type="checkbox" name='FYFYHCurrentFY'
+                                            id='FYFYHCurrentFY'
+                                            value="{{ old('FYFYHCurrentFY', $edit_data['FYFYHCurrentFY'] ?? '') }}">
+                                    @endif
+                                    <label class="form-check-label" for="form-check-default">
+                                        Active Fiscal Year
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputState" class="form-label">Active Period<b
+                                        class="text-danger">*</b></label>
+                                <select id='FYFYHCurrentPeriod' name='FYFYHCurrentPeriod' class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
-                                    <option value=''>Select Country</option>
-                                    @foreach ($countries as $country)
-                                        @if (!empty($edit_data['GMSMHCountryId']) && $edit_data['GMSMHCountryId'] == $country->GMCMHCountryId)
-                                            <option value='{{ $country->GMCMHCountryId }}' selected>
-                                                {{ $country->GMCMHDesc1 }}</option>
+                                    <option value=''>Select Active Period</option>
+                                    @foreach ($period_list as $period)
+                                        @if (!empty($edit_data['FYFYHCurrentPeriod']) && $edit_data['FYFYHCurrentPeriod'] == $period->FYPMHPeriodId)
+                                            <option value='{{ $period->FYPMHPeriodId }}' selected>
+                                                {{ $period->FYPMHMonth }}</option>
                                         @else
-                                            <option value='{{ $country->GMCMHCountryId }}'>
-                                                {{ $country->GMCMHDesc1 }}</option>
+                                            <option value='{{ $period->FYPMHPeriodId }}'>
+                                                {{ $period->FYPMHMonth }}</option>
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
-                            <!--  <div class="col-6 mt-5">
-   <button type="submit" class="btn btn-primary _effect--ripple waves-effect waves-light">Add</button>
-   </div> -->
                         </div>
                         </form>
                     </div>
@@ -289,50 +273,66 @@
         </div>
         <!-- User Info Start -->
         @if (!empty($edit_data['id']))
-        <div class="row" id="user_info">
-            <div id="flStackForm" class="col-lg-12 layout-spacing layout-top-spacing">
-                <div class="statbox widget box box-shadow">
-                    <div class="widget-header">
-                        <div class="row">
-                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h3>User Info</h3>
+            <div class="row" id="user_info">
+                <div id="flStackForm" class="col-lg-12 layout-spacing layout-top-spacing">
+                    <div class="statbox widget box box-shadow">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h3>User Info</h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="widget-content widget-content-area">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora totam enim asperiores,
-                                minima dolorem, quis non voluptatum adipisci repellendus facere recusandae tempore, a
-                                nam aut necessitatibus eveniet vel, ipsum blanditiis.
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora totam enim asperiores,
-                                minima dolorem, quis non voluptatum adipisci repellendus facere recusandae tempore, a
-                                nam aut necessitatibus eveniet vel, ipsum blanditiis.
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora totam enim asperiores,
-                                minima dolorem, quis non voluptatum adipisci repellendus facere recusandae tempore, a
-                                nam aut necessitatibus eveniet vel, ipsum blanditiis.
-                            </div>
-                            <div class="col-md-6">
-                            </div>
-                            <div class="col-12">
+                        <div class="widget-content widget-content-area">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="user" class="form-label">User</label>
+                                    @if (!empty($edit_data['id']))
+                                        <input type="text" name='FYFYHUser' id='FYFYHUser'
+                                            class='form-control input_border'
+                                            value="{{ old('FYFYHUser', $edit_data['FYFYHUser'] ?? '') }}" readonly>
+                                    @else
+                                        <input type="text" name='FYFYHUser' id='FYFYHUser'
+                                            class='form-control input_border' value="{{ Auth::user()->name }}"
+                                            readonly>
+                                    @endif
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Created" class="form-label">Created On</label>
+                                    @if (!empty($edit_data['id']))
+                                        <input type="text" name='FYFYHLastCreated' id='FYFYHLastCreated'
+                                            class='form-control input_border'
+                                            value="{{ date('d-m-Y', strtotime($edit_data['FYFYHLastCreated'])) }}"
+                                            readonly>
+                                    @else
+                                        <input id="FYFYHLastCreated" name='FYFYHLastCreated'
+                                            class="form-control flatpickr flatpickr-input active input_border"
+                                            type="text" placeholder="Select Date.." readonly="readonly">
+                                    @endif
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Updated" class="form-label">Updated On</label>
+                                    @if (!empty($edit_data['id']))
+                                        <input id="FYFYHLastUpdated" name='FYFYHLastUpdated'
+                                            class="form-control flatpickr flatpickr-input active input_border"
+                                            type="text" placeholder="Select Date.." readonly="readonly"
+                                            value="{{ date('d-m-Y', strtotime($edit_data['FYFYHLastUpdated'])) }}">
+                                    @else
+                                        <input id="FYFYHLastUpdated" name='FYFYHLastUpdated'
+                                            class="form-control flatpickr flatpickr-input active input_border"
+                                            type="text" placeholder="Select Date.." readonly="readonly">
+                                    @endif
+                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endif
+
         <!-- User_info End -->
+
     </main>
 
     <!-- Error Model -->
@@ -357,17 +357,17 @@
     </div>
     <!-- Error Model end-->
 @endif
+
 @endsection
 @section('js_code')
 @include('inc.js_file')
-<!-- <script src={{ asset('assets/common/js/StateMasterAjax.js') }}></script> -->
+@include('inc.flatpickr_js')
 <script type="text/javascript">
     $(document).ready(function() {
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //      }
-        // });
+        $('#FYFYHCurrentPeriod').select2();
+        if ($('#id').val() != undefined && $('#id').val() != '') {
+            $('#FYFYHFiscalYearId').attr('readonly', true);
+        }
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -402,18 +402,30 @@
             order: [0, "desc"],
             processing: true,
             serverSide: true,
-            "ajax": "get_state",
+            "ajax": "get_fiscalYear",
             "columns": [{
-                    data: "GMSMHStateId"
+                    data: "FYFYHFiscalYearId"
                 },
                 {
-                    data: "GMSMHDesc1"
+                    data: "FYFYHStartDate"
                 },
                 {
-                    data: "fn_country.GMCMHDesc1"
+                    data: "FYFYHEndDate"
                 },
                 {
-                    data: "GMSMHUser"
+                    data: "FYFYHCurrentFY"
+                },
+                {
+                    data: "FYFYHCurrentPeriod"
+                },
+                {
+                    data: "fn_period.FYPMHMonth"
+                },
+                {
+                    data: "FYFYHPeriodStartDate"
+                },
+                {
+                    data: "FYFYHPeriodEndDate"
                 },
                 {
                     data: "action",
@@ -421,23 +433,23 @@
                     searchable: false
                 },
                 {
-                    data: "GMSMHDesc1",
+                    data: "FYFYHUser",
                     "visible": false
                 },
                 {
-                    data: "GMSMHDesc2",
+                    data: "FYFYHLastUpdated",
                     "visible": false
                 },
                 {
-                    data: "GMSMHUser",
+                    data: "FYFYHLastUpdated",
                     "visible": false
                 },
                 {
-                    data: "GMSMHLastCreated",
+                    data: "FYFYHLastCreated",
                     "visible": false
                 },
                 {
-                    data: "id",
+                    data: "FYFYHCompanyId",
                     "visible": false
                 },
             ],
@@ -451,81 +463,82 @@
                     "targets": 1
                 },
                 {
-                    "width": "25%",
+                    "width": "15%",
                     "targets": 2
                 },
                 {
                     "width": "25%",
-                    "targets": 3
+                    "targets": 3,
+                    data: "FYFYHCurrentFY",
+                    render: function(data, td, cellData, rowData, row, col) {
+
+                        if (data == 1) {
+                            return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
+                            <input type="checkbox" class="new-control-input chk-parent select-customers-info" checked>\
+                            <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
+                        } else {
+                            return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
+                            <input type="checkbox" class="new-control-input chk-parent select-customers-info">\
+                            <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
+                        }
+                    }
                 },
                 {
                     "width": "15%",
                     "targets": 4
+                },
+                {
+                    "width": "15%",
+                    "targets": 5
                 }
             ]
         });
 
-        $('#GMSMHCountryId').select2({
-            // theme: "bootstrap-5"
-        });
-
         $('#btn_error').hide();
     });
-
     $("#AddForm").submit(function(e) {
         e.preventDefault();
-        $('#GMSMHStateId,#GMSMHDesc1,#select2-GMSMHCountryId-container').removeClass(
+        $('#FYFYHFiscalYearId,#select2-FYFYHCurrentPeriod-container').removeClass(
             'border border-danger');
 
-        if ($('#GMSMHStateId').val() == '') {
-            $('#GMSMHStateId').addClass('border border-danger');
+        if ($('#FYFYHFiscalYearId').val() == '') {
+            $('#FYFYHFiscalYearId').addClass('border border-danger');
         }
-        if ($('#GMSMHDesc1').val() == '') {
-            $('#GMSMHDesc1').addClass('border border-danger');
 
-        }
-        // if($('#GMSMHDesc2').val() == ''){
-        // $('#GMSMHDesc2').addClass('border border-danger');
-        // }
-        if ($('#GMSMHCountryId').val() == '') {
-            $('#select2-GMSMHCountryId-container').addClass('border border-danger');
+        if ($('#FYFYHCurrentPeriod').val() == '') {
+            $('#select2-FYFYHCurrentPeriod-container').addClass('border border-danger');
         }
         $('.msg_error').html('');
-        if ($('#GMSMHStateId').val() == '' || $('#GMSMHDesc1').val() == '' ||
-            $('#GMSMHCountryId').val() == '') {
-            if ($('#GMSMHStateId').val() == '') {
-                $('.msg_error').append('<p>Please Enter State name !</p>');
-            }
-            if ($('#GMSMHDesc1').val() == '') {
-                $('.msg_error').append('<p>Please Enter State Description 1 !</p>');
-            }
-            // if($('#GMSMHDesc2').val() == ''){
-            //       $('.msg_error').append('<p>Please Enter State Description 2 !</p>');
-            // }
-            if ($('#GMSMHCountryId').val() == '') {
-                $('.msg_error').append('<p>Please Select Country !</p>');
-            }
-            var error_count = $(".msg_error").children().length;
-            console.log(error_count);
-            if (error_count > 0) {
-                $('#btn_error').show().animate({
-                    left: '-250px'
-                }).animate({
-                    left: '1px'
-                });
-            }
-            return false;
-        } else {
-            var action = $('#action').val();
-            console.log('action: ' + action);
+        // if ($('#FYFYHFiscalYearId').val() == '' || $('#FYFYHCurrentPeriod').val() == '') {
+        //     if ($('#FYFYHFiscalYearId').val() == '') {
+        //         $('.msg_error').append('<p>Please Enter Fiscal Year !</p>');
+        //     }
+        //     if ($('#FYFYHCurrentPeriod').val() == '') {
+        //         $('.msg_error').append('<p>Please Select Period !</p>');
+        //     }
+        //     var error_count = $(".msg_error").children().length;
+        //     console.log(error_count);
+        //     if (error_count > 0) {
+        //         $('#btn_error').show().animate({
+        //             left: '-250px'
+        //         }).animate({
+        //             left: '1px'
+        //         });
+        //     }
+        //     return false;
+        // } else
+        // if{
+            // var action = $('#action').val();
+            // console.log('action: ' + action);
             $.ajax({
-                url: "{{ url('state_save') }}",
+                url: "{{ url('fiscalYear_save') }}",
                 method: 'post',
                 data: new FormData(this),
                 processData: false,
                 dataType: "json",
                 contentType: false,
                 beforeSend: function() {
+                    updateCheckBoxValue();
                     $('#btn_error').hide();
                 },
                 success: function(response) {
@@ -542,147 +555,54 @@
                     }
                     if (response.status == 'success') {
                         if (action == 'insert') {
-                            $finalMessage3SIS = fnSingleLevelFinalSave('State', $('#GMSMHStateId')
-                                .val(), $('#GMSMHDesc1').val(), 'Added');
+                            $finalMessage3SIS = fnSingleLevelFinalSave('fiscalYear',
+                            $('#FYFYHFiscalYearId').val(), $('#FYFYHStartDate').val(), 'Added');
                             $('.error_msg').html($finalMessage3SIS);
-                            $('#GMSMHCountryId').val('').trigger("change");
+                            $('#FYFYHCurrentPeriod').val('').trigger("change");
                             $('#AddForm')[0].reset();
                         }
                         if (action == 'update') {
 
                             Swal.fire({
                                 icon: 'success',
-                                title: 'State update successfully',
+                                title: 'Fiscal Year updated successfully',
                                 allowOutsideClick: false,
                                 timer: 5000,
                             })
+                            window.location = "{{ url('fiscalYear') }}";
+
                         }
                     }
                     if (response.status == 'error') {
-                        $('.error_msg').append('<p>State Master not save</p>');
+                        $('.error_msg').append('<p>Fiscal Year Master not save</p>');
                     }
                 }
             })
-        }
+        // }
     });
     $('#btn_error').click(function() {
         $('#ErrorModal').modal('show');
     });
 
-    $('#Undelete_Data').click(function() {
-        $('#UndoModalTable').DataTable({
-            stripeClasses: [],
-            pageLength: 6,
-            lengthMenu: [6, 10, 20, 50],
-            order: [
-                [1, "desc"]
-            ],
-            processing: true,
-            serverSide: true,
-            destroy: true,
-            "ajax": "delete_state_list",
-            "columns": [{
-                    data: "GMSMHStateId"
-                },
-                {
-                    data: "GMSMHDesc1"
-                },
-                {
-                    data: "fn_country.GMCMHDesc1"
-                },
-                {
-                    data: "GMSMHUser"
-                },
-                {
-                    data: "action",
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: "id",
-                    "visible": false
-                },
-            ]
+    function updateCheckBoxValue() {
+        if ($('#FYFYHCurrentFY').prop('checked') == true) {
+            $('#FYFYHCurrentFY').val(1);
+        } else {
+            $('#FYFYHCurrentFY').val(0);
+        }
+    }
+    $("#FYFYHFiscalYearId").change(function(){
+        var fy = $(this).val();
+        $.ajax({
+            url: "{{ url('get_fy_date') }}",
+            type: 'get',
+            data: 'year=' + fy,
+            success: function(response) {
+                $('#FYFYHStartDate').val(response.fyStartDate);
+                $('#FYFYHEndDate').val(response.fyEndDate);
+            }
         });
-        $('.modal-title').text('Restore State');
-        $('#UndoModal').modal('show');
     });
 
-    $(document).on('click', '.delete', function() {
-        var action = 'delete';
-        var id = $(this).attr('id');
-        var desc = $(this).closest("tr").find("td:eq(1)").text();
-        $deleteMessage3SIS = fnConfirmationMsg('Delete', 'State', id, desc);
-        $successMessage3SIS = fnSuccessMsg('Deleted', 'State', id, desc);
-
-        Swal.fire({
-            title: $deleteMessage3SIS,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'delete!',
-            allowOutsideClick: false,
-        }).then((result) => {
-            console.log(result)
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "state_delete",
-                    mehtod: "get",
-                    data: {
-                        id: id,
-                        action: action
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#landingPageBrowser3SIS').DataTable().ajax.reload();
-                        Swal.fire({
-                            icon: 'success',
-                            title: $successMessage3SIS,
-                            allowOutsideClick: false,
-                            timer: 5000,
-                        })
-                    }
-                })
-            }
-        })
-    });
-
-    $(document).on('click', '.restore', function() {
-        var action = 'undelete';
-        var id = $(this).attr('id');
-        var desc = $(this).closest("tr").find("td:eq(1)").text();
-        $restoreMessage3SIS = fnConfirmationMsg('Restore', 'State', id, desc);
-        Swal.fire({
-            title: $restoreMessage3SIS,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Restore!',
-            allowOutsideClick: false,
-        }).then((result) => {
-            console.log(result)
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "state_delete",
-                    mehtod: "get",
-                    data: {
-                        id: id,
-                        action: action
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#landingPageBrowser3SIS').DataTable().ajax.reload();
-                        $('#UndoModalTable').DataTable().ajax.reload();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Your data has been Restored.',
-                        })
-                    }
-                })
-            }
-        })
-    });
 </script>
 @endsection

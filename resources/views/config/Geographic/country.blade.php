@@ -101,9 +101,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#add">{{ $action == 'add' ? 'Create' : 'Edit' }} </a>
                     </li>
+                    @if (!empty($edit_data['id']))
                     <li class="nav-item">
                         <a class="nav-link" href="#user_info">User Info</a>
                     </li>
+                    @endif
                 </ul>
         </div>
         <div class="col-auto me-1">
@@ -234,6 +236,7 @@
             </div>
         </div>
         <!-- User Info Start -->
+        @if (!empty($edit_data['id']))
         <div class="row" id="user_info">
             <div id="flStackForm" class="col-lg-12 layout-spacing layout-top-spacing">
                 <div class="statbox widget box box-shadow">
@@ -282,6 +285,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <!-- User_info End -->
     </main>
 

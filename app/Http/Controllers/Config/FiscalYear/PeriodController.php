@@ -23,20 +23,25 @@ class PeriodController extends Controller
     {
         $edit_data = '';
         $action = $request->action;
+        $month_list = [];
+        for($m=1; $m<=12; ++$m){
+            $month_list[] = date('F', mktime(0, 0, 0, $m, 1));
+        }
+
         if(!empty($request->id)){
           $edit_data = $this->getPeriodData(Crypt::decryptString($request->id));
         }
-        return view('config.FiscalYear.period',compact( 'action','edit_data'));
+        return view('config.FiscalYear.period',compact( 'action','edit_data','month_list'));
     }
 
      public function save(Request $request)
     {
         try {
             // echo 'Data Submitted.';
-            // return $request->id;
+            // return $request->input();
             $validator = Validator::make($request->all(), [
               'FYPMHPeriodId'     => 'required|unique:t00901L01,FYPMHPeriodId,'.$request->id,
-              'FYPMHDesc1'      => 'required|max:100',
+              'FYPMHMonth'      => 'required|max:100|unique:t00901L01,FYPMHMonth,'.$request->id,
               'FYPMHDesc2'      => 'max:200'
             ]);
             // return $validator;
@@ -48,14 +53,16 @@ class PeriodController extends Controller
                 if($request->id != null){
                     //update
                    $period_data = Period::find($request->id);
+                }else{
+                    $period_data->FYPMHPeriodId= $request->FYPMHPeriodId;
+                    $period_data->FYPMHLastCreated =now();
                 }
 
-                $period_data->FYPMHPeriodId= $request->FYPMHPeriodId;
-                $period_data->FYPMHDesc1=$request->FYPMHDesc1;
+                $period_data->FYPMHMonth=$request->FYPMHMonth;
+                $period_data->FYPMHNMonth= intval(date("n",strtotime($request->FYPMHMonth)));
                 $period_data->FYPMHDesc2=$request->FYPMHDesc2;
                 $period_data->FYPMHUser=Auth::user()->name;
                 // FYPMHUser=Auth::user()->id;
-                $period_data->FYPMHLastCreated =now();
                 $period_data->FYPMHLastUpdated =now();
                 $period_data->save();
 

@@ -14,6 +14,7 @@ use App\Http\Controllers\Config\BankingMaster\BranchNameController;
 use App\Http\Controllers\Config\BankingMaster\PaymentModeController;
 use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 use App\Http\Controllers\Config\FiscalYear\PeriodController;
+use App\Http\Controllers\Config\FiscalYear\FiscalYearController;
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -149,6 +150,15 @@ Route::controller(GeneralInfoController::class)->group(function () {
     Route::get('delete_generalInfo_list', 'DeleteList');
     Route::get('get_city_desc', 'getCityDesc')->name('get_city_desc');
     Route::get('get_branch_details', 'getBranchDetails')->name('get_branch_details');
+});
+// Fiscal Year
+Route::controller(FiscalYearController::class)->group(function () {
+    Route::get('fiscalYear/{action?}/{id?}', 'index');
+    Route::get('fiscalYear_report/{type}', 'report');
+    Route::get('get_fiscalYear', 'fiscalYear_list');
+    Route::post('fiscalYear_save', 'save');
+    Route::get('get_fy_date', 'constractFYDate')->name('get_fy_date');
+
 });
 // Period Master
 Route::controller(PeriodController::class)->group(function () {

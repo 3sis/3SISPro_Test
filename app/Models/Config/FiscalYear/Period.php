@@ -15,9 +15,9 @@ class Period extends Model
         [
             'id',
             'FYPMHPeriodId',
-            'FYPMHDesc1',
-            'FYPMHDesc2',
+            'FYPMHMonth',
             'FYPMHNMonth',
+            'FYPMHDesc2',
             'FYPMHNAddInt',
             'FYPMHBiDesc',
             'FYPMHMarkForDeletion',

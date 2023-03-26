@@ -238,9 +238,30 @@ return [
             'required' => 'Period Cant be blank',
             'unique'=>'Period already Exists',
          ],
-         'FYPMHDesc1' => [
+         'FYPMHMonth' => [
             'required' => 'Month cant be blank',
+            'unique'=>'Month has already been taken',
+
         ],
+        //Fiscal Year
+        'FYFYHFiscalYearId' => [
+            'required' => 'Fiscal Year id Cant be blank',
+            'unique'=>'fiscal year id has already been taken.',
+        ],
+        'FYFYHStartDate' => [
+            'required' => 'FY Start Date cant be blank',
+        ],
+        'FYFYHEndDate' => [
+            'required'  => 'FY End Date cant be blank',
+            'after'     => 'End Date must be greater than Start Date',
+        ],
+        'FYFYHCurrentFY' => [
+            'unique' => 'Active FY exist for this company',
+        ],
+        'FYFYHCurrentPeriod' => [
+            'required' => 'You must select an Active Period',
+            'in' => 'You must select an Period between 1 to 12',
+         ],
     ],
 
     /*

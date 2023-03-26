@@ -171,13 +171,42 @@
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('FYPMHPeriodId', $edit_data['FYPMHPeriodId'] ?? '') }}"readonly>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
+                                <div class='form-group'>
+                                    <label for="inputState" class="form-label">Month<b class="text-danger">*</b></label>
+                                    <select id='FYPMHMonth' name='FYPMHMonth' class="form-select"
+                                        style="width: 100%;border: 1px solid #68a6ec;">
+
+                                        {{-- @for($m=1; $m<=12; ++$m)
+                                            @if (!empty($edit_data['FYPMHNMonth']) && $edit_data['FYPMHNMonth'] == $m)
+                                                <option value='{{ $m }}' selected>
+                                                    {{ date('F', mktime(0, 0, 0, $m, 1)) }}</option>
+                                            @else
+                                                <option value='{{ $m }}'>
+                                                    {{ date('F', mktime(0, 0, 0, $m, 1)) }}</option>
+                                            @endif
+
+                                        @endfor --}}
+
+                                        @foreach ($month_list as $month)
+                                            @if (!empty($edit_data['FYPMHMonth']) && $edit_data['FYPMHMonth'] == $month)
+                                                <option value='{{ $month }}' selected>
+                                                    {{ $month }}</option>
+                                            @else
+                                                <option value='{{ $month }}'>
+                                                    {{ $month }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            {{-- <div class="col-md-2">
                                 <label for="inputPassword4" class="form-label">Month<b class="text-danger">*</b></label>
-                                <input type="text" name='FYPMHDesc1' id='FYPMHDesc1'
+                                <input type="text" name='FYPMHMonth' id='FYPMHMonth'
                                     class='form-control threshold' maxlength="20"
                                     placeholder="Enter Month Name"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
-                                    value="{{ old('FYPMHDesc1', $edit_data['FYPMHDesc1'] ?? '') }}">
+                                    value="{{ old('FYPMHMonth', $edit_data['FYPMHMonth'] ?? '') }}">
                             </div>
                             <div class="col-2">
                                 <label for="inputAddress" class="form-label">Month No.</label>
@@ -186,7 +215,7 @@
                                     placeholder="Month Number"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('FYPMHNMonth', $edit_data['FYPMHNMonth'] ?? '') }}"readonly>
-                            </div>
+                            </div> --}}
                             <div class="col-6">
                                 <label for="inputAddress" class="form-label">Description</label>
                                 <input type="text" name='FYPMHDesc2' id='FYPMHDesc2'
@@ -285,6 +314,8 @@
 @include('inc.flatpickr_js')
 <script type="text/javascript">
     $(document).ready(function() {
+        $( "#FYPMHMonth" ).select2();
+
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -323,7 +354,7 @@
 
             "columns": [
                 {data: "FYPMHPeriodId"},
-                {data: "FYPMHDesc1"},
+                {data: "FYPMHMonth"},
                 {data: "FYPMHNMonth"},
                 {data: "FYPMHNAddInt"},
                 {data: "FYPMHUser"},
@@ -344,13 +375,13 @@
     });
     $("#AddForm").submit(function(e) {
         e.preventDefault();
-        if ($('#FYPMHDesc1').val() == '') {
-            $('#FYPMHDesc1').addClass('border border-danger');
+        if ($('#FYPMHMonth').val() != '') {
+            $('#select2-FYPMHMonth-container').addClass('border border-danger');
         }
         $('.msg_error').html('');
-        if ($('#FYPMHDesc1').val() == '') {
+        if ($('#FYPMHMonth').val() == '') {
             $('.msg_error').append('<p>Please Enter Month Name !</p>');
-
+            // alert($('#FYPMHMonth').val());
             var error_count = $(".msg_error").children().length;
             console.log(error_count);
             if (error_count > 0) {
@@ -384,12 +415,14 @@
                         });
                         $.each(response.errors, function(key, value) {
                             $('.msg_error').append('<p>' + value + '</p>');
+                            console.log(response);
+
                         });
                     }
                     if (response.status == 'success') {
                         if (action == 'insert') {
                             $finalMessage3SIS = fnSingleLevelFinalSave('period', $('#FYPMHPeriodId')
-                                .val(), $('#FYPMHDesc1').val(), 'Added');
+                                .val(), $('#FYPMHMonth').val(), 'Added');
                             $('.error_msg').html($finalMessage3SIS);
                             $('#AddForm')[0].reset();
                         }
@@ -412,7 +445,9 @@
             })
         }
     });
-
+    $('#btn_error').click(function() {
+        $('#ErrorModal').modal('show');
+    });
 //Date picker
 console.log($('#id').val());
 if($('#id').val() != undefined){
