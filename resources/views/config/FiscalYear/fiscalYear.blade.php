@@ -198,42 +198,46 @@
                                 <input type="hidden" name="id" id="id" value="{{ $edit_data['id'] }}">
                                 <input type="hidden" name="FYFYHCompanyId" id="FYFYHCompanyId"
                                     value="{{ $edit_data['FYFYHCompanyId'] }}">
-                                    <input type="hidden" name="FYFYHPeriodStartDate" id="FYFYHPeriodStartDate"
-                                    value="{{ $edit_data['FYFYHPeriodStartDate'] }}">
-                                    <input type="hidden" name="FYFYHPeriodEndDate" id="FYFYHPeriodEndDate"
-                                    value="{{ $edit_data['FYFYHPeriodEndDate'] }}">
                             @endif
                             @if ($action == 'add')
                                 <input type="hidden" id="action" value="insert">
                             @else
                                 <input type="hidden" id="action" value="update">
                             @endif
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Fiscal Year Id<b
                                         class="text-danger">*</b></label>
 
                                 <input type="text" name='FYFYHFiscalYearId' id='FYFYHFiscalYearId'
-                                    class='form-control threshold' maxlength="20" placeholder="Enter Fiscal Year"
+                                    class='form-control threshold' maxlength="4" placeholder="Enter Fiscal Year"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ old('FYFYHFiscalYearId', $edit_data['FYFYHFiscalYearId'] ?? '') }}">
 
 
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="inputPassword4" class="form-label">Start Date</label>
+                                @if(!empty($edit_data['id']))
                                 <input type="text" name='FYFYHStartDate' id='FYFYHStartDate'
                                     class='form-control' placeholder="Start Date"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ date('d-m-Y',strtotime($edit_data['FYFYHStartDate']))}}" readonly>
+                                   @else
+                                    <input id="FYFYHStartDate" name='FYFYHStartDate' class="form-control input_border" type="text" placeholder="Start Date.."readonly>
+                                  @endif
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="inputPassword4" class="form-label">End Date</label>
+                                @if(!empty($edit_data['id']))
                                 <input type="text" name='FYFYHEndDate' id='FYFYHEndDate'
                                     class='form-control' placeholder="End Date"
                                     style='border-color: rgb(102, 175, 233); outline: 0px'
                                     value="{{ date('d-m-Y',strtotime($edit_data['FYFYHEndDate']))}}" readonly>
+                                    @else
+                                    <input id="FYFYHEndDate" name='FYFYHEndDate' class="form-control input_border" type="text" placeholder="Start Date.."readonly>
+                                  @endif
                             </div>
-                            <div class="col-md-2 n-chk mt-4">
+                            <div class="col-md-3 n-chk mt-4">
                                 <div class="form-check form-check-primary form-check-inline">
                                     @if (!empty($edit_data['FYFYHCurrentFY']))
                                         <input class="form-check-input" type="checkbox" name='FYFYHCurrentFY'
@@ -248,7 +252,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="inputState" class="form-label">Active Period<b
                                         class="text-danger">*</b></label>
                                 <select id='FYFYHCurrentPeriod' name='FYFYHCurrentPeriod' class="form-select"
@@ -264,6 +268,28 @@
                                         @endif
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputPassword4" class="form-label">Start Date</label>
+                                @if(!empty($edit_data['id']))
+                                <input type="text" name='FYFYHPeriodStartDate' id='FYFYHPeriodStartDate'
+                                    class='form-control' placeholder="Start Date"
+                                    style='border-color: rgb(102, 175, 233); outline: 0px'
+                                    value="{{ date('d-m-Y',strtotime($edit_data['FYFYHPeriodStartDate']))}}" readonly>
+                                   @else
+                                    <input id="FYFYHPeriodStartDate" name='FYFYHPeriodStartDate' class="form-control input_border" type="text" placeholder="Start Date.."readonly>
+                                  @endif
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputPassword4" class="form-label">End Date</label>
+                                @if(!empty($edit_data['id']))
+                                <input type="text" name='FYFYHPeriodEndDate' id='FYFYHPeriodEndDate'
+                                    class='form-control' placeholder="End Date"
+                                    style='border-color: rgb(102, 175, 233); outline: 0px'
+                                    value="{{ date('d-m-Y',strtotime($edit_data['FYFYHPeriodEndDate']))}}" readonly>
+                                    @else
+                                    <input id="FYFYHPeriodEndDate" name='FYFYHPeriodEndDate' class="form-control input_border" type="text" placeholder="Start Date.."readonly>
+                                  @endif
                             </div>
                         </div>
                         </form>
@@ -306,7 +332,7 @@
                                             readonly>
                                     @else
                                         <input id="FYFYHLastCreated" name='FYFYHLastCreated'
-                                            class="form-control flatpickr flatpickr-input active input_border"
+                                            class="form-control input_border"
                                             type="text" placeholder="Select Date.." readonly="readonly">
                                     @endif
                                 </div>
@@ -314,12 +340,12 @@
                                     <label for="Updated" class="form-label">Updated On</label>
                                     @if (!empty($edit_data['id']))
                                         <input id="FYFYHLastUpdated" name='FYFYHLastUpdated'
-                                            class="form-control flatpickr flatpickr-input active input_border"
+                                            class="form-control input_border"
                                             type="text" placeholder="Select Date.." readonly="readonly"
                                             value="{{ date('d-m-Y', strtotime($edit_data['FYFYHLastUpdated'])) }}">
                                     @else
                                         <input id="FYFYHLastUpdated" name='FYFYHLastUpdated'
-                                            class="form-control flatpickr flatpickr-input active input_border"
+                                            class="form-control input_border"
                                             type="text" placeholder="Select Date.." readonly="readonly">
                                     @endif
                                 </div>
@@ -368,6 +394,11 @@
         if ($('#id').val() != undefined && $('#id').val() != '') {
             $('#FYFYHFiscalYearId').attr('readonly', true);
         }
+        else{
+            $('#FYFYHCurrentPeriod').attr('disabled', true);
+
+        }
+
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -413,7 +444,8 @@
                     data: "FYFYHEndDate"
                 },
                 {
-                    data: "FYFYHCurrentFY"
+                    data: "FYFYHCurrentFY",
+                    readonly: true
                 },
                 {
                     data: "FYFYHCurrentPeriod"
@@ -470,15 +502,18 @@
                     "width": "25%",
                     "targets": 3,
                     data: "FYFYHCurrentFY",
+                    'checkboxes': {
+                        'selectRow': false
+                        },
                     render: function(data, td, cellData, rowData, row, col) {
 
                         if (data == 1) {
                             return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
-                            <input type="checkbox" class="new-control-input chk-parent select-customers-info" checked>\
+                            <input  type="checkbox" class="new-control-input chk-parent select-customers-info" checked>\
                             <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
                         } else {
                             return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
-                            <input type="checkbox" class="new-control-input chk-parent select-customers-info">\
+                            <input  type="checkbox" class="new-control-input chk-parent select-customers-info">\
                             <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
                         }
                     }
@@ -528,7 +563,9 @@
         //     return false;
         // } else
         // if{
-            // var action = $('#action').val();
+            var action = $('#action').val();
+            updateCheckBoxValue();
+
             // console.log('action: ' + action);
             $.ajax({
                 url: "{{ url('fiscalYear_save') }}",
@@ -538,7 +575,7 @@
                 dataType: "json",
                 contentType: false,
                 beforeSend: function() {
-                    updateCheckBoxValue();
+                    alert($('#FYFYHCurrentFY').val());
                     $('#btn_error').hide();
                 },
                 success: function(response) {
@@ -561,6 +598,7 @@
                             $('#FYFYHCurrentPeriod').val('').trigger("change");
                             $('#AddForm')[0].reset();
                         }
+
                         if (action == 'update') {
 
                             Swal.fire({
@@ -593,6 +631,9 @@
     }
     $("#FYFYHFiscalYearId").change(function(){
         var fy = $(this).val();
+        var period = '';
+        // getPeriod(fy,period);
+
         $.ajax({
             url: "{{ url('get_fy_date') }}",
             type: 'get',
@@ -602,7 +643,42 @@
                 $('#FYFYHEndDate').val(response.fyEndDate);
             }
         });
-    });
+        getPeriod(fy,period);
+        // $.ajax({
+        //     url: "{{ url('get_period_date') }}",
+        //     type: 'get',
+        //     data: 'year=' + fy,
+        //     success: function(response) {
+        //         $('#FYFYHCurrentPeriod').val(response.period).trigger("change");
+        //         $('#FYFYHPeriodStartDate').val(response.periodStartDate);
+        //         $('#FYFYHPeriodEndDate').val(response.periodEndDate);
+        //     }
+        // });
+        // $('#FYFYHCurrentPeriod').val().trigger("change");
 
+    });
+    $("#FYFYHCurrentPeriod").change(function(){
+        var period = $(this).val();
+        var fy = $('#FYFYHFiscalYearId').val();
+        getPeriod(fy,period);
+    });
+    function getPeriod(fy,period) {
+
+        $.ajax({
+            url: "{{ url('get_period_date') }}",
+            type: 'get',
+            data: {year:fy,period:period},
+            success: function(response) {
+                if(period== ''){
+                    $('#FYFYHCurrentPeriod').val(response.period).trigger("change");
+                }
+                $('#FYFYHPeriodStartDate').val(response.periodStartDate);
+                $('#FYFYHPeriodEndDate').val(response.periodEndDate);
+            }
+        });
+    }
+    $(document).on('click', '.columnDefs', function(){
+        return false;
+    });
 </script>
 @endsection
