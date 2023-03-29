@@ -9,7 +9,7 @@ class Period extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't00901L01';
+    protected $table = 't00901l01';
     protected $primaryKey = 'id';
     protected $fillable =
         [

@@ -9,7 +9,7 @@ class PostedPeriodHistory extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 't05903L0111';
+    protected $table = 't05903l0111';
     protected $primaryKey = 'id';
     protected $fillable =
     [

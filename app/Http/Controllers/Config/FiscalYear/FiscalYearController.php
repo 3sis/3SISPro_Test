@@ -57,7 +57,8 @@ class FiscalYearController extends Controller
                 // 'unique:t05903L01,FYFYHCompanyId,FYFYHCurrentFY,1'.$request->id,
 
                 // 'unique:t05903L01,FYFYHCurrentFY,1'.$request->id,
-                Rule::unique('t05903L01')   ->where('FYFYHCompanyId',$request->FYFYHCompanyId)
+                Rule::unique('t05903l01')   ->where('FYFYHCompanyId',$request->FYFYHCompanyId)
+                                            ->where('FYFYHFiscalYearId','!=',$request->FYFYHFiscalYearId)
                                             ->where('FYFYHCurrentFY',1),
                 'FYFYHCurrentPeriod'    => [
                     Rule::in(['1','2','3','4','5','6','7','8','9','10','11','12']),
