@@ -105,7 +105,6 @@
              <div class="container" id="list1-wrapper">
               <div class="wrapper">
               <div class="nav nav-tabs list" id="list1" role="tablist">
-                <li class="nav-item" id="nav-home-tab"> <a class="nav-link" href="#general_info_link1">{{ $action == 'add' ? 'Create' : 'Edit' }} </a></li>
                 <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#general_info_link1">General Info</a></li>
                 <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#additional_info_link1">Additional Info</a></li>
                 <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#office_info_link1">Office Info</a></li>
@@ -116,7 +115,7 @@
                 @if (!empty($edit_data['id']))
                 <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#user_info_link1">User Info</a></li>
                 @endif
-                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#empty1"></a> </li>
+                <li class="nav-item" id="nav-home-tab"><a class="nav-link" href="#empty1"  style="visibility: hidden;"></a> </li>
               </div>
               </div>
             </div>
@@ -1265,6 +1264,17 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        window.onscroll = function(){
+           // console.log(window.scrollY);
+            var wrapper = $('.wrapper');
+            var innerContent = $('.wrapper > .list');
+            console.log(innerContent);
+              // wrapper.scrollLeft((innerContent.width() - wrapper.width()) / 0.5);   
+              wrapper.scrollLeft(window.scrollY/4);   
+            console.log(innerContent.width());
+            console.log(wrapper.width());
+        };
+
         var PresentCityId = $('#EMGIHPresentCityId').val();
         if (PresentCityId != '') {
             getPresentCityDetail(PresentCityId);

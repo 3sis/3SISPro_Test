@@ -14,7 +14,16 @@
                                         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                                             <ol class="breadcrumb">
                                                 <!-- <li class="breadcrumb-item"><a href="#">Dashboard</a></li> -->
-                                                <li class="breadcrumb-item active text-danger h5" aria-current="page">{{breadcrumb(Request::segment(1))}}</li>
+                                                <li class="breadcrumb-item active text-danger h5" aria-current="page">
+                                                    @if(!empty($action))
+                                                       @if($action == 'add')
+                                                           {{ucfirst('create').' -'}}
+                                                       @else    
+                                                           {{ucfirst($action).' -'}}
+                                                       @endif    
+                                                    @endif
+                                                 {{breadcrumb(Request::segment(1))}}
+                                            </li>
                                             </ol>
                                         </nav>
 
