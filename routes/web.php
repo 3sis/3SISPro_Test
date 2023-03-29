@@ -15,6 +15,7 @@ use App\Http\Controllers\Config\BankingMaster\PaymentModeController;
 use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 use App\Http\Controllers\Config\FiscalYear\PeriodController;
 use App\Http\Controllers\Config\FiscalYear\FiscalYearController;
+use App\Http\Controllers\Config\FiscalYear\ActivePeriodChangeController;
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -158,6 +159,7 @@ Route::controller(FiscalYearController::class)->group(function () {
     Route::get('get_fiscalYear', 'fiscalYear_list');
     Route::post('fiscalYear_save', 'save');
     Route::get('get_fy_date', 'constractFYDate')->name('get_fy_date');
+    Route::get('get_period_date', 'getPeriodDate')->name('get_period_date');
 
 });
 // Period Master
@@ -168,6 +170,11 @@ Route::controller(PeriodController::class)->group(function () {
     Route::get('get_period', 'period_list');
     Route::get('period_report/{type}', 'report');
 
+});
+// Fiscal Year
+Route::controller(ActivePeriodChangeController::class)->group(function () {
+    Route::get('periodChange/{action?}/{id?}', 'index');
+    Route::post('periodChange_save', 'save');
 });
     // Route::get('logout',[AuthController::class,'logout']);
     Route::controller(AuthController::class)->group(function () {
