@@ -32,7 +32,6 @@
     }
 </style>
 
-<body>
     <div style="border: 1px solid #000;">
     <img id="logo" src="assets/img_pdf/logo.jpg">
     <p style="text-align:center;border-top: 1px solid #000;border-bottom: 1px solid #000;margin: 0;font-weight: bold;">Payslip</p>
@@ -312,4 +311,3 @@
     <div style="margin-left:520px ;">Authorized Signatory</div>
 <!-- </div> -->
 <hr>
-</body>
