@@ -16,6 +16,7 @@ use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 use App\Http\Controllers\Config\FiscalYear\PeriodController;
 use App\Http\Controllers\Config\FiscalYear\FiscalYearController;
 use App\Http\Controllers\Config\FiscalYear\ActivePeriodChangeController;
+use App\Http\Controllers\PdfController;
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -182,6 +183,14 @@ Route::controller(ActivePeriodChangeController::class)->group(function () {
         Route::get('home','home');
         Route::get('fastpath','fastpath');
     });
+
+
+ // Pdf Generate
+    Route::controller(PdfController::class)->group(function () {
+        Route::get('pdf', 'invoice');
+    });
+
+
 });
 
 // Route::group(['middleware'=>['LoginCheck']],function () {
