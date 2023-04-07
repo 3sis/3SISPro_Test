@@ -188,6 +188,8 @@ Route::controller(ActivePeriodChangeController::class)->group(function () {
  // Pdf Generate
     Route::controller(PdfController::class)->group(function () {
         Route::get('pdf', 'invoice');
+        Route::get('payslip_list', 'payslip_list');
+        Route::get('payslip/{emp_id}', 'payslip_pdf');
     });
 
 
