@@ -29,7 +29,7 @@
                                                     <td class="text-center">320</td> -->
                                                     <td class="text-center">
                                                         <!-- <span class="badge badge-warning">Generate Payslip</span> -->
-                                                        <a class="badge badge-warning" href="payslip-{{$row->EMGIHEmployeeId}}">Generate Payslip</a>
+                                                        <a class="badge badge-warning" href="payslip/{{$row->EMGIHEmployeeId}}" target="_blank">Generate Payslip</a>
                                                     </td>
                                                 </tr>
 

@@ -36,8 +36,6 @@ class PdfController extends Controller
             $row->details = GeneralInfo::join('t2250111','t2250111.PYMPDEmpCode','=','t11101l01.EMGIHEmployeeId')->where('t2250111.PYMPDEmpCode',$row->emp_id)->get();
             $row->details = collect($row->details)->sortBy('PYMPDUserSorting');
         }
-        // dd($emp_payslip);
-        // return view('payslip',compact('emp_payslip'));
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8',
             // 'format' => [190, 236],
             // 'orientation' => 'L'

@@ -17,8 +17,6 @@
     <div style="border: 1px solid #000;">
     <img id="logo" src="assets/img_pdf/logo.jpg">
     <p style="text-align:center;border-top: 1px solid #000;border-bottom: 1px solid #000;margin: 0;font-weight: bold;">Payslip</p>
-
-
 <table width="100%" style="border-bottom: 1px solid #000;">
     <tr>
         <td width="50%" align="left" ><span>
@@ -276,20 +274,12 @@
 
   <tr>
     <td style="border: 1px solid black;text-align: right;font-weight: bold;" colspan="8">Round:   29,542.00</td>
- <!-- <td style="text-align: right;">1212121</td> -->
   </tr>
 
   </tr>
 </table>
     </div>
-
-    <!-- <span style="margin-left: 1157px;">Director,</span><br>
-    <span style="margin-left: 1117px;">Authorized Signatory</span> 
-     <hr style="margin-top: 50px;"> -->
-
- <!-- <div style="margin-left: 520px;margin-top: 50px;"> -->
-    <div style="margin-left: 560px; margin-top: 60px;">Director,</div>
-    <div style="margin-left:520px ;">Authorized Signatory</div>
-<!-- </div> -->
+    <div style="margin-left: 560px; margin-top: 450px;"><b>Director,</b></div>
+    <div style="margin-left:520px ;"><b>Authorized Signatory</b></div>
 <hr>
 @endforeach
