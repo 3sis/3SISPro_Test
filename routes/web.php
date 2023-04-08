@@ -16,12 +16,9 @@ use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 use App\Http\Controllers\Config\FiscalYear\PeriodController;
 use App\Http\Controllers\Config\FiscalYear\FiscalYearController;
 use App\Http\Controllers\Config\FiscalYear\ActivePeriodChangeController;
-<<<<<<< HEAD
 use App\Http\Controllers\Config\IncomeDeductionType\IncomeTypeController;
 use App\Http\Controllers\Config\IncomeDeductionType\DeductionTypeController;
-=======
 use App\Http\Controllers\PdfController;
->>>>>>> 494a38a291dde47b0610d0e685320d8a8709ccef
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -198,15 +195,13 @@ Route::controller(IncomeTypeController::class)->group(function () {
 });
 // DeductionType Master
 Route::controller(DeductionTypeController::class)->group(function () {
-    // Route::get('/','index');
     Route::get('deductionType/{action?}/{id?}', 'index');
     Route::post('deductionType_save', 'save');
     Route::get('get_deductionType', 'deductionType_list');
-    Route::get('get_incomeSubForm', 'incomeSubForm_list');
+    Route::get('get_incomeSubForm', 'incomeSubForm_list')->name('get_incomeSubForm');
     Route::get('deductionType_delete', 'Restore_Delete_Data');
     Route::get('delete_deductionType_list', 'DeleteList');
     Route::get('deductionType_report/{type}', 'report');
-
 });
     // Route::get('logout',[AuthController::class,'logout']);
     Route::controller(AuthController::class)->group(function () {

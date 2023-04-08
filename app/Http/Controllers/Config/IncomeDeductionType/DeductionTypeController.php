@@ -21,23 +21,28 @@ use Illuminate\Support\Arr;
 use App\Traits\CommonMasters\GeneralMaster\CommonDataTables;
 use App\Traits\Error;
 use DataTables;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class DeductionTypeController extends Controller
 {
     use CommonDataTables,Error;
     public function index(Request $request)
     {
-        // echo 'Data Submitted.';
-        $edit_data = '';
-        $action = $request->action;
-        $deductionType_list = DeductionType::all();
-        $round_list = RoundingStrategy::all();
-        $rule_list = RuleDefinition::where('PMRDHIncOrDed','D')->get();
-        $payCycle = PaymentCycle::all();
-        if(!empty($request->id)){
-          $edit_data = $this->getDeductionTypeData(Crypt::decryptString($request->id));
-        }
+        try {
+             $edit_data = '';
+            $action = $request->action;
+            $deductionType_list = DeductionType::all();
+            $round_list = RoundingStrategy::all();
+            $rule_list = RuleDefinition::where('PMRDHIncOrDed','D')->get();
+            $payCycle = PaymentCycle::all();
+            if(!empty($request->id)){
+              $edit_data = $this->getDeductionTypeData(Crypt::decryptString($request->id));
+            }
         return view('config.IncomeDeductionType.deductionType',compact( 'action','edit_data','deductionType_list','round_list','rule_list','payCycle'));
+        } catch (DecryptException $e) {
+          //
+         }
+       
     }
     public function save(Request $request)
     {
@@ -107,8 +112,6 @@ class DeductionTypeController extends Controller
     {
 
         $incomeSubForm_list = IncDependentDed::get();
-        // return $incomeSubForm_list;
-        // return $incomeSubForm_list;
         return $this->TableActionTrait('IncDependentDed',$incomeSubForm_list);
     }
     public function DeleteList()

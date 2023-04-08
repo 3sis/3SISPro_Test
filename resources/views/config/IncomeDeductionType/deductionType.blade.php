@@ -459,13 +459,13 @@
                                         <thead>
                                             <tr>
                                                 <th>Line#</th>
-                                                {{-- <th>Income Id</th>
+                                                 <th>Income Id</th>
                                                 <th>Description</th>
                                                 <th>Select</th>
                                                 <th>Percent</th>
                                                 <th>Action</th>
                                                 <th style="visibility: hidden;">User</th>
-                                                <th style="visibility: hidden;">Unique Id</th> --}}
+                                                <th style="visibility: hidden;">Unique Id</th> 
                                             </tr>
                                         </thead>
                                     </table>
@@ -754,20 +754,9 @@
         $('#ErrorModal').modal('show');
     });
     function fnLoadSubForm(){
-        alert('test');
-        // Income Type Selection browser
+        
         $('#incomeTypeSubTable').DataTable({
-            buttons: {
-                buttons: [{
-                        extend: 'excel',
-                        className: 'btn'
-                    },
-                    {
-                        extend: 'print',
-                        className: 'btn'
-                    }
-                ]
-            },
+
             "oLanguage": {
                 "oPaginate": {
                     "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" \
@@ -790,91 +779,55 @@
             order: [0, "desc"],
             processing: true,
             serverSide: true,
-            "ajax": "get_deductionType",
-            "columns": [{
-                    data: "PMDTHDeductionId"
-                },
-                // {data: "PMDTDDesc1"},
-                // {data: "PMDTDIsSelect"},
-                // {data: "PMDTDDedPercent"},
-                // {data: "action", orderable:false, searchable: false},
-                // {data: "PMDTDUser", "visible": false},
-                // {data: "id", "visible": false},
+            "ajax": "{{route('get_incomeSubForm')}}",
+            "columns": [{data: "id"},
+                {data: "PMDTDIncomeId"},
+                {data: "PMDTDDesc1"},
+                {data: "PMDTDIsSelect"},
+                {data: "PMDTDDedPercent"},
+                {data: "action", orderable:false, searchable: false},
+                {data: "PMDTDUser", "visible": false},
+                {data: "id", "visible": false},
             ],
+
+            "columnDefs": [{
+                    "width": "5%",
+                    "targets": 0
+                },
+                {
+                    "width": "25%",
+                    "targets": 1
+                },
+                {
+                    "width": "10%",
+                    "targets": 2
+                },
+                // {
+                //     "width": "5%",
+                //     "targets": 3,
+                //     data:   "PMDTDIsSelect",
+                //     render: function (data ,td, cellData, rowData, row, col) {
+                //             if(data==1){
+                //                 return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
+                //                 <input type="checkbox" class="new-control-input chk-parent select-customers-info" checked>\
+                //                 <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
+                //             }else{
+                //                 return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
+                //                 <input type="checkbox" class="new-control-input chk-parent select-customers-info">\
+                //                 <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
+                //             }
+                //     }
+                // },
+                {
+                    "width": "5%",
+                    "targets": 4
+                },
+                {
+                    "width": "10%",
+                    "targets": 5
+                }
+            ]
         });
-        // $('#incomeTypeSubTable').DataTable({
-
-        //     "oLanguage": {
-        //         "oPaginate": {
-        //             "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" \
-        //         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" \
-        //         class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5">\
-        //         </polyline></svg>',
-        //             "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" \
-        //         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" \
-        //         stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line>\
-        //         <polyline points="12 5 19 12 12 19"></polyline></svg>'
-        //         },
-        //         "sInfo": "Showing page PAGE of _PAGES_",
-        //         "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-        //         "sSearchPlaceholder": "Search...",
-        //         "sLengthMenu": "Results :  _MENU_",
-        //     },
-        //     stripeClasses: [],
-        //     pageLength: 10,
-        //     lengthMenu: [6, 10, 20, 50],
-        //     order: [0, "desc"],
-        //     processing: true,
-        //     serverSide: true,
-        //     "ajax": "get_incomeSubForm",
-        //     "columns": [{data: "id"},
-        //         {data: "PMDTDIncomeId"},
-        //         {data: "PMDTDDesc1"},
-        //         {data: "PMDTDIsSelect"},
-        //         {data: "PMDTDDedPercent"},
-        //         {data: "action", orderable:false, searchable: false},
-        //         {data: "PMDTDUser", "visible": false},
-        //         {data: "id", "visible": false},
-        //     ],
-
-        //     "columnDefs": [{
-        //             "width": "5%",
-        //             "targets": 0
-        //         },
-        //         {
-        //             "width": "25%",
-        //             "targets": 1
-        //         },
-        //         {
-        //             "width": "10%",
-        //             "targets": 2
-        //         },
-        //         // {
-        //         //     "width": "5%",
-        //         //     "targets": 3,
-        //         //     data:   "PMDTDIsSelect",
-        //         //     render: function (data ,td, cellData, rowData, row, col) {
-        //         //             if(data==1){
-        //         //                 return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
-        //         //                 <input type="checkbox" class="new-control-input chk-parent select-customers-info" checked>\
-        //         //                 <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
-        //         //             }else{
-        //         //                 return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
-        //         //                 <input type="checkbox" class="new-control-input chk-parent select-customers-info">\
-        //         //                 <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
-        //         //             }
-        //         //     }
-        //         // },
-        //         {
-        //             "width": "5%",
-        //             "targets": 4
-        //         },
-        //         {
-        //             "width": "10%",
-        //             "targets": 5
-        //         }
-        //     ]
-        // });
         // Income Type Selection browser Ends
     }
     $('#Undelete_Data').click(function() {
