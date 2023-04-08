@@ -16,6 +16,8 @@ use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 use App\Http\Controllers\Config\FiscalYear\PeriodController;
 use App\Http\Controllers\Config\FiscalYear\FiscalYearController;
 use App\Http\Controllers\Config\FiscalYear\ActivePeriodChangeController;
+use App\Http\Controllers\Config\IncomeDeductionType\IncomeTypeController;
+use App\Http\Controllers\Config\IncomeDeductionType\DeductionTypeController;
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -160,6 +162,8 @@ Route::controller(FiscalYearController::class)->group(function () {
     Route::post('fiscalYear_save', 'save');
     Route::get('get_fy_date', 'constractFYDate')->name('get_fy_date');
     Route::get('get_period_date', 'getPeriodDate')->name('get_period_date');
+    Route::get('get_posted_period', 'getPostedPeriod')->name('get_posted_period');
+    Route::get('get_active_fy', 'getActiveFYData')->name('get_active_fy');
 
 });
 // Period Master
@@ -176,12 +180,37 @@ Route::controller(ActivePeriodChangeController::class)->group(function () {
     Route::get('periodChange/{action?}/{id?}', 'index');
     Route::post('periodChange_save', 'save');
 });
+
+// incomeType Master
+Route::controller(IncomeTypeController::class)->group(function () {
+    // Route::get('/','index');
+    Route::get('incomeType/{action?}/{id?}', 'index');
+    Route::post('incomeType_save', 'save');
+    Route::get('get_incomeType', 'incomeType_list');
+    Route::get('incomeType_delete', 'Restore_Delete_Data');
+    Route::get('delete_incomeType_list', 'DeleteList');
+    Route::get('incomeType_report/{type}', 'report');
+
+});
+// DeductionType Master
+Route::controller(DeductionTypeController::class)->group(function () {
+    // Route::get('/','index');
+    Route::get('deductionType/{action?}/{id?}', 'index');
+    Route::post('deductionType_save', 'save');
+    Route::get('get_deductionType', 'deductionType_list');
+    Route::get('get_incomeSubForm', 'incomeSubForm_list');
+    Route::get('deductionType_delete', 'Restore_Delete_Data');
+    Route::get('delete_deductionType_list', 'DeleteList');
+    Route::get('deductionType_report/{type}', 'report');
+
+});
     // Route::get('logout',[AuthController::class,'logout']);
     Route::controller(AuthController::class)->group(function () {
         Route::get('logout', 'logout')->name('logout');
         Route::get('home','home');
         Route::get('fastpath','fastpath');
     });
+
 });
 
 // Route::group(['middleware'=>['LoginCheck']],function () {

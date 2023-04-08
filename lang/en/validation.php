@@ -262,6 +262,26 @@ return [
             'required' => 'You must select an Active Period',
             'in' => 'You must select an Period between 1 to 12',
          ],
+         // Income Type Master
+        'PMITHIncomeId' => [
+            'required' => 'Income id Cant be blank',
+            'max' => 'Max 10 Characters allowed',
+            'unique'=>'Id already Exists',
+         ],
+         'PMITHDesc1' => [
+             'required' => 'Description Cant be blank',
+             'max' => 'Max 100 Characters allowed',
+         ],
+         'PMITHRuleId' => [
+            'required' => 'You must select a Rule Id',
+        ],
+        'PMITHRoundingStrategy' => [
+            'required' => 'You must select a Rounding Strategy',
+        ],
+        'PMITHIncomeCycle' => [
+            'required' => 'You must select a Payment Cycle',
+        ],
+
     ],
 
     /*

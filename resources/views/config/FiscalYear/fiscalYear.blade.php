@@ -198,6 +198,9 @@
                                 <input type="hidden" name="id" id="id" value="{{ $edit_data['id'] }}">
                                 <input type="hidden" name="FYFYHCompanyId" id="FYFYHCompanyId"
                                     value="{{ $edit_data['FYFYHCompanyId'] }}">
+                                <input type="hidden" name="PostedPeriod" id="PostedPeriod">
+                                <input type="hidden" name="ActiveFY" id="ActiveFY">
+
                             @endif
                             @if ($action == 'add')
                                 <input type="hidden" id="action" value="insert">
@@ -532,38 +535,42 @@
         $('#btn_error').hide();
     });
     $("#AddForm").submit(function(e) {
+        var action = $('#action').val();
         e.preventDefault();
+        $('.msg_error').html('');
         $('#FYFYHFiscalYearId,#select2-FYFYHCurrentPeriod-container').removeClass(
             'border border-danger');
 
-        if ($('#FYFYHFiscalYearId').val() == '') {
+        if ($('#FYFYHFiscalYearId').val() == '' ) {
             $('#FYFYHFiscalYearId').addClass('border border-danger');
         }
 
         if ($('#FYFYHCurrentPeriod').val() == '') {
             $('#select2-FYFYHCurrentPeriod-container').addClass('border border-danger');
         }
-        $('.msg_error').html('');
-        // if ($('#FYFYHFiscalYearId').val() == '' || $('#FYFYHCurrentPeriod').val() == '') {
-        //     if ($('#FYFYHFiscalYearId').val() == '') {
-        //         $('.msg_error').append('<p>Please Enter Fiscal Year !</p>');
-        //     }
-        //     if ($('#FYFYHCurrentPeriod').val() == '') {
-        //         $('.msg_error').append('<p>Please Select Period !</p>');
-        //     }
-        //     var error_count = $(".msg_error").children().length;
-        //     console.log(error_count);
-        //     if (error_count > 0) {
-        //         $('#btn_error').show().animate({
-        //             left: '-250px'
-        //         }).animate({
-        //             left: '1px'
-        //         });
-        //     }
-        //     return false;
-        // } else
-        // if{
-            var action = $('#action').val();
+        getPostedPeriod($('#FYFYHFiscalYearId').val());
+        if (action == 'update' && $('#FYFYHCurrentPeriod').val() >= $('#PostedPeriod').val()) {
+            $('#select2-FYFYHCurrentPeriod-container').addClass('border border-danger');
+            // $('.msg_error').append('<p>Select Period is grater than posted period !</p>');
+            $('.msg_error').append('<p>Last posted period was - '+$('#PostedPeriod').val()+' you can edit payroll for period - '+$('#PostedPeriod').val()+' or lesser. Period - '+ $('#FYFYHCurrentPeriod').val()+' is invalid!</p>');
+
+        }
+        getActiveFY($('#FYFYHFiscalYearId').val());
+        if ($('#ActiveFY').val() != '' && $('#FYFYHCurrentFY').prop('checked') == true) {
+            $('#FYFYHFiscalYearId').addClass('border border-danger');
+            $('.msg_error').append('<p>Fiscal Year '+ $('#ActiveFY').val()+' is already active. First you have to close the Fiscal Year '+ $('#ActiveFY').val()+'. invalid Fiscal Year - '+$('#FYFYHFiscalYearId').val()+'!</p>');
+        }
+        var error_count = $(".msg_error").children().length;
+        // console.log(error_count);
+        if (error_count > 0) {
+            $('#btn_error').show().animate({
+                left: '-250px'
+            }).animate({
+                left: '1px'
+            });
+        return false;
+        } else{
+            // var action = $('#action').val();
             updateCheckBoxValue();
 
             // console.log('action: ' + action);
@@ -575,7 +582,6 @@
                 dataType: "json",
                 contentType: false,
                 beforeSend: function() {
-                    alert($('#FYFYHCurrentFY').val());
                     $('#btn_error').hide();
                 },
                 success: function(response) {
@@ -616,7 +622,7 @@
                     }
                 }
             })
-        // }
+        }
     });
     $('#btn_error').click(function() {
         $('#ErrorModal').modal('show');
@@ -632,8 +638,6 @@
     $("#FYFYHFiscalYearId").change(function(){
         var fy = $(this).val();
         var period = '';
-        // getPeriod(fy,period);
-
         $.ajax({
             url: "{{ url('get_fy_date') }}",
             type: 'get',
@@ -641,6 +645,7 @@
             success: function(response) {
                 $('#FYFYHStartDate').val(response.fyStartDate);
                 $('#FYFYHEndDate').val(response.fyEndDate);
+                // $('#FYFYHCurrentPeriod').val(response.periodId).trigger("change");
             }
         });
         getPeriod(fy,period);
@@ -661,6 +666,10 @@
         var period = $(this).val();
         var fy = $('#FYFYHFiscalYearId').val();
         getPeriod(fy,period);
+        var action = $('#action').val();
+        if (action == 'update') {
+            // getPostedPeriod(fy);
+        }
     });
     function getPeriod(fy,period) {
 
@@ -670,10 +679,30 @@
             data: {year:fy,period:period},
             success: function(response) {
                 if(period== ''){
-                    $('#FYFYHCurrentPeriod').val(response.period).trigger("change");
+                    $('#FYFYHCurrentPeriod').val(response.periodId).trigger("change");
                 }
                 $('#FYFYHPeriodStartDate').val(response.periodStartDate);
                 $('#FYFYHPeriodEndDate').val(response.periodEndDate);
+            }
+        });
+    }
+    function getPostedPeriod(fy) {
+        $.ajax({
+            url: "{{ url('get_posted_period') }}",
+            type: 'get',
+            data: {fiscalYear:fy},
+            success: function(response) {
+                $('#PostedPeriod').val(response.postedPeriod);
+            }
+        });
+    }
+    function getActiveFY(fy) {
+        $.ajax({
+            url: "{{ url('get_active_fy') }}",
+            type: 'get',
+            data: {fiscalYear:fy},
+            success: function(response) {
+                $('#ActiveFY').val(response.activeFYId);
             }
         });
     }

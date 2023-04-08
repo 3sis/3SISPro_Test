@@ -160,7 +160,6 @@ class FiscalYearController extends Controller
         $fyDate = [];
         $fyDate['fyStartDate'] = date("01-m-Y", strtotime($StartDate));
         $fyDate['fyEndDate'] = date("t-m-Y", strtotime($EndDate. $addInt));
-        // return json($fyDate);
         return response()->json($fyDate);
 
     }
@@ -173,7 +172,7 @@ class FiscalYearController extends Controller
         $Date = $request->year.'-'.$Period->FYPMHMonth.'-01';
 
         $periodDate = [];
-        $periodDate['period'] = $Period->FYPMHPeriodId;
+        $periodDate['periodId'] = $Period->FYPMHPeriodId;
         $periodDate['periodStartDate'] = date("01-m-Y", strtotime($Date));
         $periodDate['periodEndDate'] = date("t-m-Y", strtotime($Date));
         // return json($fyDate);
@@ -202,5 +201,30 @@ class FiscalYearController extends Controller
             $PostedPeriodHistory->FYPPDLastUpdated       =   now();
             $PostedPeriodHistory->save();
         }
+    }
+    public function getPostedPeriod(Request $request){
+        $PostedPeriodHistory = PostedPeriodHistory::
+        where('FYPPDCompanyId',$this->gCompanyId)
+        ->where('FYPPDFiscalYearId',$request->fiscalYear)
+        ->orderBy('FYPPDPeriod', 'desc')
+        ->first();
+
+        $postedPeriod = [];
+        $postedPeriod['postedPeriod'] = $PostedPeriodHistory->FYPPDPeriod;
+        return response()->json($postedPeriod);
+    }
+    public function getActiveFYData(Request $request)
+    {
+        $FiscalYear = FiscalYear::
+          where('FYFYHCompanyId',$this->gCompanyId)
+        ->where('FYFYHFiscalYearId','!=',$request->FYFYHFiscalYearId)
+        ->where('FYFYHCurrentFY','==',1)
+        ->first();
+        $ActiveFYDetail = [];
+        $ActiveFYDetail['activeFYId'] = $FiscalYear->FYFYHFiscalYearId;
+        $ActiveFYDetail['fyStartDate'] = date("01-m-Y", strtotime( $FiscalYear->FYFYHStartDate));
+        $ActiveFYDetail['fyEndDate'] = date("t-m-Y", strtotime( $FiscalYear->FYFYHEndDate));
+        // return json($fyDate);
+        return response()->json($ActiveFYDetail);
     }
 }
