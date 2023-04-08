@@ -16,8 +16,12 @@ use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 use App\Http\Controllers\Config\FiscalYear\PeriodController;
 use App\Http\Controllers\Config\FiscalYear\FiscalYearController;
 use App\Http\Controllers\Config\FiscalYear\ActivePeriodChangeController;
+<<<<<<< HEAD
 use App\Http\Controllers\Config\IncomeDeductionType\IncomeTypeController;
 use App\Http\Controllers\Config\IncomeDeductionType\DeductionTypeController;
+=======
+use App\Http\Controllers\PdfController;
+>>>>>>> 494a38a291dde47b0610d0e685320d8a8709ccef
 
 Route::group(['middleware'=>['guest']],function () {
    Route::controller(AuthController::class)->group(function () {
@@ -210,6 +214,15 @@ Route::controller(DeductionTypeController::class)->group(function () {
         Route::get('home','home');
         Route::get('fastpath','fastpath');
     });
+
+
+ // Pdf Generate
+    Route::controller(PdfController::class)->group(function () {
+        Route::get('pdf', 'invoice');
+        Route::get('payslip_list', 'payslip_list');
+        Route::get('payslip/{emp_id}', 'payslip_pdf');
+    });
+
 
 });
 
