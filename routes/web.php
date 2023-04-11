@@ -215,7 +215,8 @@ Route::controller(DeductionTypeController::class)->group(function () {
     Route::controller(PdfController::class)->group(function () {
         Route::get('pdf', 'invoice');
         Route::get('payslip_list', 'payslip_list');
-        Route::get('payslip/{emp_id}', 'payslip_pdf');
+        Route::get('payslip/{emp_id}/{month}/{year}', 'payslip_pdf');
+        Route::post('generate_payslip', 'generate_payslip');
     });
 
 
