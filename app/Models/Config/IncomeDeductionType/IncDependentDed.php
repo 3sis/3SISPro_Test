@@ -12,23 +12,27 @@ class IncDependentDed extends Model
     protected $table = 't11906l0211';
     protected $primaryKey = 'id';
     protected $fillable =
-        [
-            'id',
-            'idH',
-            'PMDTDDeductionId',
-            'PMDTDDeductionIdK',
-            'PMDTDIncomeId',
-            'PMDTDIncomeIdK',
-            'PMDTDIsSelect',
-            'PMDTDDedPercent',
-            'PMDTDMarkForDeletion',
-            'PMDTDUser',
-            'PMDTDLastCreated',
-            'PMDTDLastUpdated'
-        ];
-        protected $casts = [
-            'PMDTDLastCreated'  => 'datetime:d/m/Y',
-            'PMDTDLastUpdated'  => 'datetime:d/m/Y',
-            'PMDTDDeletedAt'    => 'datetime:d/m/Y'
-        ];
+    [
+        'id',
+        'idH',
+        'PMDTDDeductionId',
+        'PMDTDDeductionIdK',
+        'PMDTDIncomeId',
+        'PMDTDIncomeIdK',
+        'PMDTDIsSelect',
+        'PMDTDDedPercent',
+        'PMDTDMarkForDeletion',
+        'PMDTDUser',
+        'PMDTDLastCreated',
+        'PMDTDLastUpdated'
+    ];
+    protected $casts = [
+        'PMDTDLastCreated'  => 'datetime:d/m/Y',
+        'PMDTDLastUpdated'  => 'datetime:d/m/Y',
+        'PMDTDDeletedAt'    => 'datetime:d/m/Y'
+    ];
+    public function fnIncome()
+    {
+        return $this->hasOne(IncomeType::class, 'PMITHIncomeId', 'PMDTDIncomeId');
+    }
 }

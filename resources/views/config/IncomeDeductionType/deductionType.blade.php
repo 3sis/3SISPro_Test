@@ -465,7 +465,7 @@
                                                 <th>Percent</th>
                                                 <th>Action</th>
                                                 <th style="visibility: hidden;">User</th>
-                                                <th style="visibility: hidden;">Unique Id</th> 
+                                                <th style="visibility: hidden;">Unique Id</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -754,7 +754,7 @@
         $('#ErrorModal').modal('show');
     });
     function fnLoadSubForm(){
-        
+
         $('#incomeTypeSubTable').DataTable({
 
             "oLanguage": {
@@ -782,7 +782,7 @@
             "ajax": "{{route('get_incomeSubForm')}}",
             "columns": [{data: "id"},
                 {data: "PMDTDIncomeId"},
-                {data: "PMDTDDesc1"},
+                {data: "fn_income.PMITHDesc1"},
                 {data: "PMDTDIsSelect"},
                 {data: "PMDTDDedPercent"},
                 {data: "action", orderable:false, searchable: false},
@@ -802,22 +802,22 @@
                     "width": "10%",
                     "targets": 2
                 },
-                // {
-                //     "width": "5%",
-                //     "targets": 3,
-                //     data:   "PMDTDIsSelect",
-                //     render: function (data ,td, cellData, rowData, row, col) {
-                //             if(data==1){
-                //                 return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
-                //                 <input type="checkbox" class="new-control-input chk-parent select-customers-info" checked>\
-                //                 <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
-                //             }else{
-                //                 return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
-                //                 <input type="checkbox" class="new-control-input chk-parent select-customers-info">\
-                //                 <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
-                //             }
-                //     }
-                // },
+                {
+                    "width": "5%",
+                    "targets": 3,
+                    data:   "PMDTDIsSelect",
+                    render: function (data ,td, cellData, rowData, row, col) {
+                            if(data==1){
+                                return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
+                                <input type="checkbox" class="new-control-input chk-parent select-customers-info" checked>\
+                                <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
+                            }else{
+                                return '<label class="columnDefs new-control new-checkbox checkbox-primary">\
+                                <input type="checkbox" class="new-control-input chk-parent select-customers-info">\
+                                <span class="new-control-indicator"></span><span style="visibility:hidden">c</span></label>';
+                            }
+                    }
+                },
                 {
                     "width": "5%",
                     "targets": 4

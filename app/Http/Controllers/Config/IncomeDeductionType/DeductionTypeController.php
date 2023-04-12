@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use App\Models\t92;
 use App\Models\Config\IncomeDeductionType\DeductionType;
+use App\Models\Config\IncomeDeductionType\IncomeType;
 use App\Models\Config\IncomeDeductionType\IncDependentDed;
 use App\Models\Config\IncomeDeductionType\PeriodicIncDed;
 use App\Models\SystemsMaster\RoundingStrategy;
@@ -35,14 +36,17 @@ class DeductionTypeController extends Controller
             $round_list = RoundingStrategy::all();
             $rule_list = RuleDefinition::where('PMRDHIncOrDed','D')->get();
             $payCycle = PaymentCycle::all();
+            $incomeSubForm_list = IncomeType::where('PMITHMarkForDeletion','!=',1)->get();
+
             if(!empty($request->id)){
               $edit_data = $this->getDeductionTypeData(Crypt::decryptString($request->id));
+
             }
-        return view('config.IncomeDeductionType.deductionType',compact( 'action','edit_data','deductionType_list','round_list','rule_list','payCycle'));
+        return view('config.IncomeDeductionType.deductionType',compact( 'action','edit_data','deductionType_list','round_list','rule_list','payCycle','incomeSubForm_list'));
         } catch (DecryptException $e) {
           //
          }
-       
+
     }
     public function save(Request $request)
     {
@@ -110,8 +114,9 @@ class DeductionTypeController extends Controller
     }
     public function incomeSubForm_list()
     {
+        // $incomeSubForm_list = IncomeType::where('PMITHMarkForDeletion','!=',1)->get();
 
-        $incomeSubForm_list = IncDependentDed::get();
+        $incomeSubForm_list = IncDependentDed::where('PMDTDMarkForDeletion','!=',1)->with('fnIncome')->get();
         return $this->TableActionTrait('IncDependentDed',$incomeSubForm_list);
     }
     public function DeleteList()
