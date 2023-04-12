@@ -62,17 +62,13 @@ class PdfController extends Controller
         return ($mpdf->Output('state_list.pdf', 'I'));
     }
 public function generate_payslip(Request $request){
-  // dd($request->all());
-
-
   // "month" => "Apr"
   // "year" => "2023"
   // "emp_ids"
 
         $emp_id = $request->emp_ids;
         $month = $request->month;
-        // $year = $request->year;
-        $year = 2022;
+        $year = $request->year;
         $emp_payslip = GeneralInfo::join('t22501','t11101l01.EMGIHEmployeeId','=','t22501.PYMPHEmpCode')
         ->join('t11903l01','t11903l01.ESDEHDesignationId','=','t11101l01.EMGIHDesignationId')
         ->join('t11903l03','t11903l03.ESDPHDepartmentId','=','t11101l01.EMGIHDepartmentId')

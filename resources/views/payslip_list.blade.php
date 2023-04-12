@@ -9,7 +9,7 @@
 <div class="row mb-2">
 <div class="col-md-2">
      <label for="exampleFormControlInput1">Month</label>
-    <select class="form-control form-control-sm" name="month">
+    <select class="form-control form-control-sm" name="month" required>
 <option value="">Select Month</option>
 <option value="Jan">January</option>
 <option value="Feb">February</option>
@@ -27,7 +27,7 @@
 </div>
 <div class="col-md-2">
  <label for="exampleFormControlInput1">Year</label>
-<select class="form-control form-control-sm" name="year">
+<select class="form-control form-control-sm" name="year" required>
 <option value="">Select Year</option>
 <option value="2020">2020</option>
 <option value="2021">2021</option>
