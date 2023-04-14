@@ -226,7 +226,7 @@
                     <div class="widget-content widget-content-area">
                         <div class="row g-3">
                             @csrf
-                            <input type="hidden" name="PMITHIncomeIdK" id="PMITHIncomeIdK" value="{{ $edit_data['PMITHIncomeIdK'] }}">
+                            <input type="hidden" name="PMITHIncomeIdK" id="PMITHIncomeIdK" value="{{ old('PMITHIncomeIdK', $edit_data['PMITHIncomeIdK'] ?? '') }}">
                             @if (!empty($edit_data['id']))
                                 <input type="hidden" name="id" id="id" value="{{ $edit_data['id'] }}">
                             @endif
@@ -344,14 +344,22 @@
                                     <select multiple="multiple" id='periodId' name='periodId[]' class="form-select"
                                         style="width: 100%;border: 1px solid #68a6ec;">
                                         <option value=''>-- Select Period --</option>
+
+                                        @php
+                                            if(!empty($edit_data['PMIDDPeriodId'])){
+                                             $period_ids = explode(",", $edit_data['PMIDDPeriodId']); 
+                                            }
+                                        @endphp
+
+
                                         @foreach ($period_list as $period)
-                                            @if (!empty($edit_data['periodId']) && $edit_data['periodId'] == $period->FYPMHPeriodId)
+                                            @if(!empty($edit_data['PMIDDPeriodId']) && in_array($period->FYPMHPeriodId, $period_ids))
                                                 <option value='{{ $period->FYPMHPeriodId }}' selected>
                                                     {{ $period->FYPMHMonth }}</option>
                                             @else
                                                 <option value='{{ $period->FYPMHPeriodId }}'>
                                                     {{ $period->FYPMHMonth }}</option>
-                                            @endif
+                                        @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -582,7 +590,11 @@
         }
         $('.msg_error').html('');
             var action = $('#action').val();
+
+            // var formdata = new FormData(this);
+            // console.log(formdata);
             console.log('action: ' + action);
+            // return false;
             $.ajax({
                 url: "{{ url('incomeType_save') }}",
                 method: 'post',

@@ -36,25 +36,26 @@ class IncomeTypeController extends Controller
         $payCycle = PaymentCycle::all();
         $period_list = Period::where('FYPMHMarkForDeletion','!=',1)->orderBy('FYPMHPeriodId', 'ASC')->get();
         if(!empty($request->id)){
-          $edit_data = $this->getIncomeTypeData(Crypt::decryptString($request->id));
+        $edit_data = $this->getIncomeTypeData(Crypt::decryptString($request->id));
+        $PeriodicIncDed =PeriodicIncDed::where('PMIDDIncDedId', $edit_data['PMITHIncomeId'])->select('PMIDDIncDedId', 'PMIDDIncDedIdK', 'PMIDDIncOrDed', 'PMIDDDesc', 'PMIDDPeriodId', 'PMIDDMarkForDeletion', 'PMIDDUser', 'PMIDDLastCreated', 'PMIDDLastUpdated', 'PMIDDDeletedAt')->first();
+        $edit_data = array_merge(json_decode($edit_data,true),json_decode($PeriodicIncDed,true));
         }
         return view('config.IncomeDeductionType.incomeType',compact( 'action','edit_data','incomeType_list','round_list','rule_list','payCycle','period_list'));
     }
     public function save(Request $request)
     {
         try {
-            // echo 'Data Submitted.';
-            dd($request);
-            $validator = Validator::make($request->all(), [
+
+            $validator = Validator::make($request->all(),[
                 'PMITHIncomeId'     => 'required|min:2|max:10|unique:t11906l01,PMITHIncomeId,'.$request->id,
                 'PMITHDesc1'      => 'required|max:100',
                 'PMITHDesc2'      => 'max:200',
                 'PMITHRuleId'    => 'required',
                 'PMITHRoundingStrategy'    => 'required',
-                'PMITHIncomeCycle'    => 'required'
-                // "periodId"      => "required_if:PMITHIncomeCycle,==,P",
-
+                'PMITHIncomeCycle'    => 'required',
+                "periodId"      => "required"
             ]);
+
             if ($validator->fails()) {
                 return response()->json(['status' => 'error','errors'=>$validator->errors()]);
             }
@@ -98,27 +99,25 @@ class IncomeTypeController extends Controller
     }
     public function UpdatePeriodicDetailTbl($request)
     {
-        // return 'data'.$request;
         // Delete Detail Record First
         $PeriodicIncDed = PeriodicIncDed::where('PMIDDIncDedIdK', $request->PMITHIncomeIdK)
             ->delete();
         if ($request->PMITHIncomeCycle == 'P') {
             if (!empty($request->periodId)) {
-                // Loop in Array to insert records in PeriodicIncDed table
-                foreach($request->periodId as $key => $value){
+       
+                $period_ids = implode(',', $request->periodId);
 
-                    $PeriodicIncDed = new PeriodicIncDed();
-                    $PeriodicIncDed->PMIDDIncDedId          = $request->PMITHIncomeId;
-                    $PeriodicIncDed->PMIDDIncDedIdK         = $request->PMITHIncomeIdK;
-                    $PeriodicIncDed->PMIDDIncOrDed          = 'I';
-                    $PeriodicIncDed->PMIDDDesc              = $request->PMITHDesc1;
-                    $PeriodicIncDed->PMIDDPeriodId          = $value;
-                    $PeriodicIncDed->PMIDDMarkForDeletion   = 0;
-                    $PeriodicIncDed->PMIDDUser              = Auth::user()->name;
-                    $PeriodicIncDed->PMIDDLastCreated       = now();
-                    $PeriodicIncDed->PMIDDLastUpdated       = now();
-                    $PeriodicIncDed->save();
-                }
+                $PeriodicIncDed = new PeriodicIncDed();
+                $PeriodicIncDed->PMIDDIncDedId          = $request->PMITHIncomeId;
+                $PeriodicIncDed->PMIDDIncDedIdK         = $request->PMITHIncomeIdK;
+                $PeriodicIncDed->PMIDDIncOrDed          = 'I';
+                $PeriodicIncDed->PMIDDDesc              = $request->PMITHDesc1;
+                $PeriodicIncDed->PMIDDPeriodId          = $period_ids;
+                $PeriodicIncDed->PMIDDMarkForDeletion   = 0;
+                $PeriodicIncDed->PMIDDUser              = Auth::user()->name;
+                $PeriodicIncDed->PMIDDLastCreated       = now();
+                $PeriodicIncDed->PMIDDLastUpdated       = now();
+                $PeriodicIncDed->save();
             }
         }
     }
