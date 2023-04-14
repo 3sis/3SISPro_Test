@@ -15,6 +15,7 @@ use App\Models\Config\IncomeDeductionType\PeriodicIncDed;
 use App\Models\SystemsMaster\RoundingStrategy;
 use App\Models\SystemsMaster\PaymentMaster\RuleDefinition;
 use App\Models\SystemsMaster\PaymentMaster\PaymentCycle;
+use App\Models\Config\FiscalYear\Period;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Arr;
 use App\Traits\CommonMasters\GeneralMaster\CommonDataTables;
@@ -33,17 +34,17 @@ class IncomeTypeController extends Controller
         $round_list = RoundingStrategy::all();
         $rule_list = RuleDefinition::where('PMRDHIncOrDed','I')->get();
         $payCycle = PaymentCycle::all();
-        // $period_list = PeriodicIncDed::where('PMIDDIncDedId',I)->all();
+        $period_list = Period::where('FYPMHMarkForDeletion','!=',1)->orderBy('FYPMHPeriodId', 'ASC')->get();
         if(!empty($request->id)){
           $edit_data = $this->getIncomeTypeData(Crypt::decryptString($request->id));
         }
-        return view('config.IncomeDeductionType.incomeType',compact( 'action','edit_data','incomeType_list','round_list','rule_list','payCycle'));
+        return view('config.IncomeDeductionType.incomeType',compact( 'action','edit_data','incomeType_list','round_list','rule_list','payCycle','period_list'));
     }
     public function save(Request $request)
     {
         try {
             // echo 'Data Submitted.';
-            // return $request;
+            dd($request);
             $validator = Validator::make($request->all(), [
                 'PMITHIncomeId'     => 'required|min:2|max:10|unique:t11906l01,PMITHIncomeId,'.$request->id,
                 'PMITHDesc1'      => 'required|max:100',
@@ -57,6 +58,7 @@ class IncomeTypeController extends Controller
             if ($validator->fails()) {
                 return response()->json(['status' => 'error','errors'=>$validator->errors()]);
             }
+
                 $incomeType = new IncomeType();
                 if($request->id != null){
                     //update
@@ -77,6 +79,8 @@ class IncomeTypeController extends Controller
                     $incomeType->PMITHMarkForDeletion   =   0;
                     $incomeType->PMITHUser              =   Auth::user()->name;
                     $incomeType->PMITHLastUpdated       =   now();
+                    $this->UpdatePeriodicDetailTbl($request);
+
                     $incomeType->save();
                if($incomeType){
                     return response()->json(['status' => 'success','data' =>$incomeType ,'updateMode' => 'Updated']);
@@ -90,6 +94,32 @@ class IncomeTypeController extends Controller
             Log::error($e->getMessage());
             $this->error_log($e);
             return response()->json(['status' => 'technical_error']);
+        }
+    }
+    public function UpdatePeriodicDetailTbl($request)
+    {
+        // return 'data'.$request;
+        // Delete Detail Record First
+        $PeriodicIncDed = PeriodicIncDed::where('PMIDDIncDedIdK', $request->PMITHIncomeIdK)
+            ->delete();
+        if ($request->PMITHIncomeCycle == 'P') {
+            if (!empty($request->periodId)) {
+                // Loop in Array to insert records in PeriodicIncDed table
+                foreach($request->periodId as $key => $value){
+
+                    $PeriodicIncDed = new PeriodicIncDed();
+                    $PeriodicIncDed->PMIDDIncDedId          = $request->PMITHIncomeId;
+                    $PeriodicIncDed->PMIDDIncDedIdK         = $request->PMITHIncomeIdK;
+                    $PeriodicIncDed->PMIDDIncOrDed          = 'I';
+                    $PeriodicIncDed->PMIDDDesc              = $request->PMITHDesc1;
+                    $PeriodicIncDed->PMIDDPeriodId          = $value;
+                    $PeriodicIncDed->PMIDDMarkForDeletion   = 0;
+                    $PeriodicIncDed->PMIDDUser              = Auth::user()->name;
+                    $PeriodicIncDed->PMIDDLastCreated       = now();
+                    $PeriodicIncDed->PMIDDLastUpdated       = now();
+                    $PeriodicIncDed->save();
+                }
+            }
         }
     }
     public function incomeType_list()

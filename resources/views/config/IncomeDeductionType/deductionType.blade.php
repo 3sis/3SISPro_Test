@@ -433,6 +433,24 @@
                                     @endif
                                 </select>
                             </div>
+                            <div class="col-md-6">
+                                <label for="inputRounding" class="form-label">Period<span class="text-danger">
+                                    *</span>
+                                </label>
+                                <select multiple="multiple" id='periodid' name='periodid[]' class="form-select"
+                                    style="width: 100%;border: 1px solid #68a6ec;">
+                                    <option value=''>-- Select Period --</option>
+                                    @foreach ($period_list as $period)
+                                        @if (!empty($edit_data['periodid']) && $edit_data['periodid'] == $period->FYPMHPeriodId)
+                                            <option value='{{ $period->FYPMHPeriodId }}' selected>
+                                                {{ $period->FYPMHMonth }}</option>
+                                        @else
+                                            <option value='{{ $period->FYPMHPeriodId }}'>
+                                                {{ $period->FYPMHMonth }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
 
                         </div>
                         </form>
@@ -574,6 +592,7 @@
         }
         $('#PMDTHDeductionCycle').select2();
         $('#PMDTHRoundingStrategy').select2();
+        $('#periodid').select2();
         $('#PMDTHRuleId').select2();
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {

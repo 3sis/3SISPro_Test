@@ -226,7 +226,7 @@
                     <div class="widget-content widget-content-area">
                         <div class="row g-3">
                             @csrf
-                            <input type="hidden" name="PMITHIncomeIdK" id="PMITHIncomeIdK">
+                            <input type="hidden" name="PMITHIncomeIdK" id="PMITHIncomeIdK" value="{{ $edit_data['PMITHIncomeIdK'] }}">
                             @if (!empty($edit_data['id']))
                                 <input type="hidden" name="id" id="id" value="{{ $edit_data['id'] }}">
                             @endif
@@ -337,24 +337,24 @@
                                         style='border-color: rgb(102, 175, 233); outline: 0px'
                                         value="{{ old('PMITHPrintingSeq', $edit_data['PMITHPrintingSeq'] ?? '0') }}">
                                 </div>
-                                {{-- <div class="col-md-8">
-                                    <label for="inputRounding" class="form-label">Period <span class="text-danger">
-                                            *</span>
+                                <div class="col-md-6">
+                                    <label for="inputRounding" class="form-label">Period<span class="text-danger">
+                                        *</span>
                                     </label>
                                     <select multiple="multiple" id='periodId' name='periodId[]' class="form-select"
                                         style="width: 100%;border: 1px solid #68a6ec;">
-                                        <option value=''>--Select period Id--</option>
+                                        <option value=''>-- Select Period --</option>
                                         @foreach ($period_list as $period)
-                                            @if (!empty($edit_data['PMITHRuleId']) && $edit_data['PMITHRuleId'] == $ruleDefinition->PMRDHRuleId)
-                                                <option value='{{ $ruleDefinition->PMRDHRuleId }}' selected>
-                                                    {{ $ruleDefinition->PMRDHDesc1 }}</option>
+                                            @if (!empty($edit_data['periodId']) && $edit_data['periodId'] == $period->FYPMHPeriodId)
+                                                <option value='{{ $period->FYPMHPeriodId }}' selected>
+                                                    {{ $period->FYPMHMonth }}</option>
                                             @else
-                                                <option value='{{ $ruleDefinition->PMRDHRuleId }}'>
-                                                    {{ $ruleDefinition->PMRDHDesc1 }}</option>
+                                                <option value='{{ $period->FYPMHPeriodId }}'>
+                                                    {{ $period->FYPMHMonth }}</option>
                                             @endif
                                         @endforeach
                                     </select>
-                                </div> --}}
+                                </div>
                             </div>
                             </form>
                         </div>
@@ -458,6 +458,7 @@
         }
         $('#PMITHIncomeCycle').select2();
         $('#PMITHRoundingStrategy').select2();
+        $('#periodId').select2();
         $('#PMITHRuleId').select2();
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {

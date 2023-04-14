@@ -17,6 +17,7 @@ use App\Models\Config\IncomeDeductionType\PeriodicIncDed;
 use App\Models\SystemsMaster\RoundingStrategy;
 use App\Models\SystemsMaster\PaymentMaster\RuleDefinition;
 use App\Models\SystemsMaster\PaymentMaster\PaymentCycle;
+use App\Models\Config\FiscalYear\Period;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Arr;
 use App\Traits\CommonMasters\GeneralMaster\CommonDataTables;
@@ -37,12 +38,14 @@ class DeductionTypeController extends Controller
             $rule_list = RuleDefinition::where('PMRDHIncOrDed','D')->get();
             $payCycle = PaymentCycle::all();
             $incomeSubForm_list = IncomeType::where('PMITHMarkForDeletion','!=',1)->get();
+            $period_list = Period::where('FYPMHMarkForDeletion','!=',1)->orderBy('FYPMHPeriodId', 'ASC')->get();
+
 
             if(!empty($request->id)){
               $edit_data = $this->getDeductionTypeData(Crypt::decryptString($request->id));
 
             }
-        return view('config.IncomeDeductionType.deductionType',compact( 'action','edit_data','deductionType_list','round_list','rule_list','payCycle','incomeSubForm_list'));
+        return view('config.IncomeDeductionType.deductionType',compact( 'action','edit_data','deductionType_list','round_list','rule_list','payCycle','incomeSubForm_list','period_list'));
         } catch (DecryptException $e) {
           //
          }
