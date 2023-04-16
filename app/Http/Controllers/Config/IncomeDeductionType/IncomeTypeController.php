@@ -36,14 +36,17 @@ class IncomeTypeController extends Controller
         $payCycle = PaymentCycle::all();
         $period_list = Period::where('FYPMHMarkForDeletion','!=',1)->orderBy('FYPMHPeriodId', 'ASC')->get();
         if(!empty($request->id)){
-        $edit_data = $this->getIncomeTypeData(Crypt::decryptString($request->id));
-        $PeriodicIncDed =PeriodicIncDed::where('PMIDDIncDedId', $edit_data['PMITHIncomeId'])->select('PMIDDIncDedId', 'PMIDDIncDedIdK', 'PMIDDIncOrDed', 'PMIDDDesc', 'PMIDDPeriodId', 'PMIDDMarkForDeletion', 'PMIDDUser', 'PMIDDLastCreated', 'PMIDDLastUpdated', 'PMIDDDeletedAt')->first();
-        $edit_data = array_merge(json_decode($edit_data,true),json_decode($PeriodicIncDed,true));
+            $edit_data = $this->getIncomeTypeData(Crypt::decryptString($request->id));
+            // $PeriodicIncDed =PeriodicIncDed::where('PMIDDIncDedIdK', $edit_data['PMITHIncomeIdK'])->select('PMIDDPeriodId')->first();
+            // if($PeriodicIncDed){
+            //     $edit_data = array_merge(json_decode($edit_data,true),json_decode($PeriodicIncDed,true));
+            // }
         }
         return view('config.IncomeDeductionType.incomeType',compact( 'action','edit_data','incomeType_list','round_list','rule_list','payCycle','period_list'));
     }
     public function save(Request $request)
     {
+        // dd($request->all());
         try {
 
             $validator = Validator::make($request->all(),[
@@ -53,9 +56,8 @@ class IncomeTypeController extends Controller
                 'PMITHRuleId'    => 'required',
                 'PMITHRoundingStrategy'    => 'required',
                 'PMITHIncomeCycle'    => 'required',
-                "periodId"      => "required"
+                "PMITHPeriodId"      => "required_if:PMITHIncomeCycle,==,P",
             ]);
-
             if ($validator->fails()) {
                 return response()->json(['status' => 'error','errors'=>$validator->errors()]);
             }
@@ -75,13 +77,15 @@ class IncomeTypeController extends Controller
                     $incomeType->PMITHIsTaxable          =   $request->PMITHIsTaxable;
                     $incomeType->PMITHRuleId             =   $request->PMITHRuleId;
                     $incomeType->PMITHIncomeCycle        =   $request->PMITHIncomeCycle;
+                    if($request->PMITHIncomeCycle == 'P'){
+                        $period_ids = implode(',', $request->PMITHPeriodId);
+                        $incomeType->PMITHPeriodId        =   $period_ids;
+                    }
                     $incomeType->PMITHPrintingSeq        =   $request->PMITHPrintingSeq;
                     $incomeType->PMITHRoundingStrategy   =   $request->PMITHRoundingStrategy;
                     $incomeType->PMITHMarkForDeletion   =   0;
                     $incomeType->PMITHUser              =   Auth::user()->name;
                     $incomeType->PMITHLastUpdated       =   now();
-                    $this->UpdatePeriodicDetailTbl($request);
-
                     $incomeType->save();
                if($incomeType){
                     return response()->json(['status' => 'success','data' =>$incomeType ,'updateMode' => 'Updated']);
@@ -97,30 +101,30 @@ class IncomeTypeController extends Controller
             return response()->json(['status' => 'technical_error']);
         }
     }
-    public function UpdatePeriodicDetailTbl($request)
-    {
-        // Delete Detail Record First
-        $PeriodicIncDed = PeriodicIncDed::where('PMIDDIncDedIdK', $request->PMITHIncomeIdK)
-            ->delete();
-        if ($request->PMITHIncomeCycle == 'P') {
-            if (!empty($request->periodId)) {
-       
-                $period_ids = implode(',', $request->periodId);
+    // public function UpdatePeriodicDetailTbl($request)
+    // {
+    //     // Delete Detail Record First
+    //     $PeriodicIncDed = PeriodicIncDed::where('PMIDDIncDedIdK', $request->PMITHIncomeIdK)
+    //         ->delete();
+    //     if ($request->PMITHIncomeCycle == 'P') {
+    //         if (!empty($request->periodId)) {
 
-                $PeriodicIncDed = new PeriodicIncDed();
-                $PeriodicIncDed->PMIDDIncDedId          = $request->PMITHIncomeId;
-                $PeriodicIncDed->PMIDDIncDedIdK         = $request->PMITHIncomeIdK;
-                $PeriodicIncDed->PMIDDIncOrDed          = 'I';
-                $PeriodicIncDed->PMIDDDesc              = $request->PMITHDesc1;
-                $PeriodicIncDed->PMIDDPeriodId          = $period_ids;
-                $PeriodicIncDed->PMIDDMarkForDeletion   = 0;
-                $PeriodicIncDed->PMIDDUser              = Auth::user()->name;
-                $PeriodicIncDed->PMIDDLastCreated       = now();
-                $PeriodicIncDed->PMIDDLastUpdated       = now();
-                $PeriodicIncDed->save();
-            }
-        }
-    }
+    //             $period_ids = implode(',', $request->periodId);
+
+    //             $PeriodicIncDed = new PeriodicIncDed();
+    //             $PeriodicIncDed->PMIDDIncDedId          = $request->PMITHIncomeId;
+    //             $PeriodicIncDed->PMIDDIncDedIdK         = $request->PMITHIncomeIdK;
+    //             $PeriodicIncDed->PMIDDIncOrDed          = 'I';
+    //             $PeriodicIncDed->PMIDDDesc              = $request->PMITHDesc1;
+    //             $PeriodicIncDed->PMIDDPeriodId          = $period_ids;
+    //             $PeriodicIncDed->PMIDDMarkForDeletion   = 0;
+    //             $PeriodicIncDed->PMIDDUser              = Auth::user()->name;
+    //             $PeriodicIncDed->PMIDDLastCreated       = now();
+    //             $PeriodicIncDed->PMIDDLastUpdated       = now();
+    //             $PeriodicIncDed->save();
+    //         }
+    //     }
+    // }
     public function incomeType_list()
     {
         $incomeType_list = IncomeType::where('PMITHMarkForDeletion','!=',1)->with('fnRule','fnRounding')->get();

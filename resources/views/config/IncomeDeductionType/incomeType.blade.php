@@ -341,19 +341,17 @@
                                     <label for="inputRounding" class="form-label">Period<span class="text-danger">
                                         *</span>
                                     </label>
-                                    <select multiple="multiple" id='periodId' name='periodId[]' class="form-select"
+                                    <select multiple="multiple" id='PMITHPeriodId' name='PMITHPeriodId[]' class="form-select"
                                         style="width: 100%;border: 1px solid #68a6ec;">
-                                        <option value=''>-- Select Period --</option>
-
                                         @php
-                                            if(!empty($edit_data['PMIDDPeriodId'])){
-                                             $period_ids = explode(",", $edit_data['PMIDDPeriodId']); 
+                                            if(!empty($edit_data['PMITHPeriodId'])){
+                                             $period_ids = explode(",", $edit_data['PMITHPeriodId']);
                                             }
                                         @endphp
 
 
                                         @foreach ($period_list as $period)
-                                            @if(!empty($edit_data['PMIDDPeriodId']) && in_array($period->FYPMHPeriodId, $period_ids))
+                                            @if(!empty($edit_data['PMITHPeriodId']) && in_array($period->FYPMHPeriodId, $period_ids))
                                                 <option value='{{ $period->FYPMHPeriodId }}' selected>
                                                     {{ $period->FYPMHMonth }}</option>
                                             @else
@@ -466,7 +464,7 @@
         }
         $('#PMITHIncomeCycle').select2();
         $('#PMITHRoundingStrategy').select2();
-        $('#periodId').select2();
+        $('#PMITHPeriodId').select2();
         $('#PMITHRuleId').select2();
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {

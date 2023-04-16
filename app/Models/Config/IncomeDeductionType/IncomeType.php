@@ -25,6 +25,7 @@ class IncomeType extends Model
             'PMITHRentExemptPercent',
             'PMITHRentCityPercent',
             'PMITHIncomeCycle',
+            'PMITHPeriodId',
             'PMITHPrintingSeq',
             'PMITHRoundingStrategy',
             'PMITHBiElementId',
