@@ -4,7 +4,7 @@
 
 @endsection
 <h2>Payslip</h2>
-<form action="generate_payslip" method="post">
+<form action="payslip" method="post">
     @csrf
 <div class="row mb-2">
 <div class="col-md-2">
