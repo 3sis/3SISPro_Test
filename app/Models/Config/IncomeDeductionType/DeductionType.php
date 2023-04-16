@@ -29,6 +29,7 @@ class DeductionType extends Model
             'PMDTHDedStrategy',
             'PMDTHDedStrategyDesc',
             'PMDTHDeductionCycle',
+            'PMDTHPeriodId',
             'PMDTHDedPercent',
             'PMDTHRuleId',
             'PMDTHPrintingSeq',
