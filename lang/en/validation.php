@@ -281,7 +281,32 @@ return [
         'PMITHIncomeCycle' => [
             'required' => 'You must select a Payment Cycle',
         ],
+        'PMITHPeriodId' => [
+            'required' => 'You must select a period when Payment Cycle is Periodic',
+        ],
 
+         // Deduction Type Master
+         'PMDTHDeductionId' => [
+            'required' => 'Deduction id Cant be blank',
+            'max' => 'Max 10 Characters allowed',
+            'unique'=>'Id already Exists',
+         ],
+         'PMDTHDesc1' => [
+             'required' => 'Description Cant be blank',
+             'max' => 'Max 100 Characters allowed',
+         ],
+         'PMDTHRuleId' => [
+            'required' => 'You must select a Rule Id',
+        ],
+        'PMDTHRoundingStrategy' => [
+            'required' => 'You must select a Rounding Strategy',
+        ],
+        'PMDTHDeductionCycle' => [
+            'required' => 'You must select a Payment Cycle',
+        ],
+        'PMITHPeriodId' => [
+            'required' => 'You must select a period when Payment Cycle is Periodic',
+        ],
     ],
 
     /*

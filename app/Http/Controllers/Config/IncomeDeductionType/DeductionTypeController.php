@@ -62,8 +62,8 @@ class DeductionTypeController extends Controller
                 'PMDTHDesc2'      => 'max:200',
                 'PMDTHRuleId'    => 'required',
                 'PMDTHRoundingStrategy'    => 'required',
-                'PMDTHDeductionCycle'    => 'required'
-                // "periodId"      => "required_if:PMDTHDeductionCycle,==,P",
+                'PMDTHDeductionCycle'    => 'required',
+                "PMDTHPeriodId"      => "required_if:PMDTHDeductionCycle,==,P",
 
             ]);
             if ($validator->fails()) {
@@ -87,6 +87,10 @@ class DeductionTypeController extends Controller
                     $deductionType->PMDTHIsIncomeDependent          =   $request->PMDTHIsIncomeDependent;
                     $deductionType->PMDTHRuleId             =   $request->PMDTHRuleId;
                     $deductionType->PMDTHDeductionCycle        =   $request->PMDTHDeductionCycle;
+                    if($request->PMDTHDeductionCycle == 'P'){
+                        $period_ids = implode(',', $request->PMDTHPeriodId);
+                        $deductionType->PMDTHPeriodId        =   $period_ids;
+                    }
                     $deductionType->PMDTHApplicableFor        =   $request->PMDTHApplicableFor;
                     $deductionType->PMDTHDedStrategy        =   $request->PMDTHDedStrategy;
                     $deductionType->PMDTHDedStrategyDesc        =   $request->PMDTHDedStrategyDesc;

@@ -284,7 +284,6 @@
                                         style="width: 100%;border: 1px solid #68a6ec;">
                                         @foreach ($payCycle as $Cycle)
                                             @if (!empty($edit_data['PMITHIncomeCycle']) && $edit_data['PMITHIncomeCycle'] == $Cycle->PMPCHCycleId)
-                                                <option value=''>--Select Rounding--</option>
                                                 <option value='{{ $Cycle->PMPCHCycleId }}' selected>
                                                     {{ $Cycle->PMPCHDesc1 }}</option>
                                             @else
@@ -337,7 +336,7 @@
                                         style='border-color: rgb(102, 175, 233); outline: 0px'
                                         value="{{ old('PMITHPrintingSeq', $edit_data['PMITHPrintingSeq'] ?? '0') }}">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="periodId">
                                     <label for="inputRounding" class="form-label">Period<span class="text-danger">
                                         *</span>
                                     </label>
@@ -458,6 +457,9 @@
 @include('inc.flatpickr_js')
 <script type="text/javascript">
     $(document).ready(function() {
+        if ($('#PMITHIncomeCycle').val() == 'M') {
+            $('#periodId').hide();
+        }
         var id = $('#PMITHIncomeId').val();
         if (id != undefined && id != '') {
             console.log("id" + id);
@@ -765,6 +767,14 @@
     $('#PMITHIncomeId').change(function(){
         $('#PMITHIncomeIdK').val('I'.concat($('#PMITHIncomeId').val()));
     })
+    $('#PMITHIncomeCycle').change(function(){
+        alert($('#PMITHIncomeCycle').val());
+            if ($('#PMITHIncomeCycle').val() == 'M') {
+                $('#periodId').hide();
+            }else{
+                $('#periodId').show();
+            }
+        });
     function updateCheckBoxValue() {
         if($('#PMITHIsTaxable').prop('checked')==true) {
             $('#PMITHIsTaxable').val(1);
