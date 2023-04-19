@@ -103,7 +103,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#add">{{ $action == 'add' ? 'Create' : 'Edit' }} </a>
                     </li>
-                    @if ($edit_data['PMDTHIsIncomeDependent']== '1')
+                    @if (!empty($edit_data['PMDTHIsIncomeDependent']) && $edit_data['PMDTHIsIncomeDependent']== '1')
                         <li class="nav-item" id="nav-selectIncome-tab"><a class="nav-link" href="#selectIncome">Select Income</a></li>
                     @endif
                     @if (!empty($edit_data['id']))
@@ -270,12 +270,12 @@
 
                                 <select name="PMDTHApplicableFor" id="PMDTHApplicableFor" class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
-                                    @if ($edit_data['PMDTHApplicableFor'] == 'P')
+                                    @if (!empty($edit_data['PMDTHApplicableFor']) && $edit_data['PMDTHApplicableFor'] == 'P')
                                         <option value="C" selected>Common</option>
                                     @else
                                         <option value="C">Common</option>
                                     @endif
-                                    @if ($edit_data['PMDTHApplicableFor'] == 'M')
+                                    @if (!empty($edit_data['PMDTHApplicableFor']) && $edit_data['PMDTHApplicableFor'] == 'M')
                                         <option value="I" selected>Individual</option>
                                     @else
                                         <option value="I">Individual</option>
@@ -288,12 +288,12 @@
 
                                 <select name="PMDTHDedStrategy" id="PMDTHDedStrategy" class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
-                                    @if ($edit_data['PMDTHDedStrategy'] == 'P')
+                                    @if (!empty($edit_data['PMDTHDedStrategy']) && $edit_data['PMDTHDedStrategy'] == 'P')
                                         <option value="C" selected>Cumulative</option>
                                     @else
                                         <option value="C">Cumulative</option>
                                     @endif
-                                    @if ($edit_data['PMDTHDedStrategy'] == 'M')
+                                    @if (!empty($edit_data['PMDTHDedStrategy']) &&  $edit_data['PMDTHDedStrategy'] == 'M')
                                         <option value="P" selected>This Period Only</option>
                                     @else
                                         <option value="P">This Period Only</option>
@@ -421,12 +421,12 @@
 
                                 <select name="PMDTHDeductionCycle" id="PMDTHDeductionCycle" class="form-select"
                                     style="width: 100%;border: 1px solid #68a6ec;">
-                                    @if ($edit_data['PMDTHDeductionCycle'] == 'P')
+                                    @if (!empty($edit_data['PMDTHDeductionCycle']) &&  $edit_data['PMDTHDeductionCycle'] == 'P')
                                         <option value="P" selected>Periodic</option>
                                     @else
                                         <option value="P">Periodic</option>
                                     @endif
-                                    @if ($edit_data['PMDTHDeductionCycle'] == 'M')
+                                    @if (!empty($edit_data['PMDTHDeductionCycle']) && $edit_data['PMDTHDeductionCycle'] == 'M')
                                         <option value="M" selected>Monthly</option>
                                     @else
                                         <option value="M">Monthly</option>
@@ -453,13 +453,12 @@
                             </div>
 
                         </div>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
         <!-- Select Income -->
-        @if ($edit_data['PMDTHIsIncomeDependent']== '1')
             <div class="row" id="selectIncome">
                 <div id="flStackForm" class="col-lg-12 layout-spacing layout-top-spacing">
                     <div class="statbox widget box box-shadow">
@@ -472,7 +471,35 @@
                         </div>
                         <div class="widget-content widget-content-area">
                             <div class="row g-3">
-                                <div class="table-responsive">
+
+                                 <div class="table-responsive">
+                                    <table style="width:100%" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                 <th>Income Id</th>
+                                                <th>Description</th>
+                                                <th>Select</th>
+                                                <!-- <th>Action</th> -->
+                                               <!-- t11906l0211 -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($temp_table as $key=>$row1)
+                                            @php $i=$loop->index; @endphp
+                                            <tr>
+                                                <td>{{++$key}}<input type="text" value="{{ old('PMDTHDeductionId', $edit_data['id'] ?? '') }}" name="id[{{$i}}]"></td>
+                                                <td>{{$row1->PMITHIncomeId}}<input type="text" value="{{$row1->PMITHIncomeId}}" name="PMITHIncomeId[{{$i}}]"></td>
+                                                <td>{{$row1->PMITHDesc1}} <input type="text" value="{{$row1->PMITHDesc1}}" name="PMITHDesc1[{{$i}}]"></td>
+                                                <td><input type="checkbox" name="check_id[{{$i}}]" value="1"></td>
+                                                <!-- <td>edit</td> -->
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                               <!--  <div class="table-responsive">
                                     <table id="incomeTypeSubTable" class="no-footer {{ theme('table') }}" style="width:100%">
                                         <thead>
                                             <tr>
@@ -487,14 +514,16 @@
                                             </tr>
                                         </thead>
                                     </table>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-        @endif
+</form>
+
+
         <!-- Select Income End -->
         <!-- User Info Start -->
         @if (!empty($edit_data['id']))
@@ -967,10 +996,10 @@
     });
     $('#PMDTHDeductionId').change(function() {
         $('#PMDTHDeductionIdK').val('D'.concat($('#PMDTHDeductionId').val()));
-        alert($('#PMDTHDeductionIdK').val());
+        // alert($('#PMDTHDeductionIdK').val());
     })
     $("#PMDTHIsIncomeDependent").on("click", function () {
-        alert('test111');
+        // alert('test111');
 
             showHideSelectIncomeTab();
             fnLoadSubForm();
