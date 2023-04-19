@@ -41,11 +41,13 @@ class DeductionTypeController extends Controller
             $period_list = Period::where('FYPMHMarkForDeletion','!=',1)->orderBy('FYPMHPeriodId', 'ASC')->get();
 
 
+             $temp_table = IncomeType::get(['PMITHIncomeId','PMITHIncomeIdK','PMITHDesc1']);
+             $temp_table = $request->session()->get('temp_table', $incomeSubForm_list);
+
             if(!empty($request->id)){
               $edit_data = $this->getDeductionTypeData(Crypt::decryptString($request->id));
-
             }
-        return view('config.IncomeDeductionType.deductionType',compact( 'action','edit_data','deductionType_list','round_list','rule_list','payCycle','incomeSubForm_list','period_list'));
+        return view('config.IncomeDeductionType.deductionType',compact( 'action','edit_data','deductionType_list','round_list','rule_list','payCycle','incomeSubForm_list','period_list','temp_table'));
         } catch (DecryptException $e) {
           //
          }
@@ -56,6 +58,8 @@ class DeductionTypeController extends Controller
         try {
             // echo 'Data Submitted.';
             // return $request;
+
+            dd($request->all());
             $validator = Validator::make($request->all(), [
                 'PMDTHDeductionId'     => 'required|min:2|max:10|unique:t11906l02,PMDTHDeductionId,'.$request->id,
                 'PMDTHDesc1'      => 'required|max:100',
@@ -66,6 +70,7 @@ class DeductionTypeController extends Controller
                 "PMDTHPeriodId"      => "required_if:PMDTHDeductionCycle,==,P",
 
             ]);
+
             if ($validator->fails()) {
                 return response()->json(['status' => 'error','errors'=>$validator->errors()]);
             }
