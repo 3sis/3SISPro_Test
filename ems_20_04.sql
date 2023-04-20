@@ -1397,6 +1397,7 @@ INSERT INTO `t11906l010211` (`id`, `PMIDDIncDedId`, `PMIDDIncDedIdK`, `PMIDDIncO
 
 CREATE TABLE `t11906l02` (
   `id` bigint(20) NOT NULL,
+  `PMDTHIncDependentDed` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`PMDTHIncDependentDed`)),
   `PMDTHDeductionId` varchar(10) NOT NULL,
   `PMDTHDeductionIdK` varchar(11) NOT NULL,
   `PMDTHDesc1` varchar(100) NOT NULL,
@@ -1409,7 +1410,6 @@ CREATE TABLE `t11906l02` (
   `PMDTHDedStrategy` varchar(1) DEFAULT 'C',
   `PMDTHDedStrategyDesc` varchar(20) DEFAULT 'Cumulative',
   `PMDTHDeductionCycle` varchar(1) DEFAULT 'M',
-  `PMDTHPeriodId` varchar(40) DEFAULT NULL,
   `PMDTHDedPercent` decimal(5,2) DEFAULT 0.00,
   `PMDTHRuleId` varchar(10) DEFAULT 'Z1000',
   `PMDTHPrintingSeq` int(11) DEFAULT 0,
@@ -1426,13 +1426,14 @@ CREATE TABLE `t11906l02` (
 -- Dumping data for table `t11906l02`
 --
 
-INSERT INTO `t11906l02` (`id`, `PMDTHDeductionId`, `PMDTHDeductionIdK`, `PMDTHDesc1`, `PMDTHDesc2`, `PMDTHApplicableFor`, `PMDTHIsTaxExempted`, `PMDTHIsThisLoanLine`, `PMDTHShowInTaxList`, `PMDTHIsIncomeDependent`, `PMDTHDedStrategy`, `PMDTHDedStrategyDesc`, `PMDTHDeductionCycle`, `PMDTHPeriodId`, `PMDTHDedPercent`, `PMDTHRuleId`, `PMDTHPrintingSeq`, `PMDTHRoundingStrategy`, `PMDTHBiElementId`, `PMDTHMarkForDeletion`, `PMDTHUser`, `PMDTHLastCreated`, `PMDTHLastUpdated`, `PMDTHDeletedAt`) VALUES
-(8, '1000', 'D1000', 'Loan', 'Loan', 'C', 0, 1, 0, 0, 'C', 'Cumulative', 'M', '', '0.00', 'Z1000', 1, '1000', 24000, 0, '3SIS', '2021-12-27 15:12:39', '2022-02-15 10:11:09', NULL),
-(9, '1100', 'D1100', 'Other Deductions', NULL, 'C', 0, 0, 0, 0, 'C', 'Cumulative', 'M', '', '0.00', 'Z1000', 2, '1000', 25000, 0, '3SIS', '2021-12-27 15:13:28', '2021-12-27 15:13:28', NULL),
-(10, '1200', 'D1200', 'PF', 'PF', 'C', 1, 0, 0, 1, 'C', 'Cumulative', 'M', '', '0.00', 'D1000', 3, '1000', 19000, 0, 'admin', '2021-12-27 15:14:27', '2023-04-06 10:50:52', NULL),
-(11, '1300', 'D1300', 'PT', 'PT', 'C', 1, 1, 1, 1, 'C', NULL, 'P', '', '0.00', 'D2000', 4, '1000', 20000, 0, 'admin', '2021-12-27 15:15:34', '2023-04-06 11:48:10', NULL),
-(12, '1400', 'D1400', 'ESIC', 'ESIC', 'C', 0, 0, 0, 1, 'C', 'Cumulative', 'M', '', '0.00', 'D3000', 5, '1000', 21000, 0, 'admin', '2021-12-27 15:16:51', '2023-04-06 08:05:26', NULL),
-(14, '6000', 'D6000', 'WWCW', 'WED', 'C', NULL, 0, 0, 0, 'C', 'Cumulative', 'P', '', '0.00', 'D4000', 33, '1100', 1000, 1, 'admin', '2023-04-06 07:56:54', '2023-04-06 07:56:54', NULL);
+INSERT INTO `t11906l02` (`id`, `PMDTHIncDependentDed`, `PMDTHDeductionId`, `PMDTHDeductionIdK`, `PMDTHDesc1`, `PMDTHDesc2`, `PMDTHApplicableFor`, `PMDTHIsTaxExempted`, `PMDTHIsThisLoanLine`, `PMDTHShowInTaxList`, `PMDTHIsIncomeDependent`, `PMDTHDedStrategy`, `PMDTHDedStrategyDesc`, `PMDTHDeductionCycle`, `PMDTHDedPercent`, `PMDTHRuleId`, `PMDTHPrintingSeq`, `PMDTHRoundingStrategy`, `PMDTHBiElementId`, `PMDTHMarkForDeletion`, `PMDTHUser`, `PMDTHLastCreated`, `PMDTHLastUpdated`, `PMDTHDeletedAt`) VALUES
+(8, NULL, '1000', 'D1000', 'Loan', 'Loan', 'C', 0, 1, 0, 0, 'C', 'Cumulative', 'M', '0.00', 'Z1000', 1, '1000', 24000, 0, '3SIS', '2021-12-27 15:12:39', '2022-02-15 10:11:09', NULL),
+(9, NULL, '1100', 'D1100', 'Other Deductions', NULL, 'C', 0, 0, 0, 0, 'C', 'Cumulative', 'M', '0.00', 'Z1000', 2, '1000', 25000, 0, '3SIS', '2021-12-27 15:13:28', '2021-12-27 15:13:28', NULL),
+(10, NULL, '1200', 'D1200', 'PF', 'PF', 'C', 1, 0, 0, 1, 'C', 'Cumulative', 'M', '0.00', 'D1000', 3, '1000', 19000, 0, 'admin', '2021-12-27 15:14:27', '2023-04-06 10:50:52', NULL),
+(11, NULL, '1300', 'D1300', 'PT', 'PT', 'C', 1, 1, 1, 1, 'C', NULL, 'P', '0.00', 'D2000', 4, '1000', 20000, 0, 'admin', '2021-12-27 15:15:34', '2023-04-06 11:48:10', NULL),
+(12, NULL, '1400', 'D1400', 'ESIC', 'ESIC', 'C', 0, 0, 0, 1, 'C', 'Cumulative', 'M', '0.00', 'D3000', 5, '1000', 21000, 0, 'admin', '2021-12-27 15:16:51', '2023-04-06 08:05:26', NULL),
+(14, NULL, '6000', 'D6000', 'WWCW', 'WED', 'C', NULL, 0, 0, 0, 'C', 'Cumulative', 'P', '0.00', 'D4000', 33, '1100', 1000, 1, 'admin', '2023-04-06 07:56:54', '2023-04-06 07:56:54', NULL),
+(15, '{\"id\":[\"15\",\"15\",\"15\",\"15\",\"15\",\"15\",\"15\"],\"PMITHIncomeId\":[\"1000\",\"1100\",\"4000\",\"1300\",\"1400\",\"11\",\"22\"],\"PMITHDesc1\":[\"Basic\",\"DA\",\"HRA\",\"Others\",\"CCA\",\"22222\",\"33\"]}', '123', 'D123', '23', '34', 'C', NULL, NULL, NULL, 1, 'C', NULL, 'P', '0.00', 'D2000', 10, '1000', 1000, 0, 'admin', '2023-04-20 09:09:53', '2023-04-20 10:02:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -2236,7 +2237,7 @@ ALTER TABLE `t11906l010211`
 -- AUTO_INCREMENT for table `t11906l02`
 --
 ALTER TABLE `t11906l02`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `t11906l0211`
