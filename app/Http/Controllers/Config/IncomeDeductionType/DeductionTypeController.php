@@ -94,14 +94,17 @@ class DeductionTypeController extends Controller
                 }
 
                    //IncDependentDed array to json
-                    $IncDependentDed = json_encode($request->IncDependentDed);
+                    $IncDependentDed = NULL;
+                    if(isset($request->PMDTHIsIncomeDependent)){
+                        $IncDependentDed = json_encode($request->IncDependentDed);
+                    }
+                    $deductionType->PMDTHIsIncomeDependent          =   $request->PMDTHIsIncomeDependent;
                     $deductionType->PMDTHIncDependentDed    =   $IncDependentDed;
                     $deductionType->PMDTHDesc1              =   $request->PMDTHDesc1;//2023-04-01
                     $deductionType->PMDTHDesc2              =   $request->PMDTHDesc2;
                     $deductionType->PMDTHIsTaxExempted          =   $request->PMDTHIsTaxExempted;
                     $deductionType->PMDTHIsThisLoanLine          =   $request->PMDTHIsThisLoanLine;
                     $deductionType->PMDTHShowInTaxList          =   $request->PMDTHShowInTaxList;
-                    $deductionType->PMDTHIsIncomeDependent          =   $request->PMDTHIsIncomeDependent;
                     $deductionType->PMDTHRuleId             =   $request->PMDTHRuleId;
                     $deductionType->PMDTHDeductionCycle        =   $request->PMDTHDeductionCycle;
                     $deductionType->PMDTHApplicableFor        =   $request->PMDTHApplicableFor;
