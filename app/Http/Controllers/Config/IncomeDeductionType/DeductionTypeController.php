@@ -47,6 +47,17 @@ class DeductionTypeController extends Controller
             if(!empty($request->id)){
               $edit_data = $this->getDeductionTypeData(Crypt::decryptString($request->id));
             }
+            //testing Code dd($edit_data->PMDTHIncDependentDed);
+            // if(!empty($edit_data->PMDTHIncDependentDed)){
+            //    $arr =  json_decode($edit_data->PMDTHIncDependentDed,true);
+            //     foreach($arr['PMITHDesc1'] as $key=>$val){
+            //         if(!empty($arr['check_id'][$key])){
+            //          echo $arr['check_id'][$key];
+            //          echo "\n";
+            //         }
+            //     }
+            // }
+
         return view('config.IncomeDeductionType.deductionType',compact( 'action','edit_data','deductionType_list','round_list','rule_list','payCycle','incomeSubForm_list','period_list','temp_table'));
         } catch (DecryptException $e) {
           //
@@ -58,8 +69,6 @@ class DeductionTypeController extends Controller
         try {
             // echo 'Data Submitted.';
             // return $request;
-
-            dd($request->all());
             $validator = Validator::make($request->all(), [
                 'PMDTHDeductionId'     => 'required|min:2|max:10|unique:t11906l02,PMDTHDeductionId,'.$request->id,
                 'PMDTHDesc1'      => 'required|max:100',
@@ -78,18 +87,24 @@ class DeductionTypeController extends Controller
                 if($request->id != null){
                     //update
                    $deductionType = DeductionType::find($request->id);
-
                 }else{
                     $deductionType->PMDTHDeductionId           =   $request->PMDTHDeductionId;
                     $deductionType->PMDTHDeductionIdK           =   $request->PMDTHDeductionIdK;
                     $deductionType->PMDTHLastCreated       =   now();
                 }
+
+                   //IncDependentDed array to json
+                    $IncDependentDed = NULL;
+                    if(isset($request->PMDTHIsIncomeDependent)){
+                        $IncDependentDed = json_encode($request->IncDependentDed);
+                    }
+                    $deductionType->PMDTHIsIncomeDependent          =   $request->PMDTHIsIncomeDependent;
+                    $deductionType->PMDTHIncDependentDed    =   $IncDependentDed;
                     $deductionType->PMDTHDesc1              =   $request->PMDTHDesc1;//2023-04-01
                     $deductionType->PMDTHDesc2              =   $request->PMDTHDesc2;
                     $deductionType->PMDTHIsTaxExempted          =   $request->PMDTHIsTaxExempted;
                     $deductionType->PMDTHIsThisLoanLine          =   $request->PMDTHIsThisLoanLine;
                     $deductionType->PMDTHShowInTaxList          =   $request->PMDTHShowInTaxList;
-                    $deductionType->PMDTHIsIncomeDependent          =   $request->PMDTHIsIncomeDependent;
                     $deductionType->PMDTHRuleId             =   $request->PMDTHRuleId;
                     $deductionType->PMDTHDeductionCycle        =   $request->PMDTHDeductionCycle;
                     if($request->PMDTHDeductionCycle == 'P'){

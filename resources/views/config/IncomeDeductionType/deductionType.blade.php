@@ -494,10 +494,23 @@
                                             @foreach($temp_table as $key=>$row1)
                                             @php $i=$loop->index; @endphp
                                             <tr>
-                                                <td>{{++$key}}<input type="text" value="{{ old('PMDTHDeductionId', $edit_data['id'] ?? '') }}" name="id[{{$i}}]"></td>
-                                                <td>{{$row1->PMITHIncomeId}}<input type="text" value="{{$row1->PMITHIncomeId}}" name="PMITHIncomeId[{{$i}}]"></td>
-                                                <td>{{$row1->PMITHDesc1}} <input type="text" value="{{$row1->PMITHDesc1}}" name="PMITHDesc1[{{$i}}]"></td>
-                                                <td><input type="checkbox" name="check_id[{{$i}}]" value="1"></td>
+                                                <td>{{++$key}}<input type="hidden" value="{{ old('PMDTHDeductionId', $edit_data['id'] ?? '') }}" name="IncDependentDed[id][{{$i}}]"></td>
+                                                <td>{{$row1->PMITHIncomeId}}<input type="hidden" value="{{$row1->PMITHIncomeId}}" name="IncDependentDed[PMITHIncomeId][{{$i}}]"></td>
+                                                <td>{{$row1->PMITHDesc1}} <input type="hidden" value="{{$row1->PMITHDesc1}}" name="IncDependentDed[PMITHDesc1][{{$i}}]"></td>
+                                                <td>
+
+                                            @php
+                                            if(!empty($edit_data->PMDTHIncDependentDed)){
+                                            $arr =  json_decode($edit_data->PMDTHIncDependentDed,true);
+                                             }
+                                            @endphp
+                                            <input type="checkbox" name="IncDependentDed[check_id][{{$i}}]" value="1"
+
+                                             {{ !empty($arr['check_id'][$i]) ? 'checked' : ''}}         
+
+                                            ></td>
+
+
                                                 <!-- <td>edit</td> -->
                                             </tr>
                                             @endforeach
@@ -728,7 +741,7 @@
         });
 
 
-        fnLoadSubForm();
+        // fnLoadSubForm();
         $('#btn_error').hide();
     });
 
@@ -1018,7 +1031,7 @@
         // alert('test111');
 
             showHideSelectIncomeTab();
-            fnLoadSubForm();
+            // fnLoadSubForm();
         })
     function updateCheckBoxValue() {
         if ($('#PMDTHIsTaxExempted').prop('checked') == true) {
