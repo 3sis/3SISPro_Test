@@ -41,7 +41,7 @@ class DeductionTypeController extends Controller
             $period_list = Period::where('FYPMHMarkForDeletion','!=',1)->orderBy('FYPMHPeriodId', 'ASC')->get();
 
 
-             $temp_table = IncomeType::get(['PMITHIncomeId','PMITHIncomeIdK','PMITHDesc1']);
+            //  $temp_table = IncomeType::get(['PMITHIncomeId','PMITHIncomeIdK','PMITHDesc1']);
              $temp_table = $request->session()->get('temp_table', $incomeSubForm_list);
 
             if(!empty($request->id)){

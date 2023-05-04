@@ -26,6 +26,7 @@ class DeductionType extends Model
             'PMDTHIsThisLoanLine',
             'PMDTHShowInTaxList',
             'PMDTHIsIncomeDependent',
+            'PMDTHIncDependentDed',
             'PMDTHDedStrategy',
             'PMDTHDedStrategyDesc',
             'PMDTHDeductionCycle',

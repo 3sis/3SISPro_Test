@@ -77,6 +77,7 @@ class IncomeTypeController extends Controller
                     $incomeType->PMITHIsTaxable          =   $request->PMITHIsTaxable;
                     $incomeType->PMITHRuleId             =   $request->PMITHRuleId;
                     $incomeType->PMITHIncomeCycle        =   $request->PMITHIncomeCycle;
+                    $incomeType->PMITHPeriodId           =   null;
                     if($request->PMITHIncomeCycle == 'P'){
                         $period_ids = implode(',', $request->PMITHPeriodId);
                         $incomeType->PMITHPeriodId        =   $period_ids;

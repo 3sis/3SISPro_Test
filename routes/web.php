@@ -15,6 +15,7 @@ use App\Http\Controllers\Config\BankingMaster\PaymentModeController;
 use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 use App\Http\Controllers\Config\FiscalYear\PeriodController;
 use App\Http\Controllers\Config\FiscalYear\FiscalYearController;
+use App\Http\Controllers\Config\FiscalYear\WeeklyOffController;
 use App\Http\Controllers\Config\FiscalYear\ActivePeriodChangeController;
 use App\Http\Controllers\Config\IncomeDeductionType\IncomeTypeController;
 use App\Http\Controllers\Config\IncomeDeductionType\DeductionTypeController;
@@ -181,7 +182,17 @@ Route::controller(ActivePeriodChangeController::class)->group(function () {
     Route::get('periodChange/{action?}/{id?}', 'index');
     Route::post('periodChange_save', 'save');
 });
+// WeeklyOff
+Route::controller(WeeklyOffController::class)->group(function () {
+    Route::get('weeklyOff/{action?}/{id?}', 'index');
+    Route::get('weeklyOff_report/{type}', 'report');
+    Route::get('get_weeklyOff', 'weeklyOff_list');
+    Route::get('get_weeklyOffDetail', 'weeklyOffDetail_list')->name('get_weeklyOffDetail');
+    Route::post('weeklyOff_save', 'save');
+    Route::get('get_fydate', 'getFYDate')->name('get_fydate');
 
+
+});
 // incomeType Master
 Route::controller(IncomeTypeController::class)->group(function () {
     // Route::get('/','index');
