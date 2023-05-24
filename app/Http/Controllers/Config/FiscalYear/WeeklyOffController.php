@@ -30,14 +30,29 @@ class WeeklyOffController extends Controller
         $action = $request->action;
         $calendar_list = Calendar::all();
         $fiscalYear_list = FiscalYear::all();
-        $columns = Schema::getColumnListing('t05903l0311'); // users table
+        // $columns = Schema::getColumnListing('t05903l0311'); // users table
         // dd($columns); // dump the result and die
         $weeklyOffDetail_list = new WeeklyOffDetail();
+        // dd($weeklyOffDetail_list);
         $weekList = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-        // foreach ($weekList as $day) {
-        //     $weeklyOffDetail_list->FYWODDayId =  Carbon::parse($day)->dayOfWeek;
-        //     $weeklyOffDetail_list->FYWODDesc1 = $day;
-        // }
+        foreach ($weekList as $day) {
+            WeeklyOffDetail::create([
+                'FYWODDayId' =>Carbon::parse($day)->dayOfWeek,
+                'FYWODDesc1' => $day,
+
+                'FYWODCalendarId' => $day,
+                'FYWODFiscalYearId' => '2023',
+                'FYWODHolidayType' => 'WO',
+                'idH' => Carbon::parse($day)->dayOfWeek,
+                'FYWODMarkForDeletion'   =>   0,
+                    'FYWODUser'              =>   Auth::user()->name,
+                    'FYWODLastUpdated'       =>   now()
+
+            ]);
+
+            // $weeklyOffDetail_list->FYWODDayId =  Carbon::parse($day)->dayOfWeek;
+            // $weeklyOffDetail_list->FYWODDesc1 = $day;
+        }
         // dd($weeklyOffDetail_list);
         // // $weeklyOffDetail_list = new WeeklyOffDetail();
         $weeklyOffDetail_list = WeeklyOffDetail::get()->map(function($item, $key) {

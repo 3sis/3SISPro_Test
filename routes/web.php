@@ -16,6 +16,7 @@ use App\Http\Controllers\EmployeeMaster\GeneralInfoController;
 use App\Http\Controllers\Config\FiscalYear\PeriodController;
 use App\Http\Controllers\Config\FiscalYear\FiscalYearController;
 use App\Http\Controllers\Config\FiscalYear\WeeklyOffController;
+use App\Http\Controllers\Config\FiscalYear\PublicHolidayController;
 use App\Http\Controllers\Config\FiscalYear\ActivePeriodChangeController;
 use App\Http\Controllers\Config\IncomeDeductionType\IncomeTypeController;
 use App\Http\Controllers\Config\IncomeDeductionType\DeductionTypeController;
@@ -202,6 +203,19 @@ Route::controller(IncomeTypeController::class)->group(function () {
     Route::get('incomeType_delete', 'Restore_Delete_Data');
     Route::get('delete_incomeType_list', 'DeleteList');
     Route::get('incomeType_report/{type}', 'report');
+
+});
+// PublicHoliday
+Route::controller(PublicHolidayController::class)->group(function () {
+    Route::get('publicHoliday/{action?}/{id?}', 'index');
+    Route::get('publicHoliday_report/{type}', 'report');
+    Route::get('get_publicHoliday', 'publicHoliday_list');
+    Route::get('get_publicHolidayDetail', 'publicHolidayDetail_list')->name('get_publicHolidayDetail');
+    Route::post('publicHoliday_save', 'save');
+    Route::post('publicHoliday_detail_save', 'detail_save');
+
+    Route::get('get_fydate', 'getFYDate')->name('get_fydate');
+
 
 });
 // DeductionType Master
