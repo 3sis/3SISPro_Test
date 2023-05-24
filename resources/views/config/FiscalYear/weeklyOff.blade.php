@@ -37,7 +37,7 @@
 @if (Request::path() == 'weeklyOff')
     <div class="mt-1"
         style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
-        <form id='AddForm' method="post" autocomplete="off">
+        <!-- <form id='AddForm' method="post" autocomplete="off"> -->
             <div class="row justify-content-center">
                 <div class="col-auto me-auto mt-2">
                 </div>
@@ -264,7 +264,7 @@
                                 @endif
                             </div>
                         </div>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
@@ -275,14 +275,21 @@
                     <div class="widget-header">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h3>Off Day</h3>
+                                <h3>Week Off Day</h3>
                             </div>
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
                         <div class="row g-3">
                             <div class="table-responsive">
-                                <table id="html5-SubForm3SIS" class="table table-hover non-hover" style="width:100%">
+
+                                 @php
+                                   $arr = null;
+                                    if(!empty($edit_data->weekday)){
+                                    $arr =  json_decode($edit_data->weekday,true);
+                                     }
+                                @endphp
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>DayId</th>
@@ -293,36 +300,92 @@
                                             <th>Third</th>
                                             <th>Fourth</th>
                                             <th>Fifth</th>
-                                            <th>Deleted</th>
+                                           <!--  <th>Deleted</th>
                                             <th>Action</th>
                                             <th style="visibility: hidden;">User</th>
-                                            <th style="visibility: hidden;">Unique Id</th>
+                                            <th style="visibility: hidden;">Unique Id</th> -->
+
+
+                                            <?php
+
+                                           // $arr = ['WeekDay' =>['sunday'=>["first"=>0,"second"=>1],'monday'=>[1=>0,2=>1]]];
+
+                                           //  echo "<pre>";
+                                           //  print_r($arr);
+                                            ?>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($temp_table as $key=>$row1)
-                                        @php $i=$loop->index; @endphp
                                         <tr>
-                                            <td>{{++$key}}<input type="hidden" value="{{ old('id', $edit_data['id'] ?? '') }}" name="IncDependentDed[id][{{$i}}]"></td>
-                                            <td>{{$row1->FYWODDayId}}<input type="hidden" value="{{$row1->FYWODDayId}}" name="IncDependentDed[FYWODDayId][{{$i}}]"></td>
-                                            <td>{{($row1->FYWODDesc1)}} <input type="hidden" value="{{$row1->FYWODDesc1}}" name="IncDependentDed[FYWODDesc1][{{$i}}]"></td>
-                                            {{-- <td>
-
-                                        @php
-                                        if(!empty($edit_data->PMDTHIncDependentDed)){
-                                        $arr =  json_decode($edit_data->PMDTHIncDependentDed,true);
-                                         }
-                                        @endphp
-                                        <input type="checkbox" name="IncDependentDed[check_id][{{$i}}]" value="1"
-
-                                         {{ !empty($arr['check_id'][$i]) ? 'checked' : ''}}
-
-                                        ></td> --}}
-
-
-                                            <!-- <td>edit</td> -->
+                                            <td>1</td>
+                                            <td>Sunday</td>
+                                            <td><input type="checkbox" value="all" name="WeekDay[sunday][all]" {{ !empty($arr['sunday']['all']) ? 'checked' : ''}} ></td>
+                                            <td><input type="checkbox" name="WeekDay[sunday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[sunday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[sunday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[sunday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[sunday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
                                         </tr>
-                                        @endforeach
+                                         <tr>
+                                            <td>2</td>
+                                            <td>Monday</td>
+                                            <td><input type="checkbox" value="all" name="WeekDay[monday][all]" {{ !empty($arr['monday']['all']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[monday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[monday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[monday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[monday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[monday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
+                                        </tr>
+                                         <tr>
+                                            <td>3</td>
+                                            <td>Tuesday</td>
+                                            <td><input type="checkbox" value="all" name="WeekDay[tuesday][all]" {{ !empty($arr['tuesday']['all']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[tuesday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[tuesday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[tuesday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[tuesday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[tuesday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
+                                        </tr>
+                                         <tr>
+                                            <td>4</td>
+                                            <td>Wednesday</td>
+                                            <td><input type="checkbox" value="all" name="WeekDay[wednesday][all]" {{ !empty($arr['wednesday']['all']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[wednesday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[wednesday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[wednesday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[wednesday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[wednesday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
+                                        </tr>
+                                         <tr>
+                                            <td>5</td>
+                                            <td>Thursday</td>
+                                            <td><input type="checkbox" value="all" name="WeekDay[thursday][all]" {{ !empty($arr['thursday']['all']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[thursday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[thursday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[thursday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[thursday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[thursday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
+                                        </tr>
+                                         <tr>
+                                            <td>6</td>
+                                            <td>Friday</td>
+                                            <td><input type="checkbox" value="all" name="WeekDay[friday][all]" {{ !empty($arr['friday']['all']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[friday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[friday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[friday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[friday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[friday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
+                                        </tr>
+                                         <tr>
+                                            <td>7</td>
+                                            <td>Saturday</td>
+                                            <td><input type="checkbox" value="all" name="WeekDay[saturday][all]" {{ !empty($arr['saturday']['all']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[saturday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[saturday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[saturday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[saturday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[saturday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -331,6 +394,7 @@
                 </div>
             </div>
         </div>
+        </form>
         <!-- User Info Start -->
         @if (!empty($edit_data['id']))
             <div class="row" id="user_info">
@@ -866,5 +930,23 @@
     //     alert('test111');
     //     $('#SubForm3SIS').DataTable().ajax.reload();
     // })
+
+     $("#AddForm").submit(function(e) {
+        e.preventDefault();
+
+       // console.log($("#AddForm").serialize());return false;
+        $.ajax({
+            url: "{{ url('weeklyOff_save') }}",
+            method: 'post',
+            data: new FormData(this),
+            processData: false,
+            dataType: "json",
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                alert('success');
+            }
+        })
+    });
 </script>
 @endsection

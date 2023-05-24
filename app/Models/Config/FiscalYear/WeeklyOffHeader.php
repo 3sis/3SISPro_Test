@@ -14,6 +14,7 @@ class WeeklyOffHeader extends Model
     protected $fillable =
         [
             'id',
+            'weekday',
             'FYWOHCalendarId',
             'FYWOHFiscalYearId',
             'FYWOHDesc1',

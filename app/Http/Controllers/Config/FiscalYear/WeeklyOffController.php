@@ -85,4 +85,53 @@ class WeeklyOffController extends Controller
         return response()->json($fyDate);
 
     }
+
+    public function save(Request $request){
+        // dd($request->all());
+
+  // "FYWOHCalendarId" => "1000"
+  // "FYWOHFiscalYearId" => "2023"
+  // "FYFYHStartDate" => "01-04-2023"
+  // "FYFYHEndDate" => "31-03-2024"
+  // "WeekDay" => array:1 [
+  //   "sunday" => array:1 [
+  //     "'all'" => null ]]
+
+        try {
+                $data = new WeeklyOffHeader();
+                if($request->id != null){
+                    //update
+                   $data = WeeklyOffHeader::find($request->id);
+                }else{
+                    $data->FYWOHCalendarId           =   $request->FYWOHCalendarId;
+                    $data->FYWOHFiscalYearId           =   $request->FYWOHFiscalYearId;
+                    $data->FYWOHLastCreated       =   now();
+                }
+
+                   //array to json
+                    $WeekDay_json = NULL;
+                    if(isset($request->WeekDay)){
+                        $WeekDay_json = json_encode($request->WeekDay);
+                    }
+                    $data->weekday    =   $WeekDay_json;
+                    
+                    $data->FYWOHMarkForDeletion   =   0;
+                    $data->FYWOHUser              =   Auth::user()->name;
+                    $data->FYWOHLastUpdated       =   now();
+                    $data->save();
+               if($data){
+                    return response()->json(['status' => 'success','data' =>$data ,'updateMode' => 'Updated']);
+               }else{
+                    return response()->json(['status' => 'error' ]);
+               }
+         } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return response()->json(['status' => 'technical_error']);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
+        }
+  
+    }
 }
