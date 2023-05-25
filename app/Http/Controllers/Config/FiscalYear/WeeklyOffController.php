@@ -34,32 +34,32 @@ class WeeklyOffController extends Controller
         // dd($columns); // dump the result and die
         $weeklyOffDetail_list = new WeeklyOffDetail();
         // dd($weeklyOffDetail_list);
-        $weekList = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-        foreach ($weekList as $day) {
-            WeeklyOffDetail::create([
-                'FYWODDayId' =>Carbon::parse($day)->dayOfWeek,
-                'FYWODDesc1' => $day,
+        // $weekList = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        // foreach ($weekList as $day) {
+        //     WeeklyOffDetail::create([
+        //         'FYWODDayId' =>Carbon::parse($day)->dayOfWeek,
+        //         'FYWODDesc1' => $day,
 
-                'FYWODCalendarId' => $day,
-                'FYWODFiscalYearId' => '2023',
-                'FYWODHolidayType' => 'WO',
-                'idH' => Carbon::parse($day)->dayOfWeek,
-                'FYWODMarkForDeletion'   =>   0,
-                    'FYWODUser'              =>   Auth::user()->name,
-                    'FYWODLastUpdated'       =>   now()
+        //         'FYWODCalendarId' => $day,
+        //         'FYWODFiscalYearId' => '2023',
+        //         'FYWODHolidayType' => 'WO',
+        //         'idH' => Carbon::parse($day)->dayOfWeek,
+        //         'FYWODMarkForDeletion'   =>   0,
+        //             'FYWODUser'              =>   Auth::user()->name,
+        //             'FYWODLastUpdated'       =>   now()
 
-            ]);
+        //     ]);
 
-            // $weeklyOffDetail_list->FYWODDayId =  Carbon::parse($day)->dayOfWeek;
-            // $weeklyOffDetail_list->FYWODDesc1 = $day;
-        }
+        //     // $weeklyOffDetail_list->FYWODDayId =  Carbon::parse($day)->dayOfWeek;
+        //     // $weeklyOffDetail_list->FYWODDesc1 = $day;
+        // }
         // dd($weeklyOffDetail_list);
         // // $weeklyOffDetail_list = new WeeklyOffDetail();
-        $weeklyOffDetail_list = WeeklyOffDetail::get()->map(function($item, $key) {
-            $item->FYWODDayId = $item->FYWODDayId . '1' . '2'. '3'. '4'. '5'. '6'. '7';
-            $item->FYWODDesc1 = $item->FYWODDesc1 . 'Monday' . 'Tuesday' . 'Wednesday' . 'Thursday' . 'Friday' . 'Saturday' . 'Sunday';
-            return $item;
-        });
+        // $weeklyOffDetail_list = WeeklyOffDetail::get()->map(function($item, $key) {
+        //     $item->FYWODDayId = $item->FYWODDayId . '1' . '2'. '3'. '4'. '5'. '6'. '7';
+        //     $item->FYWODDesc1 = $item->FYWODDesc1 . 'Monday' . 'Tuesday' . 'Wednesday' . 'Thursday' . 'Friday' . 'Saturday' . 'Sunday';
+        //     return $item;
+        // });
 
         $temp_table = $request->session()->get('temp_table', $weeklyOffDetail_list);
 
@@ -129,7 +129,7 @@ class WeeklyOffController extends Controller
                         $WeekDay_json = json_encode($request->WeekDay);
                     }
                     $data->weekday    =   $WeekDay_json;
-                    
+
                     $data->FYWOHMarkForDeletion   =   0;
                     $data->FYWOHUser              =   Auth::user()->name;
                     $data->FYWOHLastUpdated       =   now();
@@ -147,6 +147,6 @@ class WeeklyOffController extends Controller
             $this->error_log($e);
             return response()->json(['status' => 'technical_error']);
         }
-  
+
     }
 }
