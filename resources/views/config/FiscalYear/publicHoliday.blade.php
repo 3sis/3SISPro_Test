@@ -38,7 +38,6 @@
 @if (Request::path() == 'publicHoliday')
     <div class="mt-1"
         style="padding: 10px;background-color: #101427;border-radius: 6px;position: sticky;top: 114px;z-index: 1;">
-        <form id='AddForm' method="post" autocomplete="off">
             <div class="row justify-content-center">
                 <div class="col-auto me-auto mt-2">
                 </div>
@@ -97,9 +96,9 @@
 
 <!-- Scroll Spy Navigation -->
 @if ($action == 'add' || $action == 'edit')
+            <form id='AddForm' method="post" autocomplete="off">
     <nav id="navbar-example2" class="navbar sticky-top bg-dark" style="top: 110px;">
         <div class="col-auto me-auto mt-2">
-            <form id='AddForm' method="post" autocomplete="off">
                 <ul class="nav nav-pills mb-2 ms-1">
                     <li class="nav-item" id="nav-home-tab"> <a class="nav-link"
                             href="#home">{{ $action == 'add' ? 'Create' : 'Edit' }} </a></li>
@@ -283,9 +282,6 @@
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
-
-                        <div class="row g-3">
-
                             <table class="table table-bordered" id="detail_table">
                                 <tr>
                                     <th>Holiday Date</th>
@@ -293,22 +289,30 @@
                                     <th>Action</th>
                                 </tr>
                                 <tr>
-                                    {{-- <td><input type="date" name="inputs[0][date]" placeholder="Enter Holiday Date" class="form-control" /></td> --}}
-                                    <td><input type="date" name="date[]" placeholder="Enter Holiday Date"
+                                    <td><input type="date" name="addMore[0][date]" placeholder="Enter Holiday Date"
                                             class="form-control" /></td>
-                                    <td><input type="text" name="desc[]" placeholder="Enter Holiday Desc"
+                                    <td><input type="text" name="addMore[0][desc]" placeholder="Enter Holiday Desc"
                                             class="form-control" /></td>
+
                                     <td><button type="button" name="add" id="add-btn"
                                             class="btn btn-success">Add More</button></td>
                                 </tr>
-                            </table>
 
-                        </div>
+                               {{--  @foreach($DetailTable as $key => $value)
+                                    <tr>
+                                    <td><input type="date" value="{{ $value['date'] }}" name="addMore[{{ $value['id'] }}][date]"  placeholder="Enter Holiday Date"
+                                            class="form-control" /></td>
+                                    <td><input type="text"  value="{{ $value['desc'] }}" name="addMore[{{ $value['id'] }}][desc]"  placeholder="Enter Holiday Desc"
+                                            class="form-control" /></td>
+                                        <td><button type="button" class="btn btn-danger remove-tr">Remove</button></td>
+                                    </tr>
+                                @endforeach--}}
+        </form>
+                            </table>
                     </div>
                 </div>
             </div>
         </div>
-        </form>
 
         <!-- User Info Start -->
         @if (!empty($edit_data['id']))
@@ -408,17 +412,7 @@
             }
 
         });
-        var i = 0;
-        $("#add-btn").click(function() {
-            ++i;
-            $("#detail_table").append(
-                '<tr><td><input type="date" name="date[]" placeholder="Enter Holiday Date" class="form-control" /></td><td><input type="text" name="desc[]" placeholder="Enter Holiday desc" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
-            );
-            // '<tr><td><input type="date" name="inputs['+i+'][date]" placeholder="Enter Holiday Date" class="form-control" /></td><td><input type="text" name="inputs['+i+'][desc]" placeholder="Enter Holiday desc" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>');
-        });
-        $(document).on('click', '.remove-tr', function() {
-            $(this).parents('tr').remove();
-        });
+       
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -693,5 +687,16 @@
             }
         })
     });
+
+        var i = 0;
+       $(document).on('click', '#add-btn', function() {
+            ++i;
+            $("#detail_table").append(
+                '<tr><td><input type="date" name="addMore['+i+'][date]" placeholder="Enter Holiday Date" class="form-control" /></td><td><input type="text" name="addMore['+i+'][desc]" placeholder="Enter Holiday desc" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
+            );
+        });
+        $(document).on('click', '.remove-tr', function() {
+            $(this).parents('tr').remove();
+        });
 </script>
 @endsection

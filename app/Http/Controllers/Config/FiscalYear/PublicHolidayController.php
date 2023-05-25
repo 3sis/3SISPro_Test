@@ -56,90 +56,102 @@ class PublicHolidayController extends Controller
     }
     public function save(Request $request)
     {
-        dd($request->all());
+        try {
+            // $validator = Validator::make($request->all(), [
+            //     'FYFYHFiscalYearId' => [
+            //         'required',
+            //         'unique:t05903L01,FYFYHCompanyId,FYFYHFiscalYearId'.$request->id
+            //     ],
 
-        // try {
-        //     // echo 'Data Submitted.';
-        //     // return $request;
-        //     $request->merge(['FYFYHCompanyId' => $this->gCompanyId]);
-        //     // return $request;
+            //     'FYFYHStartDate'        => 'required',
+            //     'FYFYHEndDate'          => 'required|after:FYFYHStartDate',
+            //     'FYFYHCurrentFY'         =>
+            //     // 'unique:t05903L01,FYFYHCompanyId,FYFYHCurrentFY,1'.$request->id,
 
-        //     $validator = Validator::make($request->all(), [
-        //         'FYFYHFiscalYearId' => [
-        //             'required',
-        //             'unique:t05903L01,FYFYHCompanyId,FYFYHFiscalYearId'.$request->id
-        //         ],
+            //     // 'unique:t05903L01,FYFYHCurrentFY,1'.$request->id,
+            //     Rule::unique('t05903l01')   ->where('FYFYHCompanyId',$request->FYFYHCompanyId)
+            //                                 ->where('FYFYHFiscalYearId','!=',$request->FYFYHFiscalYearId)
+            //                                 ->where('FYFYHCurrentFY',1),
+            //     'FYFYHCurrentPeriod'    => [
+            //         Rule::in(['1','2','3','4','5','6','7','8','9','10','11','12']),
+            //     ],
+            // ]);
 
-        //         'FYFYHStartDate'        => 'required',
-        //         'FYFYHEndDate'          => 'required|after:FYFYHStartDate',
-        //         'FYFYHCurrentFY'         =>
-        //         // 'unique:t05903L01,FYFYHCompanyId,FYFYHCurrentFY,1'.$request->id,
+            // if ($validator->fails()) {
+            //     return response()->json(['status' => 'error','errors'=>$validator->errors()]);
+            // }
+                $HeaderTable = new PublicHolidayHeader();
+                if($request->id != null){
+                   $HeaderTable = PublicHolidayHeader::find($request->id);
+                }else{
+                    $HeaderTable->FYPHHCalendarId         =   $request->FYPHHCalendarId;
+                    $HeaderTable->FYPHHFiscalYearId       =   $request->FYPHHFiscalYearId;
+                    $HeaderTable->FYPHHLastCreated        =   now();
+                }
+                    $HeaderTable->FYPHHMarkForDeletion   =   0;
+                    $HeaderTable->FYPHHUser              =   Auth::user()->name;
+                    $HeaderTable->FYPHHLastUpdated       =   now();
+                    $HeaderTable->save();
 
-        //         // 'unique:t05903L01,FYFYHCurrentFY,1'.$request->id,
-        //         Rule::unique('t05903l01')   ->where('FYFYHCompanyId',$request->FYFYHCompanyId)
-        //                                     ->where('FYFYHFiscalYearId','!=',$request->FYFYHFiscalYearId)
-        //                                     ->where('FYFYHCurrentFY',1),
-        //         'FYFYHCurrentPeriod'    => [
-        //             Rule::in(['1','2','3','4','5','6','7','8','9','10','11','12']),
-        //         ],
-        //     ]);
+                 $lastInserted_id  = $HeaderTable->id;
+                 //child table multiple record
+                 // $DetailTable = new PublicHolidayDetail();
+                 // $date = $request->date;
+                 // $desc = $request->desc;
+                 //  for($j= 0; $j<count($date);$j++){
+                 //        $DetailTable->idH = $lastInserted_id;
+                 //        $DetailTable->FYPHDHolidayType ='H';
+                 //        $DetailTable->FYPHDHolidayDate = $date[$j];
+                 //        $DetailTable->FYPHDDesc1 = $desc[$j];
+                 //  }
+                 //        $DetailTable->save();
 
-        //     if ($validator->fails()) {
-        //         return response()->json(['status' => 'error','errors'=>$validator->errors()]);
-        //     }
-        //         $FiscalYear = new FiscalYear();
-        //         if($request->id != null){
-        //             //update
-        //            $FiscalYear = FiscalYear::find($request->id);
+        
+        // Create and Update Record Datatable
+        foreach ($request->addMore as $key => $value) {
+            if(isset($value['id'])){
+                PublicHolidayDetail::where('is', '=',$value['id'])->update([
+                                  'idH' => $lastInserted_id,
+                                  'FYPHDHolidayType'=>'H',
+                                  'FYPHDHolidayDate'=> $value['date'],
+                                  'FYPHDDesc1'=> $value['desc']]);
+            }else{  
 
-        //         }else{
-        //             $FiscalYear->FYFYHCompanyId         =   $request->FYFYHCompanyId;
-        //             $FiscalYear->FYFYHFiscalYearId      =   $request->FYFYHFiscalYearId;
-        //             $FiscalYear->FYFYHLastCreated       =   now();
-        //         }
-        //             $FiscalYear->FYFYHStartDate         =   date("Y-m-d", strtotime($request->FYFYHStartDate));//2023-04-01
-        //             $FiscalYear->FYFYHEndDate           =   date("Y-m-d", strtotime($request->FYFYHEndDate));//2023-04-01
-        //             $FiscalYear->FYFYHCurrentFY         =   intval($request->FYFYHCurrentFY);
-        //             $FiscalYear->FYFYHCurrentPeriod     =   intval($request->FYFYHCurrentPeriod);
-        //             $Period = Period::where('FYPMHPeriodId',$request->FYFYHCurrentPeriod)->first();
-        //             $date = $request->FYFYHFiscalYearId.'-'.$Period->FYPMHMonth.'-01';
-        //             $FiscalYear->FYFYHPeriodStartDate   =   date("Y-m-01", strtotime($date));
-        //             $FiscalYear->FYFYHPeriodEndDate     =   date("Y-m-t", strtotime($date));
-        //             $FiscalYear->FYFYHMarkForDeletion   =   0;
-        //             $FiscalYear->FYFYHUser              =   Auth::user()->name;
-        //             $FiscalYear->FYFYHLastUpdated       =   now();
-        //             $this->updPostedPeriodHistory($FiscalYear);
+                  $data= ['idH' => $lastInserted_id,
+                          'FYPHDHolidayType'=>'H',
+                          'FYPHDHolidayDate'=> $value['date'],
+                          'FYPHDDesc1'=> $value['desc']];
+                PublicHolidayDetail::create($data);                
+            }
+        }
 
-        //             // $PostedPeriodHistory->FYPPDCompanyId         =   $FiscalYear->FYFYHCompanyId;
-        //             // $PostedPeriodHistory->FYPPDFiscalYearId      =   $FiscalYear->FYFYHFiscalYearId;
-        //             // $PostedPeriodHistory->FYPPDLastCreated       =   now();
-        //             // $PostedPeriodHistory->FYPPDStartDate         =   $FiscalYear->FYFYHStartDate;
-        //             // $PostedPeriodHistory->FYPPDEndDate           =   $FiscalYear->FYFYHEndDate;
-        //             // $PostedPeriodHistory->FYPPDPeriod            =   $FiscalYear->FYFYHCurrentPeriod;
-        //             // $PostedPeriodHistory->FYPPDPeriodStartDate   =   $FiscalYear->FYFYHPeriodStartDate;
-        //             // $PostedPeriodHistory->FYPPDPeriodEndDate     =   $FiscalYear->FYFYHPeriodEndDate;
-        //             // $PostedPeriodHistory->FYPPDMarkForDeletion   =   0;
-        //             // $PostedPeriodHistory->FYPPDUser              =   Auth::user()->name;
-        //             // $PostedPeriodHistory->FYPPDLastUpdated       =   now();
-        //             // $PostedPeriodHistory->save();
+        // Remove Record for Datatable
+        // $DetailIds = PublicHolidayDetail::pluck('id')->all();        
+        // foreach($DetailIds as $key => $value){ 
 
-        //             $FiscalYear->save();
-
-
-
-        //        if($FiscalYear){
-        //             return response()->json(['status' => 'success','data' =>$FiscalYear ,'updateMode' => 'Updated']);
-        //        }else{
-        //             return response()->json(['status' => 'error' ]);
-        //        }
-        //  } catch (QueryException $e) {
-        //     Log::error($e->getMessage());
-        //     return response()->json(['status' => 'technical_error']);
-        // } catch (\Exception $e) {
-        //     Log::error($e->getMessage());
-        //     $this->error_log($e);
-        //     return response()->json(['status' => 'technical_error']);
+        //     if (!in_array($value, array_keys($request->addMore))) {
+        //         $DetailTable = PublicHolidayDetail::find($value);
+        //         $DetailTable->delete();
+        //     }            
         // }
+
+        // $ProductStocks = ProductStock::pluck('id')->all();        
+
+        // return back()->with('success', 'Record Created Successfully.', compact('ProductStocks'));        
+
+               if($HeaderTable){
+                    return response()->json(['status' => 'success','data' =>$HeaderTable ,'updateMode' => 'Updated']);
+               }else{
+                    return response()->json(['status' => 'error' ]);
+               }
+         } catch (QueryException $e) {
+            Log::error($e->getMessage());
+            return response()->json(['status' => 'technical_error']);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $this->error_log($e);
+            return response()->json(['status' => 'technical_error']);
+        }
     }
     public function detail_save(Request $request)
     {
