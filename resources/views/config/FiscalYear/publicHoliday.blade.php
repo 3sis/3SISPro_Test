@@ -420,6 +420,7 @@
     $(document).ready(function() {
         $('#FYPHHCalendarId').select2();
         $('#FYPHHFiscalYearId').select2();
+        getFYDate($("#FYPHHFiscalYearId").val());
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -602,9 +603,11 @@
                                 allowOutsideClick: false,
                                 timer: 5000,
                             })
-                            window.location = "{{ url('publicHoliday') }}";
+                            // window.location = "{{ url('publicHoliday') }}";
 
                         }
+                        window.location = "{{ url('publicHoliday') }}";
+
                     }
                     if (response.status == 'error') {
                         $('.error_msg').append('<p>Public Holiday Master not save</p>');
@@ -615,15 +618,16 @@
     });
     $("#FYPHHFiscalYearId").change(function() {
         var fy = $(this).val();
-        $.ajax({
-            url: "{{ url('get_fydate') }}",
-            type: 'get',
-            data: 'year=' + fy,
-            success: function(response) {
-                $('#FYFYHStartDate').val(response.fyStartDate);
-                $('#FYFYHEndDate').val(response.fyEndDate);
-            }
-        });
+        getFYDate(fy);
+        // $.ajax({
+        //     url: "{{ url('get_fydate') }}",
+        //     type: 'get',
+        //     data: 'year=' + fy,
+        //     success: function(response) {
+        //         $('#FYFYHStartDate').val(response.fyStartDate);
+        //         $('#FYFYHEndDate').val(response.fyEndDate);
+        //     }
+        // });
     });
     $('#btn_error').click(function() {
         $('#ErrorModal').modal('show');
@@ -728,7 +732,17 @@
     //         }
     //     })
     // });
-
+        function getFYDate(fy){
+            $.ajax({
+            url: "{{ url('get_fydate') }}",
+            type: 'get',
+            data: 'year=' + fy,
+            success: function(response) {
+                $('#FYFYHStartDate').val(response.fyStartDate);
+                $('#FYFYHEndDate').val(response.fyEndDate);
+            }
+        });
+        }
         var i = 0;
        $(document).on('click', '#add-btn', function() {
             ++i;

@@ -28,7 +28,7 @@ class PublicHolidayController extends Controller
     public function index(Request $request)
     {
         $edit_data = '';
-        $publicHolidayDetail_list = '';
+        $publicHolidayDetail_list = [];
         $action = $request->action;
         $calendar_list = Calendar::all();
         $fiscalYear_list = FiscalYear::all();
