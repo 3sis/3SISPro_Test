@@ -264,7 +264,7 @@
                                 @endif
                             </div>
                         </div>
-
+                        
                     </div>
                 </div>
             </div>
@@ -280,35 +280,6 @@
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
-                        <table class="table table-bordered" id="detail_table">
-                            <tr>
-                                <th>Day</th>
-                                <th>All</th>
-                                <th>First</th>
-                                <th>Second</th>
-                                <th>Third</th>
-                                <th>Fourth</th>
-                                <th>Fifth</th>
-                                <th>Action</th>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="weeklyoffDetails[0][day]" placeholder="Enter Weekly Off"
-                                        class="form-control" /></td>
-                                <td><input type="checkbox" name="weeklyoffDetails[0][all]" /></td>
-                                <td><input type="checkbox" name="weeklyoffDetails[0][first]" /></td>
-                                <td><input type="checkbox" name="weeklyoffDetails[0][second]" /></td>
-                                <td><input type="checkbox" name="weeklyoffDetails[0][third]" /></td>
-                                <td><input type="checkbox" name="weeklyoffDetails[0][fourth]" /></td>
-                                <td><input type="checkbox" name="weeklyoffDetails[0][fifth]" /></td>
-
-                                <td><button type="button" name="add" id="add-btn"
-                                        class="btn btn-success">Add More</button></td>
-                            </tr>
-
-    </form>
-                        </table>
-                </div>
-                    {{-- <div class="widget-content widget-content-area">
                         <div class="row g-3">
                             <div class="table-responsive">
 
@@ -350,76 +321,76 @@
                                             <td>Sunday</td>
                                             <td><input type="checkbox" value="all" name="WeekDay[sunday][all]" {{ !empty($arr['sunday']['all']) ? 'checked' : ''}} ></td>
                                             <td><input type="checkbox" name="WeekDay[sunday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[sunday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[sunday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[sunday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[sunday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[sunday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[sunday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[sunday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[sunday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
                                         </tr>
                                          <tr>
                                             <td>2</td>
                                             <td>Monday</td>
                                             <td><input type="checkbox" value="all" name="WeekDay[monday][all]" {{ !empty($arr['monday']['all']) ? 'checked' : ''}}></td>
                                             <td><input type="checkbox" name="WeekDay[monday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[monday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[monday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[monday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[monday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[monday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[monday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[monday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[monday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
                                         </tr>
                                          <tr>
                                             <td>3</td>
                                             <td>Tuesday</td>
                                             <td><input type="checkbox" value="all" name="WeekDay[tuesday][all]" {{ !empty($arr['tuesday']['all']) ? 'checked' : ''}}></td>
                                             <td><input type="checkbox" name="WeekDay[tuesday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[tuesday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[tuesday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[tuesday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[tuesday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[tuesday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[tuesday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[tuesday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[tuesday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
                                         </tr>
                                          <tr>
                                             <td>4</td>
                                             <td>Wednesday</td>
                                             <td><input type="checkbox" value="all" name="WeekDay[wednesday][all]" {{ !empty($arr['wednesday']['all']) ? 'checked' : ''}}></td>
                                             <td><input type="checkbox" name="WeekDay[wednesday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[wednesday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[wednesday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[wednesday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[wednesday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[wednesday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[wednesday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[wednesday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[wednesday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
                                         </tr>
                                          <tr>
                                             <td>5</td>
                                             <td>Thursday</td>
                                             <td><input type="checkbox" value="all" name="WeekDay[thursday][all]" {{ !empty($arr['thursday']['all']) ? 'checked' : ''}}></td>
                                             <td><input type="checkbox" name="WeekDay[thursday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[thursday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[thursday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[thursday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[thursday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[thursday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[thursday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[thursday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[thursday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
                                         </tr>
                                          <tr>
                                             <td>6</td>
                                             <td>Friday</td>
                                             <td><input type="checkbox" value="all" name="WeekDay[friday][all]" {{ !empty($arr['friday']['all']) ? 'checked' : ''}}></td>
                                             <td><input type="checkbox" name="WeekDay[friday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[friday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[friday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[friday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[friday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[friday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[friday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[friday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[friday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
                                         </tr>
                                          <tr>
                                             <td>7</td>
                                             <td>Saturday</td>
                                             <td><input type="checkbox" value="all" name="WeekDay[saturday][all]" {{ !empty($arr['saturday']['all']) ? 'checked' : ''}}></td>
                                             <td><input type="checkbox" name="WeekDay[saturday][first]" value="1" {{ !empty($arr['sunday']['first']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[saturday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[saturday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[saturday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td>
-                                            <td><input type="checkbox" name="WeekDay[saturday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td>
+                                            <td><input type="checkbox" name="WeekDay[saturday][second]" value="1" {{ !empty($arr['sunday']['second']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[saturday][third]" value="1" {{ !empty($arr['sunday']['third']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[saturday][fourth]" value="1" {{ !empty($arr['sunday']['fourth']) ? 'checked' : ''}}></td> 
+                                            <td><input type="checkbox" name="WeekDay[saturday][fifth]" value="1" {{ !empty($arr['sunday']['fifth']) ? 'checked' : ''}}></td> 
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -977,17 +948,5 @@
             }
         })
     });
-    var i = 0;
-
-    $(document).on('click', '#add-btn', function() {
-            ++i;
-            $("#detail_table").append(
-                '<tr><td><input type="text" name="weeklyoffDetails['+i+'][day]" placeholder="Enter Weekly Off" class="form-control" /></td><td><input type="checkbox" name="weeklyoffDetails['+i+'][all]"  /></td><td><input type="checkbox" name="weeklyoffDetails['+i+'][first]"  /></td><td><input type="checkbox" name="weeklyoffDetails['+i+'][second]"  /></td><td><input type="checkbox" name="weeklyoffDetails['+i+'][third]"  /></td><td><input type="checkbox" name="weeklyoffDetails['+i+'][fourth]"  /></td><td><input type="checkbox" name="weeklyoffDetails['+i+'][fifth]"  /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
-            );
-        });
-        $(document).on('click', '.remove-tr', function() {
-            $(this).parents('tr').remove();
-        });
-
 </script>
 @endsection
