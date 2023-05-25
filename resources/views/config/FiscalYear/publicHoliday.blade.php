@@ -269,7 +269,7 @@
                             <div class="col-auto me-auto mt-2">
                                 <h3>Public Holiday</h3>
                             </div>
-                            <div class="col-auto me-2">
+                          <!--   <div class="col-auto me-2">
                                 <a class="btn btn-success btn-icon" id="btn_add_Detail" title="Create">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -278,7 +278,7 @@
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                     </svg>
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
@@ -288,6 +288,9 @@
                                     <th>Desc</th>
                                     <th>Action</th>
                                 </tr>
+
+                                @if($action == 'add')
+                                <input type="hidden" value="add" name="action"/>
                                 <tr>
                                     <td><input type="date" name="holidayDetails[0][date]" placeholder="Enter Holiday Date"
                                             class="form-control" /></td>
@@ -297,28 +300,26 @@
                                     <td><button type="button" name="add" id="add-btn"
                                             class="btn btn-success">Add More</button></td>
                                 </tr>
+                                @endif
+
+                                @if($action == 'edit')
+                                <input type="hidden" value="edit" name="action"/>
                                 @foreach($publicHolidayDetail_list as $key => $value)
                                 <tr>
-                                    {{-- {{ dd($publicHolidayDetail_list) }} --}}
-                                    {{-- {{ date('DD-MM-YYYY', strtotime($value['FYPHDHolidayDate'])) }}
-                                    <td>{{$expenses->date->format('d-m-Y')}}</td> --}}
-                                    {{-- $date=str_replace('/','-',$request->date); --}}
+                                    <input type="hidden" value="{{ $value['id'] }}" name="holidayDetails[{{ $value['id'] }}][id]" placeholder="Enter your Name" class="form-control" />
                                     <td><input type="date" value="{{ date('Y-m-d', strtotime($value['FYPHDHolidayDate'])) }}" name="holidayDetails[{{ $value['id'] }}][date]" placeholder="Enter Holiday Date"
                                         class="form-control" />
                                     <td><input type="text" value="{{ $value['FYPHDDesc1'] }}" name="holidayDetails[{{ $value['id'] }}][desc]" placeholder="Enter Holiday Desc"
                                          class="form-control" /></td>
-                                    <td><button type="button" class="btn btn-danger remove-tr">Remove</button></td>
+                                         @if($key == 0)
+                                          <td><button type="button" name="add" id="add-btn"
+                                            class="btn btn-success">Add More</button></td>
+                                         @else
+                                         <td><button type="button" class="btn btn-danger remove-tr">Remove</button></td>
+                                        @endif
                                 </tr>
-                            @endforeach
-                               {{--  @foreach($DetailTable as $key => $value)
-                                    <tr>
-                                    <td><input type="date" value="{{ $value['date'] }}" name="addMore[{{ $value['id'] }}][date]"  placeholder="Enter Holiday Date"
-                                            class="form-control" /></td>
-                                    <td><input type="text"  value="{{ $value['desc'] }}" name="addMore[{{ $value['id'] }}][desc]"  placeholder="Enter Holiday Desc"
-                                            class="form-control" /></td>
-                                        <td><button type="button" class="btn btn-danger remove-tr">Remove</button></td>
-                                    </tr>
-                                @endforeach--}}
+                                @endforeach
+                                @endif
         </form>
                             </table>
                     </div>

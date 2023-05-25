@@ -75,7 +75,6 @@ class PublicHolidayController extends Controller
                 'holidayDetails.*.desc' => 'The Describtion field is required',
             ]
         );
-
             if ($validator->fails()) {
                 return response()->json(['status' => 'error','errors'=>$validator->errors()]);
             }
@@ -93,29 +92,28 @@ class PublicHolidayController extends Controller
                     $HeaderTable->save();
 
                  $lastInserted_id  = $HeaderTable->id;
-                 //child table multiple record
-                 // $DetailTable = new PublicHolidayDetail();
-                 // $date = $request->date;
-                 // $desc = $request->desc;
-                 //  for($j= 0; $j<count($date);$j++){
-                 //        $DetailTable->idH = $lastInserted_id;
-                 //        $DetailTable->FYPHDHolidayType ='H';
-                 //        $DetailTable->FYPHDHolidayDate = $date[$j];
-                 //        $DetailTable->FYPHDDesc1 = $desc[$j];
-                 //  }
-                 //        $DetailTable->save();
 
+
+         // Remove Record for Datatable
+        if($request->action == 'edit'){
+            $DetailIds = PublicHolidayDetail::pluck('id')->all();
+            foreach($DetailIds as $key => $value){
+                if (!in_array($value, array_keys($request->holidayDetails))) {
+                    $DetailTable = PublicHolidayDetail::find($value);
+                    $DetailTable->delete();
+                }
+            }
+        }
 
         // Create and Update Record Datatable
         foreach ($request->holidayDetails as $key => $value) {
             if(isset($value['id'])){
-                PublicHolidayDetail::where('is', '=',$value['id'])->update([
+                PublicHolidayDetail::where('id', '=',$value['id'])->update([
                 'idH' => $lastInserted_id,
                 'FYPHDHolidayType'    =>  'PH',
                 'FYPHDHolidayDate'    =>  $value['date'],
                 'FYPHDDesc1'          =>  $value['desc']]);
             }else{
-
                 $data= ['idH' => $lastInserted_id,
                     'FYPHDCalendarId'     =>  $request->FYPHHCalendarId,
                     'FYPHDFiscalYearId'   =>  $request->FYPHHFiscalYearId,
@@ -125,26 +123,13 @@ class PublicHolidayController extends Controller
                 PublicHolidayDetail::create($data);
             }
         }
+      
 
-        // Remove Record for Datatable
-        // $DetailIds = PublicHolidayDetail::pluck('id')->all();
-        // foreach($DetailIds as $key => $value){
-
-        //     if (!in_array($value, array_keys($request->addMore))) {
-        //         $DetailTable = PublicHolidayDetail::find($value);
-        //         $DetailTable->delete();
-        //     }
-        // }
-
-        // $ProductStocks = ProductStock::pluck('id')->all();
-
-        // return back()->with('success', 'Record Created Successfully.', compact('ProductStocks'));
-
-               if($HeaderTable){
-                    return response()->json(['status' => 'success','data' =>$HeaderTable ,'updateMode' => 'Updated']);
-               }else{
-                    return response()->json(['status' => 'error' ]);
-               }
+       if($HeaderTable){
+            return response()->json(['status' => 'success','data' =>$HeaderTable ,'updateMode' => 'Updated']);
+       }else{
+            return response()->json(['status' => 'error' ]);
+       }
          } catch (QueryException $e) {
             Log::error($e->getMessage());
             return response()->json(['status' => 'technical_error']);
