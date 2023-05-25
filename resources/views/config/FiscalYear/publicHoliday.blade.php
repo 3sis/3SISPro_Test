@@ -289,15 +289,27 @@
                                     <th>Action</th>
                                 </tr>
                                 <tr>
-                                    <td><input type="date" name="addMore[0][date]" placeholder="Enter Holiday Date"
+                                    <td><input type="date" name="holidayDetails[0][date]" placeholder="Enter Holiday Date"
                                             class="form-control" /></td>
-                                    <td><input type="text" name="addMore[0][desc]" placeholder="Enter Holiday Desc"
+                                    <td><input type="text" name="holidayDetails[0][desc]" placeholder="Enter Holiday Desc"
                                             class="form-control" /></td>
 
                                     <td><button type="button" name="add" id="add-btn"
                                             class="btn btn-success">Add More</button></td>
                                 </tr>
-
+                                @foreach($publicHolidayDetail_list as $key => $value)
+                                <tr>
+                                    {{-- {{ dd($publicHolidayDetail_list) }} --}}
+                                    {{-- {{ date('DD-MM-YYYY', strtotime($value['FYPHDHolidayDate'])) }}
+                                    <td>{{$expenses->date->format('d-m-Y')}}</td> --}}
+                                    {{-- $date=str_replace('/','-',$request->date); --}}
+                                    <td><input type="text" value="{{ date('d-m-Y', strtotime($value['FYPHDHolidayDate']))}}" name="holidayDetails[{{ $value['id'] }}][date]" placeholder="Enter Holiday Date"
+                                        class="form-control" />
+                                    <td><input type="text" value="{{ $value['FYPHDDesc1'] }}" name="holidayDetails[{{ $value['id'] }}][desc]" placeholder="Enter Holiday Desc"
+                                         class="form-control" /></td>
+                                    <td><button type="button" class="btn btn-danger remove-tr">Remove</button></td>
+                                </tr>
+                            @endforeach
                                {{--  @foreach($DetailTable as $key => $value)
                                     <tr>
                                     <td><input type="date" value="{{ $value['date'] }}" name="addMore[{{ $value['id'] }}][date]"  placeholder="Enter Holiday Date"
@@ -406,13 +418,15 @@
 @include('inc.flatpickr_js')
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#FYPHHCalendarId').select2();
+        $('#FYPHHFiscalYearId').select2();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
 
         });
-       
+
         $('#landingPageBrowser3SIS').DataTable({
             buttons: {
                 buttons: [{
@@ -522,55 +536,82 @@
     $("#AddForm").submit(function(e) {
         var action = $('#action').val();
         e.preventDefault();
-        // console.log('action: ' + action);
-        $.ajax({
-            url: "{{ url('publicHoliday_save') }}",
-            method: 'post',
-            data: new FormData(this),
-            processData: false,
-            dataType: "json",
-            contentType: false,
-            beforeSend: function() {
-                $('#btn_error').hide();
-            },
-            success: function(response) {
-                console.log(response);
-                if (response.status == 'error') {
-                    $('#btn_error').show().animate({
-                        left: '-250px'
-                    }).animate({
-                        left: '1px'
-                    });
-                    $.each(response.errors, function(key, value) {
-                        $('.msg_error').append('<p>' + value + '</p>');
-                    });
-                }
-                if (response.status == 'success') {
-                    // if (action == 'insert') {
-                    //     $finalMessage3SIS = fnSingleLevelFinalSave('fiscalYear',
-                    //     $('#FYFYHFiscalYearId').val(), $('#FYFYHStartDate').val(), 'Added');
-                    //     $('.error_msg').html($finalMessage3SIS);
-                    //     $('#FYFYHCurrentPeriod').val('').trigger("change");
-                    //     $('#AddForm')[0].reset();
-                    // }
+        $('.msg_error').html('');
+        $('#select2-FYPHHCalendarId-container,#select2-FYPHHFiscalYearId-container').removeClass(
+            'border border-danger');
+        if ($('#FYPHHCalendarId').val() == '') {
+            $('#select2-FYPHHCalendarId-container').addClass('border border-danger');
+            // $('.msg_error').append('<p>Please Select Calendar Id !</p>');
 
-                    if (action == 'update') {
+        }
+        if ($('#FYPHHCalendarId').val() == '') {
+            // $('#select2-FYPHHCalendarId-container').addClass('border border-danger');
+            $('.msg_error').append('<p>Please Select Calendar Id !</p>');
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Fiscal Year updated successfully',
-                            allowOutsideClick: false,
-                            timer: 5000,
-                        })
-                        window.location = "{{ url('publicHoliday') }}";
+        }
+        if ($('#FYPHHFiscalYearId').val() == '') {
+            $('#select2-FYPHHFiscalYearId-container').addClass('border border-danger');
+            $('.msg_error').append('<p>Please Select Fiscal Year !</p>');
+        }
+        var error_count = $(".msg_error").children().length;
+        // console.log(error_count);
+        if (error_count > 0) {
+            $('#btn_error').show().animate({
+                left: '-250px'
+            }).animate({
+                left: '1px'
+            });
+            return false;
+        } else{
+            // console.log('action: ' + action);
+            $.ajax({
+                url: "{{ url('publicHoliday_save') }}",
+                method: 'post',
+                data: new FormData(this),
+                processData: false,
+                dataType: "json",
+                contentType: false,
+                beforeSend: function() {
+                    $('#btn_error').hide();
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.status == 'error') {
+                        $('#btn_error').show().animate({
+                            left: '-250px'
+                        }).animate({
+                            left: '1px'
+                        });
+                        $.each(response.errors, function(key, value) {
+                            $('.msg_error').append('<p>' + value + '</p>');
+                        });
+                    }
+                    if (response.status == 'success') {
+                        if (action == 'insert') {
+                            $finalMessage3SIS = fnSingleLevelFinalSave('Public Holiday',
+                            $('#FYPHHFiscalYearId').val(), $('#FYFYHStartDate').val(), 'Added');
+                            $('.error_msg').html($finalMessage3SIS);
+                            $('#AddForm')[0].reset();
+                        }
 
+                        if (action == 'update') {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Public Holiday updated successfully',
+                                allowOutsideClick: false,
+                                timer: 5000,
+                            })
+                            window.location = "{{ url('publicHoliday') }}";
+
+                        }
+                    }
+                    if (response.status == 'error') {
+                        $('.error_msg').append('<p>Public Holiday Master not save</p>');
                     }
                 }
-                if (response.status == 'error') {
-                    $('.error_msg').append('<p>Fiscal Year Master not save</p>');
-                }
-            }
-        })
+            })
+        }
     });
     $("#FYPHHFiscalYearId").change(function() {
         var fy = $(this).val();
@@ -587,112 +628,112 @@
     $('#btn_error').click(function() {
         $('#ErrorModal').modal('show');
     });
-    $('#btn_add_Detail').click(function() {
-        $('#DetailAdd').modal('show');
-    });
-    $('#html5-SubForm3SIS').DataTable({
-        "oLanguage": {
-            "oPaginate": {
-                "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" \
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" \
-            class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5">\
-            </polyline></svg>',
-                "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" \
-            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" \
-            stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line>\
-            <polyline points="12 5 19 12 12 19"></polyline></svg>'
-            },
-            "sInfo": "Showing page PAGE of _PAGES_",
-            "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-            "sSearchPlaceholder": "Search...",
-            "sLengthMenu": "Results :  _MENU_",
-        },
-        stripeClasses: [],
-        order: [0, "desc"],
-        processing: true,
-        serverSide: true,
-        searching: false,
-        paging: false,
-        info: false,
-        "ajax": "{{ route('get_publicHolidayDetail') }}",
-        "columns": [{
-                data: "FYPHDHolidayDate"
-            },
-            {
-                data: "FYPHDDesc1"
-            },
-            {
-                data: "action",
-                orderable: false,
-                searchable: false
-            },
-            {
-                data: "FYPHDUser",
-                "visible": false
-            },
-            {
-                data: "id",
-                "visible": false
-            },
-        ],
-        // columnDefs: [
-        //     {
-        //         // Setting width of each column
-        //         width: "5%", "targets": 0,
-        //         width: "10%", "targets": 1,
+    // $('#btn_add_Detail').click(function() {
+    //     $('#DetailAdd').modal('show');
+    // });
+    // $('#html5-SubForm3SIS').DataTable({
+    //     "oLanguage": {
+    //         "oPaginate": {
+    //             "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" \
+    //         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" \
+    //         class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5">\
+    //         </polyline></svg>',
+    //             "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" \
+    //         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" \
+    //         stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line>\
+    //         <polyline points="12 5 19 12 12 19"></polyline></svg>'
+    //         },
+    //         "sInfo": "Showing page PAGE of _PAGES_",
+    //         "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+    //         "sSearchPlaceholder": "Search...",
+    //         "sLengthMenu": "Results :  _MENU_",
+    //     },
+    //     stripeClasses: [],
+    //     order: [0, "desc"],
+    //     processing: true,
+    //     serverSide: true,
+    //     searching: false,
+    //     paging: false,
+    //     info: false,
+    //     "ajax": "{{ route('get_publicHolidayDetail') }}",
+    //     "columns": [{
+    //             data: "FYPHDHolidayDate"
+    //         },
+    //         {
+    //             data: "FYPHDDesc1"
+    //         },
+    //         {
+    //             data: "action",
+    //             orderable: false,
+    //             searchable: false
+    //         },
+    //         {
+    //             data: "FYPHDUser",
+    //             "visible": false
+    //         },
+    //         {
+    //             data: "id",
+    //             "visible": false
+    //         },
+    //     ],
+    //     // columnDefs: [
+    //     //     {
+    //     //         // Setting width of each column
+    //     //         width: "5%", "targets": 0,
+    //     //         width: "10%", "targets": 1,
 
-        //     },
-        // ],
-    });
-    $(document).on('click', '.columnDefs', function() {
-        return false;
-    });
+    //     //     },
+    //     // ],
+    // });
+    // $(document).on('click', '.columnDefs', function() {
+    //     return false;
+    // });
 
-    $("#FYPHHCalendarId").on("click", function() {
-        // alert('test111');
-        $('#SubForm3SIS').DataTable().ajax.reload();
-    });
-    $(document).on('click', '#action_DetailEntry', function() {
-        // $("#AddDetailForm").submit(function(e) {
-        // alert($("input[name='_token']").val());
-        // console.log('action: ' + action);
-        $.ajax({
-            url: "{{ url('publicHoliday_detail_save') }}",
-            method: 'post',
-            // data: {
-            //     FYPHDHolidayDate: $('#FYPHDHolidayDate').val(),
-            //     FYPHDDesc1: $('#FYPHDDesc1').val()
-            // },
-            data: JSON.stringify({
-                FYPHDHolidayDate: $('#FYPHDHolidayDate').val(),
-                FYPHDDesc1: $('#FYPHDDesc1').val()
-            }),
+    // $("#FYPHHCalendarId").on("click", function() {
+    //     // alert('test111');
+    //     $('#SubForm3SIS').DataTable().ajax.reload();
+    // });
+    // $(document).on('click', '#action_DetailEntry', function() {
+    //     // $("#AddDetailForm").submit(function(e) {
+    //     // alert($("input[name='_token']").val());
+    //     // console.log('action: ' + action);
+    //     $.ajax({
+    //         url: "{{ url('publicHoliday_detail_save') }}",
+    //         method: 'post',
+    //         // data: {
+    //         //     FYPHDHolidayDate: $('#FYPHDHolidayDate').val(),
+    //         //     FYPHDDesc1: $('#FYPHDDesc1').val()
+    //         // },
+    //         data: JSON.stringify({
+    //             FYPHDHolidayDate: $('#FYPHDHolidayDate').val(),
+    //             FYPHDDesc1: $('#FYPHDDesc1').val()
+    //         }),
 
-            processData: false,
-            dataType: "json",
-            contentType: false,
-            beforeSend: function() {
-                $('#btn_error').hide();
-            },
-            success: function(response) {
-                console.log(response);
-                $('#html5-SubForm3SIS').DataTable().ajax.reload();
-                $('#DetailAdd').modal('hide');
+    //         processData: false,
+    //         dataType: "json",
+    //         contentType: false,
+    //         beforeSend: function() {
+    //             $('#btn_error').hide();
+    //         },
+    //         success: function(response) {
+    //             console.log(response);
+    //             $('#html5-SubForm3SIS').DataTable().ajax.reload();
+    //             $('#DetailAdd').modal('hide');
 
 
-                // if (response.status == 'success') {
-                //     $('#DetailAdd').modal('hide');
-                // }
+    //             // if (response.status == 'success') {
+    //             //     $('#DetailAdd').modal('hide');
+    //             // }
 
-            }
-        })
-    });
+    //         }
+    //     })
+    // });
 
         var i = 0;
        $(document).on('click', '#add-btn', function() {
             ++i;
             $("#detail_table").append(
-                '<tr><td><input type="date" name="addMore['+i+'][date]" placeholder="Enter Holiday Date" class="form-control" /></td><td><input type="text" name="addMore['+i+'][desc]" placeholder="Enter Holiday desc" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
+                '<tr><td><input type="date" name="holidayDetails['+i+'][date]" placeholder="Enter Holiday Date" class="form-control" /></td><td><input type="text" name="holidayDetails['+i+'][desc]" placeholder="Enter Holiday desc" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
             );
         });
         $(document).on('click', '.remove-tr', function() {

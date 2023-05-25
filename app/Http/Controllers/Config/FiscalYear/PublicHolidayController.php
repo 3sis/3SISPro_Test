@@ -28,6 +28,7 @@ class PublicHolidayController extends Controller
     public function index(Request $request)
     {
         $edit_data = '';
+        $publicHolidayDetail_list = '';
         $action = $request->action;
         $calendar_list = Calendar::all();
         $fiscalYear_list = FiscalYear::all();
@@ -35,12 +36,14 @@ class PublicHolidayController extends Controller
 
 
 
-        // $publicHolidayDetail_list = PublicHolidayDetail::all();
+        // $publicHolidayDetail_list = PublicHolidayDetail::where('idH', $request->id)->all();
 
         if(!empty($request->id)){
           $edit_data = $this->getPublicHolidayData(Crypt::decryptString($request->id));
+          $publicHolidayDetail_list = PublicHolidayDetail::where('idH', Crypt::decryptString($request->id))->get();
+
         }
-        return view('config.FiscalYear.publicHoliday',compact( 'action','edit_data','calendar_list','fiscalYear_list'));
+        return view('config.FiscalYear.publicHoliday',compact( 'action','edit_data','calendar_list','fiscalYear_list','publicHolidayDetail_list'));
     }
     public function publicHoliday_list()
     {
@@ -57,29 +60,25 @@ class PublicHolidayController extends Controller
     public function save(Request $request)
     {
         try {
-            // $validator = Validator::make($request->all(), [
-            //     'FYFYHFiscalYearId' => [
-            //         'required',
-            //         'unique:t05903L01,FYFYHCompanyId,FYFYHFiscalYearId'.$request->id
-            //     ],
+            $validator = Validator::make($request->all(), [
+                'FYPHHCalendarId'          => 'required',
+                'FYPHHFiscalYearId' => [
+                    'required',
+                    'unique:t05903l04,FYPHHCalendarId,FYPHHFiscalYearId'.$request->id
+                ],
+                'holidayDetails.*.date' => 'required',
+                'holidayDetails.*.desc' => 'required',
 
-            //     'FYFYHStartDate'        => 'required',
-            //     'FYFYHEndDate'          => 'required|after:FYFYHStartDate',
-            //     'FYFYHCurrentFY'         =>
-            //     // 'unique:t05903L01,FYFYHCompanyId,FYFYHCurrentFY,1'.$request->id,
+            ],
+            [
+                'holidayDetails.*.date' => 'The Date field is required ',
+                'holidayDetails.*.desc' => 'The Describtion field is required',
+            ]
+        );
 
-            //     // 'unique:t05903L01,FYFYHCurrentFY,1'.$request->id,
-            //     Rule::unique('t05903l01')   ->where('FYFYHCompanyId',$request->FYFYHCompanyId)
-            //                                 ->where('FYFYHFiscalYearId','!=',$request->FYFYHFiscalYearId)
-            //                                 ->where('FYFYHCurrentFY',1),
-            //     'FYFYHCurrentPeriod'    => [
-            //         Rule::in(['1','2','3','4','5','6','7','8','9','10','11','12']),
-            //     ],
-            // ]);
-
-            // if ($validator->fails()) {
-            //     return response()->json(['status' => 'error','errors'=>$validator->errors()]);
-            // }
+            if ($validator->fails()) {
+                return response()->json(['status' => 'error','errors'=>$validator->errors()]);
+            }
                 $HeaderTable = new PublicHolidayHeader();
                 if($request->id != null){
                    $HeaderTable = PublicHolidayHeader::find($request->id);
@@ -106,38 +105,40 @@ class PublicHolidayController extends Controller
                  //  }
                  //        $DetailTable->save();
 
-        
+
         // Create and Update Record Datatable
-        foreach ($request->addMore as $key => $value) {
+        foreach ($request->holidayDetails as $key => $value) {
             if(isset($value['id'])){
                 PublicHolidayDetail::where('is', '=',$value['id'])->update([
-                                  'idH' => $lastInserted_id,
-                                  'FYPHDHolidayType'=>'H',
-                                  'FYPHDHolidayDate'=> $value['date'],
-                                  'FYPHDDesc1'=> $value['desc']]);
-            }else{  
+                'idH' => $lastInserted_id,
+                'FYPHDHolidayType'    =>  'PH',
+                'FYPHDHolidayDate'    =>  $value['date'],
+                'FYPHDDesc1'          =>  $value['desc']]);
+            }else{
 
-                  $data= ['idH' => $lastInserted_id,
-                          'FYPHDHolidayType'=>'H',
-                          'FYPHDHolidayDate'=> $value['date'],
-                          'FYPHDDesc1'=> $value['desc']];
-                PublicHolidayDetail::create($data);                
+                $data= ['idH' => $lastInserted_id,
+                    'FYPHDCalendarId'     =>  $request->FYPHHCalendarId,
+                    'FYPHDFiscalYearId'   =>  $request->FYPHHFiscalYearId,
+                    'FYPHDHolidayType'=>'PH',
+                    'FYPHDHolidayDate'=> $value['date'],
+                    'FYPHDDesc1'=> $value['desc']];
+                PublicHolidayDetail::create($data);
             }
         }
 
         // Remove Record for Datatable
-        // $DetailIds = PublicHolidayDetail::pluck('id')->all();        
-        // foreach($DetailIds as $key => $value){ 
+        // $DetailIds = PublicHolidayDetail::pluck('id')->all();
+        // foreach($DetailIds as $key => $value){
 
         //     if (!in_array($value, array_keys($request->addMore))) {
         //         $DetailTable = PublicHolidayDetail::find($value);
         //         $DetailTable->delete();
-        //     }            
+        //     }
         // }
 
-        // $ProductStocks = ProductStock::pluck('id')->all();        
+        // $ProductStocks = ProductStock::pluck('id')->all();
 
-        // return back()->with('success', 'Record Created Successfully.', compact('ProductStocks'));        
+        // return back()->with('success', 'Record Created Successfully.', compact('ProductStocks'));
 
                if($HeaderTable){
                     return response()->json(['status' => 'success','data' =>$HeaderTable ,'updateMode' => 'Updated']);
