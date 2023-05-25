@@ -303,7 +303,7 @@
                                     {{-- {{ date('DD-MM-YYYY', strtotime($value['FYPHDHolidayDate'])) }}
                                     <td>{{$expenses->date->format('d-m-Y')}}</td> --}}
                                     {{-- $date=str_replace('/','-',$request->date); --}}
-                                    <td><input type="text" value="{{ date('d-m-Y', strtotime($value['FYPHDHolidayDate']))}}" name="holidayDetails[{{ $value['id'] }}][date]" placeholder="Enter Holiday Date"
+                                    <td><input type="date" value="{{ date('Y-m-d', strtotime($value['FYPHDHolidayDate'])) }}" name="holidayDetails[{{ $value['id'] }}][date]" placeholder="Enter Holiday Date"
                                         class="form-control" />
                                     <td><input type="text" value="{{ $value['FYPHDDesc1'] }}" name="holidayDetails[{{ $value['id'] }}][desc]" placeholder="Enter Holiday Desc"
                                          class="form-control" /></td>
