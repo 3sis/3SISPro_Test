@@ -307,6 +307,21 @@ return [
         'PMITHPeriodId' => [
             'required' => 'You must select a period when Payment Cycle is Periodic',
         ],
+
+        //Public nHoliday
+        'FYPHHCalendarId'=> [
+            'required' => 'Required',
+        ],
+        'FYPHHFiscalYearId'=> [
+            'required'  => 'Required',
+            'unique'    =>  'Fiscal Year id has already been taken',
+        ],
+        'holidayDetails.*.date'=> [
+            'required' => 'The Date field is required',
+        ],
+        'holidayDetails.*.desc'=> [
+            'required' => 'The Describtion field is required',
+        ],
     ],
 
     /*

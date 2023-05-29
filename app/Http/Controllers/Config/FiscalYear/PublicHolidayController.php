@@ -14,6 +14,7 @@ use App\Models\Config\FiscalYear\PublicHolidayDetail;
 use App\Models\Config\FiscalYear\Calendar;
 use App\Models\Config\FiscalYear\FiscalYear;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
 use Schema;
@@ -60,20 +61,27 @@ class PublicHolidayController extends Controller
     public function save(Request $request)
     {
         try {
+            //Duplicat date/FY
+            //blank desc
+            // Date range validation
             $validator = Validator::make($request->all(), [
                 'FYPHHCalendarId'          => 'required',
                 'FYPHHFiscalYearId' => [
                     'required',
-                    'unique:t05903l04,FYPHHCalendarId,FYPHHFiscalYearId'.$request->id
+                    // 'unique:t05903l04,FYPHHCalendarId,FYPHHFiscalYearId'.$request->id,
+                    //Duplicat FY
+                    Rule::unique('t05903l04')
+                        ->ignore($request->id)
+                        ->where('FYPHHCalendarId', $request->FYPHHCalendarId)
+                        ->where('FYPHHFiscalYearId','!=', $request->FYPHHFiscalYearId)
                 ],
-                'holidayDetails.*.date' => 'required',
+                'holidayDetails.*.date' => [
+                    'required',
+                    'after_or_equal:'.$request->FYFYHStartDate,
+                    'before_or_equal:'.$request->FYFYHEndDate,
+                ],
                 'holidayDetails.*.desc' => 'required',
-
             ],
-            [
-                'holidayDetails.*.date' => 'The Date field is required ',
-                'holidayDetails.*.desc' => 'The Describtion field is required',
-            ]
         );
             if ($validator->fails()) {
                 return response()->json(['status' => 'error','errors'=>$validator->errors()]);
@@ -123,7 +131,7 @@ class PublicHolidayController extends Controller
                 PublicHolidayDetail::create($data);
             }
         }
-      
+
 
        if($HeaderTable){
             return response()->json(['status' => 'success','data' =>$HeaderTable ,'updateMode' => 'Updated']);
