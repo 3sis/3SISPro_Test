@@ -64,6 +64,7 @@ class PublicHolidayController extends Controller
             //Duplicat date/FY
             //blank desc
             // Date range validation
+            // Duplicate in array
             $validator = Validator::make($request->all(), [
                 'FYPHHCalendarId'          => 'required',
                 'FYPHHFiscalYearId' => [
@@ -79,6 +80,11 @@ class PublicHolidayController extends Controller
                     'required',
                     'after_or_equal:'.$request->FYFYHStartDate,
                     'before_or_equal:'.$request->FYFYHEndDate,
+                    Rule::unique('t05903l0411')
+                        // ->ignore($request->id)
+                        ->where('FYPHDCalendarId', $request->FYPHHCalendarId)
+                        ->where('FYPHDFiscalYearId', $request->FYPHHFiscalYearId)
+                        ->where('FYPHDHolidayDate','!=', 'holidayDetails.*.date')
                 ],
                 'holidayDetails.*.desc' => 'required',
             ],

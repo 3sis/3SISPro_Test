@@ -576,8 +576,8 @@
         if ($('#PMITHIncomeId').val() == '') {
             $('#PMITHIncomeId').addClass('border border-danger');
         }
-        if ($('#PMITHDesc1').val() == '') {
-            $('#PMITHDesc1').addClass('border border-danger');
+        if ($('#LALBHLoanAmount').val() < 0) {
+            $('#LALBHLoanAmount').addClass('border border-danger');
         }
         if ($('#PMITHIncomeCycle').val() == '') {
             $('#select2-PMITHIncomeCycle-container').addClass('border border-danger');

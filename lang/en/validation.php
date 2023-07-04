@@ -322,6 +322,22 @@ return [
         'holidayDetails.*.desc'=> [
             'required' => 'The Describtion field is required',
         ],
+        'LALBHLoanAmount'=> [
+            'required' => 'The Loan amount field is required',
+            'gt'       => 'The Loan amount must be greater than 0'
+        ],
+        'LALBHNoOfEMI'=> [
+            'required' => 'The No Of EMI field is required',
+            'gt'       => 'The No Of EMI must be greater than 0'
+        ],
+        'LALBHStartDateEMI'=> [
+            'required' => 'The End Date field is required',
+            'before'       => 'The start date must be a date before end date.'
+        ],
+        'LALBHEndDateEMI'=> [
+            'required' => 'The End Date field is required',
+            'after'       => 'The end date must be a date after start date.'
+        ],
     ],
 
     /*

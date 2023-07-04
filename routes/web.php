@@ -20,6 +20,8 @@ use App\Http\Controllers\Config\FiscalYear\PublicHolidayController;
 use App\Http\Controllers\Config\FiscalYear\ActivePeriodChangeController;
 use App\Http\Controllers\Config\IncomeDeductionType\IncomeTypeController;
 use App\Http\Controllers\Config\IncomeDeductionType\DeductionTypeController;
+use App\Http\Controllers\Payroll\LoanBook\LoanBookController;
+use App\Http\Controllers\Payroll\Process\AdHocIncomeController;
 use App\Http\Controllers\PdfController;
 
 Route::group(['middleware'=>['guest']],function () {
@@ -213,10 +215,7 @@ Route::controller(PublicHolidayController::class)->group(function () {
     Route::get('get_publicHolidayDetail', 'publicHolidayDetail_list')->name('get_publicHolidayDetail');
     Route::post('publicHoliday_save', 'save');
     Route::post('publicHoliday_detail_save', 'detail_save');
-
     Route::get('get_fydate', 'getFYDate')->name('get_fydate');
-
-
 });
 // DeductionType Master
 Route::controller(DeductionTypeController::class)->group(function () {
@@ -227,6 +226,26 @@ Route::controller(DeductionTypeController::class)->group(function () {
     Route::get('deductionType_delete', 'Restore_Delete_Data');
     Route::get('delete_deductionType_list', 'DeleteList');
     Route::get('deductionType_report/{type}', 'report');
+});
+// Loan Book
+Route::controller(LoanBookController::class)->group(function () {
+    Route::get('loanBook/{action?}/{id?}', 'index');
+    Route::get('loanBook_report/{type}', 'report');
+    Route::get('get_loanBook', 'loanBook_list');
+    Route::get('get_loanBookDetail', 'loanBookDetail_list')->name('get_loanBookDetail');
+    Route::post('loanBook_save', 'save');
+    Route::get('get_location_desc', 'getLocationDesc')->name('get_location_desc');
+    Route::post('loanBook_detail_save', 'detail_save');
+});
+Route::controller(AdHocIncomeController::class)->group(function () {
+    Route::get('adHocIncome/{action?}/{id?}', 'index');
+    Route::get('adHocIncome_report/{type}', 'report');
+    Route::get('get_employee', 'EmployeeList');
+    Route::get('get_adHocIncome', 'adHocIncome_list')->name('get_adHocIncome');
+    Route::post('adHocIncome_save', 'save');
+    Route::get('get_location_desc1', 'getLocationDesc')->name('get_location_desc1');
+    Route::post('get_adhoc_income', 'getAdHocIncome')->name('get_adhoc_income');
+    Route::post('adHocIncome_detail_save', 'detail_save');
 });
     // Route::get('logout',[AuthController::class,'logout']);
     Route::controller(AuthController::class)->group(function () {

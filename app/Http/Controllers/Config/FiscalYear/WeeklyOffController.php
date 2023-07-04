@@ -104,13 +104,13 @@ class WeeklyOffController extends Controller
     public function save(Request $request){
         // dd($request->all());
 
-  // "FYWOHCalendarId" => "1000"
-  // "FYWOHFiscalYearId" => "2023"
-  // "FYFYHStartDate" => "01-04-2023"
-  // "FYFYHEndDate" => "31-03-2024"
-  // "WeekDay" => array:1 [
-  //   "sunday" => array:1 [
-  //     "'all'" => null ]]
+        // "FYWOHCalendarId" => "1000"
+        // "FYWOHFiscalYearId" => "2023"
+        // "FYFYHStartDate" => "01-04-2023"
+        // "FYFYHEndDate" => "31-03-2024"
+        // "WeekDay" => array:1 [
+        //   "sunday" => array:1 [
+        //     "'all'" => null ]]
 
         try {
                 $data = new WeeklyOffHeader();
